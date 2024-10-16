@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Local_Canteen_Optimizer (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Local_Canteen_Optimizer (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
