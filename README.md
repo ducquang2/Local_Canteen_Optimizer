@@ -6,11 +6,15 @@ This project is part of the Windows Programming course - VNUHCMUS - 2024.
 
 ## Team Infomation
 
-- Student 1 Name: Nguyen Duc Quang
-- Student 1 ID: 20120359
+Student 1:
+- Student ID: 20120359
+- Full name: Nguyen Duc Quang
+- Email: nducquangg@gmail.com
 
-- Student 2 Name: Bui Duc Thinh
-- Student 2 ID: 21120561
+Student 2:
+- Student ID: 21120561
+- Full name: Bui Duc Thinh
+- Email: 21120561@student.hcmus.edu.vn
 
 ## How to run
 
