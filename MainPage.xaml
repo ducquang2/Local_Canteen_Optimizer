@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Local_Canteen_Optimizer.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Local_Canteen_Optimizer"
+    xmlns:view="using:Local_Canteen_Optimizer.View"
+    xmlns:vm="using:Local_Canteen_Optimizer.ViewModel"
+    xmlns:Menu="using:Local_Canteen_Optimizer.Ultis"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    
+    <StackPanel >
+        <view:Header/>
+        <Grid>
+            <Border Background="#FFF"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid HorizontalAlignment="Left"
+                    Width="100" Grid.Column="0" Padding="0 16 0 0">
+
+                    <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                        <StackPanel Width="100" >
+
+                            <!--// Home //-->
+                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}"
+                                Command="{Binding HomeCommand}"
+                                ImageSource="Images/home_icon.png"
+                                Content="Home"
+                                IsChecked="True">
+                            </Menu:CustomRadioButton>
+
+                            <!--// Customer //-->
+                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}"
+                                ImageSource="Images/customer.png"
+                                Content="Customer"
+                                Command="{Binding CustomersCommand}">
+
+                            </Menu:CustomRadioButton>
+
+                            <!--// Orders //-->
+                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}"
+                                ImageSource="Images/order.png"
+                                Content="Order"
+                                Command="{Binding OrdersCommand}">
+
+                            </Menu:CustomRadioButton>
+
+                            <!--// Products //-->
+                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}"
+                                ImageSource="Images/product.png"
+                                Content="Product"
+                                Command="{Binding ProductsCommand}">
+
+                            </Menu:CustomRadioButton>
+
+                            <!--// Reports //-->
+                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}"
+                                ImageSource="Images/report.png"
+                                Content="Report"
+                                Command="{Binding ReportsCommand}">
+
+                            </Menu:CustomRadioButton>
+
+                            <!--// Settings //-->
+                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}"
+                                ImageSource="Images/setting.png"
+                                Content="Setting"
+                                Command="{Binding SettingsCommand}">
+
+                            </Menu:CustomRadioButton>
+
+                            <!--// Table //-->
+                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}"
+                                ImageSource="Images/meeting-room.png"
+                                Content="Table"
+                                Command="{Binding TablesCommand}">
+
+                            </Menu:CustomRadioButton>
+
+                            <!--// Transactions //-->
+                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}"
+                                ImageSource="Images/save-money.png"
+                                Content="Transactions"
+                                Command="{Binding TransactionsCommand}">
+
+                            </Menu:CustomRadioButton>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
+                <!--// Navigation Panel //-->
+                <Grid Grid.Column="1">
+                    <ContentControl x:Name="Pages"
+                        Content="{Binding CurrentView}"
+                        ContentTemplateSelector="{StaticResource ViewModelSelector}"
+                    />
+                </Grid>
+            </Grid>
+        </Grid>
+    </StackPanel>
+
+</Page>

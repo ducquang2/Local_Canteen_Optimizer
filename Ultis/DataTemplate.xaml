@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Local_Canteen_Optimizer"
+    xmlns:ul="using:Local_Canteen_Optimizer.Ultis"
+    xmlns:vm="using:Local_Canteen_Optimizer.ViewModel"
+    xmlns:view="using:Local_Canteen_Optimizer.View">
+
+    <DataTemplate x:Key="HomeTemplate">
+        <view:Home />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomerTemplate" >
+        <view:Customers />
+    </DataTemplate>
+
+    <DataTemplate x:Key="OrderTemplate" >
+        <view:Orders />
+    </DataTemplate>
+
+    <DataTemplate x:Key="ProductTemplate" >
+        <view:Products />
+    </DataTemplate>
+
+    <DataTemplate x:Key="ReportTemplate" >
+        <view:Reports />
+    </DataTemplate>
+
+    <DataTemplate x:Key="SettingTemplate" >
+        <view:Setting />
+    </DataTemplate>
+
+    <DataTemplate x:Key="TableTemplate" >
+        <view:Table />
+    </DataTemplate>
+
+    <DataTemplate x:Key="TransactionTemplate" >
+        <view:Transactions />
+    </DataTemplate>
+
+    <ul:DataTemplateSelect x:Key="ViewModelSelector"
+                 HomeTemplate="{StaticResource HomeTemplate}"
+                 CustomerTemplate="{StaticResource CustomerTemplate}" 
+                 OrderTemplate="{StaticResource OrderTemplate}"
+                 ProductTemplate="{StaticResource ProductTemplate}"
+                 ReportTemplate="{StaticResource ReportTemplate}"
+                 SettingTemplate="{StaticResource SettingTemplate}"
+                 TableTemplate="{StaticResource TableTemplate}"
+                 TransactionTemplate="{StaticResource TransactionTemplate}"
+    />
+
+</ResourceDictionary>
