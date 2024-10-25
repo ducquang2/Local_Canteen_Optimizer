@@ -8,38 +8,122 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Padding="10">
-        <Button Content="Add Customer" HorizontalAlignment="Right" Margin="0,0,0,10"/>
+    <Border Background="White">
+        <StackPanel Padding="10">
+            <Border BorderBrush="#9F9F9E" BorderThickness="0,0,0,0.4">
+                <Button Content="Add Customer" HorizontalAlignment="Right" Margin="0,0,0,10"/>
+            </Border>
 
-        <!-- Danh sách món trong giỏ -->
-        <ListView x:Name="CartItemsList"
-                  ItemsSource="{Binding CartItems}"
-                  Margin="0,10">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                        <TextBlock Text="{Binding Name}" FontSize="14" Width="150" />
-                        <TextBlock Text="{Binding Price}" FontSize="14" FontWeight="Bold" Width="50" />
-                        <Button Content="X" HorizontalAlignment="Right" Command="{Binding RemoveItemCommand}"/>
+            <!-- Danh sách món trong giỏ -->
+            <ListView x:Name="CartItemsList"
+                      ItemsSource="{Binding CartItems}"
+                      Margin="0,10">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Name}" FontSize="14" Width="150" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Price}" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" Padding="0 0 20 0"/>
+                                <Button Command="{Binding RemoveItemCommand}"
+                                        Width="40">
+                                    <Image Source="ms-appx:///Images/search.png" />
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Border Background="{StaticResource secondaryBackColor}" Padding="20 10 20 10">
+                <Grid HorizontalAlignment="Stretch" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock Text="Add" FontSize="14" Width="150" FontWeight="Bold"/>
                     </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
 
-        <!-- Thông tin thanh toán -->
-        <StackPanel>
-            <TextBlock Text="Subtotal" FontSize="16" Margin="0,10,0,0"/>
-            <TextBlock Text="{Binding Subtotal}" FontSize="16" FontWeight="Bold"/>
-            <TextBlock Text="Tax" FontSize="16" Margin="0,10,0,0"/>
-            <TextBlock Text="{Binding Tax}" FontSize="16" FontWeight="Bold"/>
-            <TextBlock Text="Payable Amount" FontSize="16" Margin="0,10,0,0"/>
-            <TextBlock Text="{Binding Total}" FontSize="20" FontWeight="Bold" Foreground="Green"/>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button Margin="0 0 10 0" Background="{StaticResource secondaryBackColor}">
+                            <TextBlock Text="Discount" Foreground="{StaticResource buttonColorOrange}" FontSize="14" FontWeight="Bold"/>
+                        </Button>
+                        <Button Margin="0 0 10 0" Background="{StaticResource secondaryBackColor}">
+                            <TextBlock Text="Coupon Code" Foreground="{StaticResource buttonColorOrange}" FontSize="14" FontWeight="Bold"/>
+                        </Button>
+                        <Button Margin="0 0 10 0" Background="{StaticResource secondaryBackColor}">
+                            <TextBlock Text="Note" Foreground="{StaticResource buttonColorOrange}" FontSize="14" FontWeight="Bold"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Thông tin thanh toán -->
+            <Border Background="#F5F5F5" Padding="20 10 20 10">
+                <Grid HorizontalAlignment="Stretch" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock Text="Subtotal" FontSize="14" Width="150" FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Subtotal}" FontSize="16" FontWeight="Bold" Foreground="Green"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border Background="#F5F5F5" Padding="20 10 20 10">
+                <Grid HorizontalAlignment="Stretch" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock Text="Tax" FontSize="14" FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Tax}" FontSize="16" FontWeight="Bold" Foreground="Red"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border Background="#F5F5F5" Padding="20 10 20 10">
+                <Grid HorizontalAlignment="Stretch" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock Text="Payable Amount" FontSize="16" FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Total}" FontSize="18" FontWeight="Bold" Foreground="Green"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
 
             <!-- Nút thanh toán -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,0,0">
-                <Button Content="Hold Cart" Width="150" Background="Orange" Foreground="White" Margin="10,0"/>
-                <Button Content="Proceed" Width="150" Background="Green" Foreground="White" Margin="10,0"/>
+                <Button Content="Hold Cart" Width="150" Background="Orange" Foreground="White" Padding="10" Margin="0 0 20 0"/>
+                <Button Content="Proceed" Width="150" Background="Green" Foreground="White" Padding="10" Margin="20 0 0 0"/>
             </StackPanel>
         </StackPanel>
-    </StackPanel>
+    </Border>
 </UserControl>

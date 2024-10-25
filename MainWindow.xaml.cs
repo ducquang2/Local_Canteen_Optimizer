@@ -1,4 +1,5 @@
 using Local_Canteen_Optimizer.ViewModel;
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -30,4 +31,5 @@ namespace Local_Canteen_Optimizer
             MainFrame.Navigate(typeof(MainPage));
         }
     }
+    
 }

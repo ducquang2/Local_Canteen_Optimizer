@@ -9,6 +9,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <ResourceDictionary Source="ms-appx:///Styles/Button.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/ButtonSmall.xaml"/>
                 <ResourceDictionary Source="ms-appx:///Styles/Image.xaml"/>
                 <ResourceDictionary Source="ms-appx:///Styles/Text.xaml"/>
                 <ResourceDictionary Source="ms-appx:///Styles/Page.xaml"/>

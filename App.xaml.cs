@@ -43,6 +43,7 @@ namespace Local_Canteen_Optimizer
         {
             m_window = new MainWindow();
             m_window.Activate();
+            //m_window.AppWindow.Resize(new Windows.Graphics.SizeInt32(1024, 768));
         }
 
         private Window m_window;

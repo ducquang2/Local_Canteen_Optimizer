@@ -17,15 +17,18 @@ namespace Local_Canteen_Optimizer.ViewModel
         {
             // Giả lập danh sách món ăn
             FoodItems = new ObservableCollection<FoodModel>
-        {
-            new FoodModel { Name = "Schezwan Egg Noodles", ImageSource = "Assets/Images/noodle.png", Price = 24.00 },
-            new FoodModel { Name = "Chilli Garlic Thai Noodles", ImageSource = "Assets/Images/thai-noodle.png", Price = 25.00 },
-            new FoodModel { Name = "Chilli Garlic Thai Noodles", ImageSource = "Assets/Images/thai-noodle.png", Price = 25.00 },
-            new FoodModel { Name = "Chilli Garlic Thai Noodles", ImageSource = "Assets/Images/thai-noodle.png", Price = 25.00 },
-            new FoodModel { Name = "Chilli Garlic Thai Noodles", ImageSource = "Assets/Images/thai-noodle.png", Price = 25.00 },
-            new FoodModel { Name = "Chilli Garlic Thai Noodles", ImageSource = "Assets/Images/thai-noodle.png", Price = 25.00 },
+            {
+                new FoodModel { Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00 },
+                new FoodModel { Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00 },
+                new FoodModel { Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00 },
+                new FoodModel { Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00 },
+                new FoodModel { Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00 },
+                new FoodModel { Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00 },
+                new FoodModel { Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00 },
+                new FoodModel { Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00 },
+                new FoodModel { Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00 },
 
-        };
+            };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
