@@ -11,6 +11,8 @@ namespace Local_Canteen_Optimizer.ViewModel
 {
     public class NavigationViewModel : BaseViewModel
     {
+        public event Action<Type> NavigationRequested;
+
         private object _currentView;
         public object CurrentView
         {
@@ -49,6 +51,11 @@ namespace Local_Canteen_Optimizer.ViewModel
 
             // Startup Page
             CurrentView = new HomeViewModel();
+        }
+
+        private void NavigateTo(Type pageType)
+        {
+            NavigationRequested?.Invoke(pageType);
         }
     }
 }
