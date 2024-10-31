@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Local_Canteen_Optimizer.Ultis;
+using System;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -43,7 +44,8 @@ namespace Local_Canteen_Optimizer.Model
         public async Task<bool> LoginAsync(string username, string password)
         {
             var loginData = new { username = username, password = password };
-            var response = await _httpClient.PostAsJsonAsync("https://damp-wand-7w45w44w9573rg5g-8080.app.github.dev/auth", loginData);
+            var baseUrl = AppSettings.Instance.BaseUrl;
+            var response = await _httpClient.PostAsJsonAsync($"{baseUrl}/auth", loginData);
 
             if (response.IsSuccessStatusCode)
             {

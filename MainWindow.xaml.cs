@@ -14,6 +14,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Local_Canteen_Optimizer.View;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -28,6 +29,16 @@ namespace Local_Canteen_Optimizer
         public MainWindow()
         {
             this.InitializeComponent();
+            MainFrame.Navigate(typeof(MainPage));
+        }
+
+        public void NavigateToAuthPage()
+        {
+            MainFrame.Navigate(typeof(AuthPage));
+        }
+
+        public void NavigateToMainPage()
+        {
             MainFrame.Navigate(typeof(MainPage));
         }
     }

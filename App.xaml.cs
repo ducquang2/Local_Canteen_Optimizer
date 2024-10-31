@@ -15,6 +15,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Local_Canteen_Optimizer.View;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -41,11 +42,21 @@ namespace Local_Canteen_Optimizer
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            m_window = new MainWindow();
-            m_window.Activate();
+            MainWindow = new MainWindow();
+            MainWindow.Activate();
             //m_window.AppWindow.Resize(new Windows.Graphics.SizeInt32(1024, 768));
-        }
 
-        private Window m_window;
+            if (!IsUserAuthenticated())
+            {
+                MainWindow.NavigateToAuthPage();
+            }
+        }
+        public MainWindow MainWindow { get; private set; }
+
+        private bool IsUserAuthenticated()
+        {
+            // Implement your authentication check logic here
+            return false;
+        }
     }
 }

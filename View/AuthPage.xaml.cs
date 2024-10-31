@@ -1,6 +1,6 @@
 using Microsoft.UI.Xaml.Controls;
 using Local_Canteen_Optimizer.ViewModel;
-using Microsoft.UI.Xaml.Navigation; // Add this line
+using Microsoft.UI.Xaml.Navigation;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -19,11 +19,11 @@ namespace Local_Canteen_Optimizer.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
             if (e.Parameter is AuthViewModel authViewModel)
             {
                 this.DataContext = authViewModel;
             }
+            base.OnNavigatedTo(e);
         }
     }
 }

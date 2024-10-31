@@ -51,7 +51,6 @@ namespace Local_Canteen_Optimizer.ViewModel
         }
 
         public bool IsLoggedIn => _authenticationModel.IsLoggedIn;
-        public string UserName => _authenticationModel.UserName;
 
         public ICommand LoginCommand { get; }
         public ICommand LogoutCommand { get; }
@@ -68,6 +67,7 @@ namespace Local_Canteen_Optimizer.ViewModel
             if (await _authenticationModel.LoginAsync(Username, Password))
             {
                 // Successful login
+                ((App)Application.Current).MainWindow.NavigateToMainPage();
                 LoginSuccess?.Invoke(); // Raise the event
             }
             else
