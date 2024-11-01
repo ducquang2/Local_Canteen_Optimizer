@@ -12,8 +12,4 @@
     Title="MainWindow" 
     
     >
-
-    <Grid>
-        <Frame x:Name="MainFrame"/>
-    </Grid>
 </Window>

@@ -47,7 +47,7 @@
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding SettingsCommand}"
                             ImageSource="Images/setting.png" Content="Setting"/>
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding TablesCommand}"
-                            ImageSource="Images/meeting-room.png" Content="Table"/>
+                            ImageSource="Images/meeting-room-black.png" Content="Table"/>
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding TransactionsCommand}"
                             ImageSource="Images/save-money.png" Content="Transactions"/>
 
@@ -57,7 +57,7 @@
 
             <!-- Main Content Area -->
             <!--<ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Grid.Column="1">-->
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ContentControl x:Name="Pages"
                 Content="{Binding CurrentView}"
                 ContentTemplateSelector="{StaticResource ViewModelSelector}" />

@@ -114,15 +114,15 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <TextBlock Text="{Binding Total}" FontSize="18" FontWeight="Bold" Foreground="Green"/>
+                        <TextBlock Text="{Binding Total}" FontSize="18" FontWeight="Bold" Foreground="{StaticResource buttonColorGreen}"/>
                     </StackPanel>
                 </Grid>
             </Border>
 
             <!-- Nút thanh toán -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,0,0">
-                <Button Content="Hold Cart" Width="150" Background="Orange" Foreground="White" Padding="10" Margin="0 0 20 0"/>
-                <Button Content="Proceed" Width="150" Background="Green" Foreground="White" Padding="10" Margin="20 0 0 0"/>
+                <Button Content="Hold Cart" Width="150" Background="{StaticResource buttonColorOrange}" Foreground="White" Padding="10" Margin="0 0 20 0"/>
+                <Button Content="Proceed" Width="150" Background="{StaticResource buttonColorGreen}" Foreground="White" Padding="10" Margin="20 0 0 0"/>
             </StackPanel>
         </StackPanel>
     </Border>

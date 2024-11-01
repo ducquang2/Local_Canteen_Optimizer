@@ -5,7 +5,8 @@
     xmlns:local="using:Local_Canteen_Optimizer"
     xmlns:ul="using:Local_Canteen_Optimizer.Ultis"
     xmlns:vm="using:Local_Canteen_Optimizer.ViewModel"
-    xmlns:view="using:Local_Canteen_Optimizer.View">
+    xmlns:view="using:Local_Canteen_Optimizer.View"
+    xmlns:viewProduct="using:Local_Canteen_Optimizer.View.Product">
 
     <DataTemplate x:Key="HomeTemplate">
         <view:Home />
@@ -20,7 +21,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="ProductTemplate" >
-        <view:Products />
+        <viewProduct:Product />
     </DataTemplate>
 
     <DataTemplate x:Key="ReportTemplate" >

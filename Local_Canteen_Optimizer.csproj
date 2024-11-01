@@ -27,12 +27,14 @@
     <None Remove="Styles\Text.xaml" />
     <None Remove="Styles\UIColors.xaml" />
     <None Remove="Ultis\DataTemplate.xaml" />
+    <None Remove="View\AddProduct.xaml" />
     <None Remove="View\CartView.xaml" />
     <None Remove="View\Customers.xaml" />
+    <None Remove="View\EditProduct.xaml" />
     <None Remove="View\Header.xaml" />
     <None Remove="View\Home.xaml" />
     <None Remove="View\Orders.xaml" />
-    <None Remove="View\Products.xaml" />
+    <None Remove="View\Product.xaml" />
     <None Remove="View\Reports.xaml" />
     <None Remove="View\Setting.xaml" />
     <None Remove="View\Table.xaml" />
@@ -87,7 +89,16 @@
     <Content Update="Assets\ImgFood\mi-quang.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Update="Images\add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\customer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\edit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Images\home_icon.png">
@@ -114,7 +125,13 @@
     <None Update="Images\img_transaction.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Images\meeting-room-black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\meeting-room.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\more.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Images\order.png">
@@ -141,6 +158,21 @@
     <None Update="Images\shutdown_mo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Images\view.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Page Update="View\EditProduct.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="View\Product.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="View\AddProduct.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="View\Products\AddProduct.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Styles\ButtonSmall.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
@@ -149,7 +181,7 @@
     <Page Update="View\Header.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="View\Products.xaml">
+    <Page Update="View\ListProducts.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="View\Setting.xaml">
@@ -214,6 +246,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\Components\" />
+    <Folder Include="View\Product\" />
   </ItemGroup>
 
   <!--
