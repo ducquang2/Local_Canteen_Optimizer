@@ -56,8 +56,8 @@
                 Command="{Binding LoginCommand}" />
         </StackPanel>
 
-        <Image Source="Assets/authen.png" 
-               Width="500" Height="300"
+        <Image Source="ms-appx:///Assets/authen.png" 
+               Width="800" Height="500"
                Grid.Column="1" 
                Margin="20" />
     </Grid>
