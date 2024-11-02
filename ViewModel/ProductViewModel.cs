@@ -14,28 +14,26 @@ namespace Local_Canteen_Optimizer.ViewModel
 {
     class ProductViewModel : BaseViewModel
     {
-        //private readonly UserService _apiService;
-        //public ObservableCollection<ApiUser> Users { get; private set; }
+        private readonly ProductService _apiProductService;
+        public ObservableCollection<FoodModel> FoodItems { get; set; }
 
         //public ProductViewModel()
         //{
-        //    _apiService = new UserService();
-        //    Users = new ObservableCollection<ApiUser>();
-        //    LoadUsersAsync();
+        //    _apiProductService = new ProductService();
+        //    FoodItems = new ObservableCollection<FoodModel>();
+        //    LoadProductsAsync();
         //}
 
-        //private async Task LoadUsersAsync()
-        //{
-        //    var users = await _apiService.GetUsersAsync();
-        //    Users.Clear();
-        //    foreach (var user in users)
-        //    {
-        //        Users.Add(user);
-        //    }
-        //    OnPropertyChanged(nameof(Users));
-        //}
-
-        public ObservableCollection<FoodModel> FoodItems { get; set; }
+        private async Task LoadProductsAsync()
+        {
+            var products = await _apiProductService.GetProductsAsync();
+            FoodItems.Clear();
+            foreach (var item in products)
+            {
+                FoodItems.Add(item);
+            }
+            OnPropertyChanged(nameof(FoodItems));
+        }
 
         public ProductViewModel()
         {

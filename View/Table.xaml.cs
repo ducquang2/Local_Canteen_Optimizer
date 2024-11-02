@@ -1,3 +1,4 @@
+using Local_Canteen_Optimizer.ViewModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -20,9 +21,11 @@ namespace Local_Canteen_Optimizer.View
 {
     public sealed partial class Table : UserControl
     {
+        TableViewModel tableViewModel;
         public Table()
         {
             this.InitializeComponent();
+            tableViewModel = new TableViewModel();
         }
     }
 }
