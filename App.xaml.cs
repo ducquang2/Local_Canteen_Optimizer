@@ -43,11 +43,11 @@ namespace Local_Canteen_Optimizer
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             m_window = new MainWindow();
-            var root = new Frame();
-            m_window.Content = root;
-            var name = "Local_Canteen_Optimizer.MainPage";
-            var type = Type.GetType(name);
-            root.Navigate(type);
+            //var root = new Frame();
+            //m_window.Content = root;
+            //var name = "Local_Canteen_Optimizer.MainPage";
+            //var type = Type.GetType(name);
+            //root.Navigate(type);
 
             m_window.Activate();
             //m_window.AppWindow.Resize(new Windows.Graphics.SizeInt32(1024, 768));

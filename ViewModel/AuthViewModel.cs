@@ -8,12 +8,13 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml;
 using System.Threading.Tasks;
 using System;
+using Local_Canteen_Optimizer.Service;
 
 namespace Local_Canteen_Optimizer.ViewModel
 {
     public class AuthViewModel : INotifyPropertyChanged
     {
-        private AuthenticationModel _authenticationModel = new AuthenticationModel();
+        private AuthenService _authenService = new AuthenService();
         private string _username;
         private string _password;
         private string _errorMessage;
@@ -50,7 +51,7 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
 
-        public bool IsLoggedIn => _authenticationModel.IsLoggedIn;
+        //public bool IsLoggedIn => _authenService.IsLoggedIn;
 
         public ICommand LoginCommand { get; }
         public ICommand LogoutCommand { get; }
@@ -64,10 +65,11 @@ namespace Local_Canteen_Optimizer.ViewModel
         private async void Login()
         {
             ErrorMessage = "";
-            if (await _authenticationModel.LoginAsync(Username, Password))
+            var result = await _authenService.LoginAsync(Username, Password);
+            if (result.Token != null)
             {
                 // Successful login
-                ((App)Application.Current).MainWindow.NavigateToMainPage();
+                ((App)Application.Current).m_window.NavigateToMainPage();
                 LoginSuccess?.Invoke(); // Raise the event
             }
             else
@@ -78,7 +80,7 @@ namespace Local_Canteen_Optimizer.ViewModel
 
         private void Logout()
         {
-            _authenticationModel.Logout();
+            //_authenticationModel.Logout();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
