@@ -29,7 +29,6 @@ namespace Local_Canteen_Optimizer
         public MainWindow()
         {
             this.InitializeComponent();
-            MainFrame.Navigate(typeof(MainPage));
         }
 
         public void NavigateToAuthPage()

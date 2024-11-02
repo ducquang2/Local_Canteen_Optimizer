@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,7 +25,33 @@ namespace Local_Canteen_Optimizer.View
         public CartView()
         {
             this.InitializeComponent();
-            this.DataContext = new CartViewModel();
+            //this.DataContext = new CartViewModel();
+        }
+
+        private void RemoveCartItemButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            CartItemModel itemToRemove = button?.Tag as CartItemModel;
+
+            if (itemToRemove != null)
+            {
+                var cartViewModel = this.DataContext as CartViewModel;
+                if (cartViewModel != null)
+                {
+                    // Gọi hàm xóa item trong CartViewModel
+                    cartViewModel.RemoveItem(itemToRemove);
+                }
+            }
+        }
+
+        private void holdCartButton_Click(object sender, RoutedEventArgs e)
+        {
+            var cartViewModel = this.DataContext as CartViewModel;
+            if (cartViewModel != null)
+            {
+                // Gọi hàm xóa item trong CartViewModel
+                cartViewModel.HoldCart();
+            }
         }
     }
 }

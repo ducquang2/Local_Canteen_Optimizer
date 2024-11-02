@@ -8,6 +8,7 @@ namespace Local_Canteen_Optimizer.Model
 {
     public class CartItemModel
     {
+        public String Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
     }

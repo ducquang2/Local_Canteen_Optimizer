@@ -10,7 +10,7 @@
 
     <Border BorderBrush="#9F9F9E" 
             BorderThickness="0,0,0,0.4">
-        <Grid Background="White" Padding="10" VerticalAlignment="Center">
+    <Grid Background="White" Padding="10" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -53,9 +53,10 @@
 
             <!-- Select Table Button -->
             <Button
-                    Background="Orange" 
-                    Foreground="White" 
-                    Margin="5,0" >
+                Background="{StaticResource borderColor}" 
+                Foreground="White" 
+                Margin="5,0" 
+                Padding="8" >
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Image Width="24" Height="24" Source="ms-appx:///Images/meeting-room.png" />
 

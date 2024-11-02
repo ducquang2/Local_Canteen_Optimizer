@@ -42,16 +42,22 @@ namespace Local_Canteen_Optimizer
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            MainWindow = new MainWindow();
-            MainWindow.Activate();
+            m_window = new MainWindow();
+            var root = new Frame();
+            m_window.Content = root;
+            var name = "Local_Canteen_Optimizer.MainPage";
+            var type = Type.GetType(name);
+            root.Navigate(type);
+
+            m_window.Activate();
             //m_window.AppWindow.Resize(new Windows.Graphics.SizeInt32(1024, 768));
 
             if (!IsUserAuthenticated())
             {
-                MainWindow.NavigateToAuthPage();
+                m_window.NavigateToAuthPage();
             }
         }
-        public MainWindow MainWindow { get; private set; }
+        public MainWindow m_window { get; private set; }
 
         private bool IsUserAuthenticated()
         {

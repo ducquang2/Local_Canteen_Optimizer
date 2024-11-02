@@ -8,8 +8,10 @@ namespace Local_Canteen_Optimizer.Model
 {
     public class FoodModel
     {
+        public string ProductID { get; set; }
         public string Name { get; set; }
         public string ImageSource { get; set; }
         public double Price { get; set; }
+        public double Quantity { get; set; }
     }
 }

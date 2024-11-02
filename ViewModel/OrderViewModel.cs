@@ -1,25 +1,26 @@
 ﻿using Local_Canteen_Optimizer.Model;
+using Local_Canteen_Optimizer.Service;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Local_Canteen_Optimizer.ViewModel
 {
-    class OrderViewModel : BaseViewModel
+    class OrderViewModel : INotifyPropertyChanged
     {
-        private readonly PageModel _pageModel;
-        public DateOnly DisplayOrderDate
-        {
-            get { return _pageModel.OrderDate; }
-            set { _pageModel.OrderDate = value; OnPropertyChanged(); }
-        }
+        public ObservableCollection<OrderModel> Orders => OrderDataServices.Instance.Orders;
 
         public OrderViewModel()
         {
-            _pageModel = new PageModel();
-            DisplayOrderDate = DateOnly.FromDateTime(DateTime.Now);
+            
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
