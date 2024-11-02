@@ -16,6 +16,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Local_Canteen_Optimizer.View;
+using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -56,12 +57,24 @@ namespace Local_Canteen_Optimizer
             {
                 m_window.NavigateToAuthPage();
             }
+            else
+            {
+                m_window.NavigateToMainPage();
+            }
         }
         public MainWindow m_window { get; private set; }
 
         private bool IsUserAuthenticated()
         {
             // Implement your authentication check logic here
+            // Need to check if token is expired
+            var localSettings = ApplicationData.Current.LocalSettings;
+
+            if (localSettings.Values.ContainsKey("userToken"))
+            {
+                return true;
+            }
+
             return false;
         }
     }

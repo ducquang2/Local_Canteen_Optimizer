@@ -50,7 +50,8 @@
                             ImageSource="Images/meeting-room-black.png" Content="Table"/>
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding TransactionsCommand}"
                             ImageSource="Images/save-money.png" Content="Transactions"/>
-
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding ManageUserCommand}"
+                            ImageSource="Images/save-money.png" Content="Manage Users"/>
                     </StackPanel>
                 </Border>
             </ScrollViewer>

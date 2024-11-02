@@ -19,6 +19,7 @@ namespace Local_Canteen_Optimizer.Ultis
         public DataTemplate SettingTemplate { get; set; }
         public DataTemplate TableTemplate { get; set; }
         public DataTemplate TransactionTemplate { get; set; }
+        public DataTemplate ManageUserTemplate { get; set; }
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
             switch (item)
@@ -31,6 +32,7 @@ namespace Local_Canteen_Optimizer.Ultis
                 case SettingViewModel: return SettingTemplate;
                 case TableViewModel: return TableTemplate;
                 case TransactionViewModel: return TransactionTemplate;
+                case ManageUserViewModel: return ManageUserTemplate;
             }
 
             //if (item is HomeViewModel)

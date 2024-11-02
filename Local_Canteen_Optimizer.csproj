@@ -33,6 +33,7 @@
     <None Remove="View\EditProduct.xaml" />
     <None Remove="View\Header.xaml" />
     <None Remove="View\Home.xaml" />
+    <None Remove="View\ManageUser.xaml" />
     <None Remove="View\Orders.xaml" />
     <None Remove="View\Order\Order.xaml" />
     <None Remove="View\Order\ViewOrder.xaml" />
@@ -172,6 +173,9 @@
     <None Update="Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Page Update="View\ManageUser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="View\Order\Order.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

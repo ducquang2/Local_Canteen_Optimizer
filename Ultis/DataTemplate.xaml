@@ -42,6 +42,10 @@
         <view:Transactions />
     </DataTemplate>
 
+    <DataTemplate x:Key="ManageUserTemplate" >
+        <view:ManageUser />
+    </DataTemplate>
+
     <ul:DataTemplateSelect x:Key="ViewModelSelector"
                            HomeTemplate="{StaticResource HomeTemplate}"
                            CustomerTemplate="{StaticResource CustomerTemplate}" 
@@ -51,6 +55,7 @@
                            SettingTemplate="{StaticResource SettingTemplate}"
                            TableTemplate="{StaticResource TableTemplate}"
                            TransactionTemplate="{StaticResource TransactionTemplate}"
+                           ManageUserTemplate="{StaticResource ManageUserTemplate}"
     />
 
 </ResourceDictionary>

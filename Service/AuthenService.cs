@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Local_Canteen_Optimizer.Model;
 using System.Net.Http;
 using System.Net.Http.Json;
-using Windows.System;
+using Windows.Storage;
 
 namespace Local_Canteen_Optimizer.Service
 {
@@ -33,7 +33,9 @@ namespace Local_Canteen_Optimizer.Service
 
                     if (result != null)
                     {
-                        return new ApiAuthen
+                        var localSettings = ApplicationData.Current.LocalSettings;
+
+                        var userInfo = new ApiAuthen
                         {
                             Token = result.Token,
                             _user = new AuthUser // Initialize _user here
@@ -44,6 +46,9 @@ namespace Local_Canteen_Optimizer.Service
                                 Role = result.User.Role
                             }
                         };
+
+                        localSettings.Values["userToken"] = result.Token;
+                        return userInfo;
                     }
                     else
                     {
