@@ -34,6 +34,8 @@
     <None Remove="View\Header.xaml" />
     <None Remove="View\Home.xaml" />
     <None Remove="View\Orders.xaml" />
+    <None Remove="View\Order\Order.xaml" />
+    <None Remove="View\Order\ViewOrder.xaml" />
     <None Remove="View\Product.xaml" />
     <None Remove="View\Reports.xaml" />
     <None Remove="View\Setting.xaml" />
@@ -92,6 +94,12 @@
     <None Update="Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Images\cross-gray.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\cross.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\customer.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -123,6 +131,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Images\img_transaction.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\logout.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Images\meeting-room-black.png">
@@ -161,6 +172,12 @@
     <None Update="Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Page Update="View\Order\Order.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="View\Order\ViewOrder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="View\EditProduct.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

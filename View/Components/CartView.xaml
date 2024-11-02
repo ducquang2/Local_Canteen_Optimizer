@@ -11,7 +11,7 @@
     <Border Background="White">
         <StackPanel Padding="10">
             <Border BorderBrush="#9F9F9E" BorderThickness="0,0,0,0.4">
-                <Button Content="Add Customer" HorizontalAlignment="Right" Margin="0,0,0,10"/>
+                <Button Content="Select Table" HorizontalAlignment="Right" Margin="0,0,0,10"/>
             </Border>
 
             <!-- Danh sách món trong giỏ -->
@@ -27,14 +27,19 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Id}" FontSize="14" Margin="0 0 10 0"/>
                                 <TextBlock Text="{Binding Name}" FontSize="14" Width="150" />
                             </StackPanel>
 
                             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Price}" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" Padding="0 0 20 0"/>
-                                <Button Command="{Binding RemoveItemCommand}"
+                                <TextBlock FontSize="14" FontWeight="Bold" VerticalAlignment="Center" Padding="0 0 10 0">
+                                    <Run Text="{Binding Price}" />
+                                    <Run Text=" VND" /> 
+                                </TextBlock>
+                                <!--<TextBlock Text="{Binding Price}" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" Padding="0 0 20 0"/>-->
+                                <Button Click="RemoveCartItemButton_Click" Tag="{Binding}"
                                         Width="40">
-                                    <Image Source="ms-appx:///Images/search.png" />
+                                    <Image Source="ms-appx:///Images/cross-gray.png" />
                                 </Button>
                             </StackPanel>
                         </Grid>
@@ -121,7 +126,7 @@
 
             <!-- Nút thanh toán -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,0,0">
-                <Button Content="Hold Cart" Width="150" Background="{StaticResource buttonColorOrange}" Foreground="White" Padding="10" Margin="0 0 20 0"/>
+                <Button Content="Hold Cart" Click="holdCartButton_Click" Width="150" Background="{StaticResource buttonColorOrange}" Foreground="White" Padding="10" Margin="0 0 20 0"/>
                 <Button Content="Proceed" Width="150" Background="{StaticResource buttonColorGreen}" Foreground="White" Padding="10" Margin="20 0 0 0"/>
             </StackPanel>
         </StackPanel>

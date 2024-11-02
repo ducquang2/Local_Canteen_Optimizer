@@ -11,7 +11,7 @@
     mc:Ignorable="d">
 
     <Grid Margin="16">
-        <Border Background="White" CornerRadius="8">
+        <Border Background="White" CornerRadius="8" MinHeight="500">
             <Grid VerticalAlignment="Top" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
