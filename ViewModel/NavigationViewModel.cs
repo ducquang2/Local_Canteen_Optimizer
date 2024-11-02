@@ -11,6 +11,8 @@ namespace Local_Canteen_Optimizer.ViewModel
 {
     public class NavigationViewModel : BaseViewModel
     {
+        public event Action<Type> NavigationRequested;
+
         private object _currentView;
         public object CurrentView
         {
@@ -26,6 +28,7 @@ namespace Local_Canteen_Optimizer.ViewModel
         public ICommand SettingsCommand { get; set; }
         public ICommand TablesCommand { get; set; }
         public ICommand TransactionsCommand { get; set; }
+        public ICommand ManageUserCommand { get; set; }
 
         private void Customer(object obj) => CurrentView = new CustomerViewModel();
         private void Home(object obj) => CurrentView = new HomeViewModel();
@@ -35,6 +38,7 @@ namespace Local_Canteen_Optimizer.ViewModel
         private void Setting(object obj) => CurrentView = new SettingViewModel();
         private void Table(object obj) => CurrentView = new TableViewModel();
         private void Transaction(object obj) => CurrentView = new TransactionViewModel();
+        private void ManageUser(object obj) => CurrentView = new ManageUserViewModel();
 
         public NavigationViewModel()
         {
@@ -46,9 +50,15 @@ namespace Local_Canteen_Optimizer.ViewModel
             SettingsCommand = new RelayCommand<Object>(Setting);
             TablesCommand = new RelayCommand<Object>(Table);
             TransactionsCommand = new RelayCommand<Object>(Transaction);
+            ManageUserCommand = new RelayCommand<Object>(ManageUser);
 
             // Startup Page
             CurrentView = new HomeViewModel();
+        }
+
+        private void NavigateTo(Type pageType)
+        {
+            NavigationRequested?.Invoke(pageType);
         }
     }
 }

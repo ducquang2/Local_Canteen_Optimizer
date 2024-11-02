@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Page
-    x:Class="Local_Canteen_Optimizer.MainPage"
+    x:Class="Local_Canteen_Optimizer.View.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Local_Canteen_Optimizer"
@@ -50,7 +50,8 @@
                             ImageSource="Images/meeting-room-black.png" Content="Table"/>
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding TransactionsCommand}"
                             ImageSource="Images/save-money.png" Content="Transactions"/>
-
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding ManageUserCommand}"
+                            ImageSource="Images/save-money.png" Content="Manage Users"/>
                     </StackPanel>
                 </Border>
             </ScrollViewer>
