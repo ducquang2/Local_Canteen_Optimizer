@@ -58,7 +58,7 @@ namespace Local_Canteen_Optimizer.ViewModel
             LogoutCommand = new RelayCommand<object>(_ => Logout());
         }
 
-        private async Task Login()
+        private async void Login()
         {
             ErrorMessage = "";
             if (Username == "")
@@ -85,7 +85,7 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
 
-        private async Task Logout()
+        private async void Logout()
         {
             _dao.LogoutAsync();
         }
