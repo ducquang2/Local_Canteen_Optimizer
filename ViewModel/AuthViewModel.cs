@@ -9,7 +9,7 @@ using Local_Canteen_Optimizer.DAO.AuthenDAO;
 
 namespace Local_Canteen_Optimizer.ViewModel
 {
-    public class AuthViewModel : BaseViewModel
+    public class AuthViewModel : BaseViewModel, INotifyPropertyChanged
     {
         private IAuthenDAO _dao = null;
         private string _username;
@@ -61,6 +61,17 @@ namespace Local_Canteen_Optimizer.ViewModel
         private async Task Login()
         {
             ErrorMessage = "";
+            if (Username == "")
+            {
+                ErrorMessage = "Username Can't be Empty";
+                return;
+            }
+
+            if (Password == "")
+            {
+                ErrorMessage = "Password Can't be Empty";
+                return;
+            }
             var result = await _dao.LoginAsync(Username, Password);
             if (result.Token != null)
             {
