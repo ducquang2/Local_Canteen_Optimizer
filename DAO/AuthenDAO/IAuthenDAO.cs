@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Local_Canteen_Optimizer.Model;
+﻿using Local_Canteen_Optimizer.Model;
 using System.Threading.Tasks;
 
 namespace Local_Canteen_Optimizer.DAO.AuthenDAO
