@@ -40,13 +40,13 @@ namespace Local_Canteen_Optimizer
             m_window.Activate();
             //m_window.AppWindow.Resize(new Windows.Graphics.SizeInt32(1024, 768));
 
-            if (!IsUserAuthenticated())
+            if (IsUserAuthenticated())
             {
-                m_window.NavigateToAuthPage();
+                m_window.NavigateToMainPage();
             }
             else
             {
-                m_window.NavigateToMainPage();
+                m_window.NavigateToAuthPage();
             }
         }
         public MainWindow m_window { get; private set; }

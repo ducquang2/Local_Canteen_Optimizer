@@ -43,6 +43,7 @@ namespace Local_Canteen_Optimizer.DAO.AuthenDAO
                     };
 
                     localSettings.Values["userToken"] = result.Token;
+                    localSettings.Values["userInfo"] = userInfo._user;
                     return userInfo;
                 }
                 else
@@ -62,6 +63,7 @@ namespace Local_Canteen_Optimizer.DAO.AuthenDAO
             if (localSettings.Values.ContainsKey("userToken"))
             {
                 localSettings.Values.Remove("userToken");
+                localSettings.Values.Remove("userInfo");
                 return true;
             }
             else

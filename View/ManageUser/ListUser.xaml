@@ -123,7 +123,7 @@
                                     <TextBlock Text="{Binding Phone_number}" Grid.Column="3" VerticalAlignment="Center" Width="200" Margin="10 0 0 0"/>
 
                                     <!-- Role -->
-                                    <TextBlock Text="{Binding Role}" Grid.Column="4" VerticalAlignment="Center" Width="200" Margin="10 0 0 0"/>
+                                    <TextBlock Text="{Binding Role}" Grid.Column="4" VerticalAlignment="Center" Width="250" Margin="10 0 0 0"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
