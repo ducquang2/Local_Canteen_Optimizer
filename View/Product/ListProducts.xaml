@@ -29,7 +29,20 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Search Box -->
-                <TextBox PlaceholderText="Search products..." 
+                    <ComboBox Name="pagesComboBox" Width="100" Height="35" SelectionChanged="pagesComboBox_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                            <Run Text="{Binding Page}"/> / <Run Text="{Binding Total}"/>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <TextBox PlaceholderText="Search products..." 
+                     Name="keywordTextBox"
+                     TextChanged="keywordTextBox_TextChanged"
+                     Text="{x:Bind productViewModel.Keyword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      VerticalAlignment="Center" 
                      Grid.Column="1"
                      Width="300" 
@@ -38,7 +51,8 @@
 
                     <!-- Search Button -->
                 <Button VerticalAlignment="Center" 
-                    Width="40"
+                    Width="45"
+                    Click="searchButton_Click"
                     Grid.Column="2" >
                     <Image Source="ms-appx:///Images/search.png" />
                 </Button>
@@ -106,7 +120,7 @@
 
                             <!-- Product Image and Name -->
                             <StackPanel Orientation="Horizontal" Grid.Column="0" Width="400">
-                                <Image Source="{Binding ImageSource}" Height="50"/>
+                                <Image Source="{Binding ImageSource}" Height="50" Width="50"/>
                                 <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="4 0 0 0"/>
                             </StackPanel>
 

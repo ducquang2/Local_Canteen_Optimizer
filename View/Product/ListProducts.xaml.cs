@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -28,8 +29,32 @@ namespace Local_Canteen_Optimizer.View.Product
         public ListProducts()
         {
             this.InitializeComponent();
-            productViewModel = new ProductViewModel();
+            InitializeAsync();
         }
+
+        public async Task InitializeAsync()
+        {
+            productViewModel = new ProductViewModel();
+            await productViewModel.Init();
+            UpdatePagingInfo_bootstrap();
+        }
+
+        void UpdatePagingInfo_bootstrap()
+        {
+            var infoList = new List<object>();
+            for (int i = 1; i <= productViewModel.TotalPages; i++)
+            {
+                infoList.Add(new
+                {
+                    Page = i,
+                    Total = productViewModel.TotalPages
+                });
+            };
+
+            pagesComboBox.ItemsSource = infoList;
+            pagesComboBox.SelectedIndex = 0;
+        }
+
         private void AddProductButton_Click(object sender, RoutedEventArgs e)
         {
             AddProductRequested?.Invoke(this, EventArgs.Empty);
@@ -55,6 +80,33 @@ namespace Local_Canteen_Optimizer.View.Product
             {
                 productViewModel.DeleteProduct(product);
             }
+        }
+
+        private void pagesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            dynamic item = pagesComboBox.SelectedItem;
+
+            if (item != null)
+            {
+                productViewModel.Load(item.Page);
+            }
+        }
+
+
+        private void keywordTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void searchButton_Click(object sender, RoutedEventArgs e)
+        {
+            test();
+        }
+
+        public async Task test()
+        {
+            await productViewModel.Load(1);
+            UpdatePagingInfo_bootstrap();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Local_Canteen_Optimizer.Service
         {
             _httpClient = new HttpClient
             {
-                BaseAddress = new Uri("https://savage-cadaver-9v6vjpx95r62xgv4-8080.app.github.dev/api/v1")
+                BaseAddress = new Uri("https://savage-cadaver-9v6vjpx95r62xgv4-8080.app.github.dev/")
             };
             //_httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
         }

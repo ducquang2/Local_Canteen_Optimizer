@@ -49,7 +49,6 @@ namespace Local_Canteen_Optimizer.View
             var cartViewModel = this.DataContext as CartViewModel;
             if (cartViewModel != null)
             {
-                // Gọi hàm xóa item trong CartViewModel
                 cartViewModel.HoldCart();
             }
         }

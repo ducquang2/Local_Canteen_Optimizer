@@ -12,6 +12,6 @@ namespace Local_Canteen_Optimizer.Model
         public string Name { get; set; }
         public string ImageSource { get; set; }
         public double Price { get; set; }
-        public double Quantity { get; set; }
+        public int Quantity { get; set; }
     }
 }

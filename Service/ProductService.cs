@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Local_Canteen_Optimizer.Service
@@ -23,8 +24,8 @@ namespace Local_Canteen_Optimizer.Service
         {
             try
             {
-                var products = await _httpClient.GetFromJsonAsync<RootApiResponse>("/products");
-                return products.Results ?? new List<FoodModel>();
+                var products = await _httpClient.GetFromJsonAsync<RootApiResponse>("products");
+                return products.Results.Select(ConvertToDTO).ToList() ?? new List<FoodModel>();
             }
             catch
             {
@@ -33,19 +34,23 @@ namespace Local_Canteen_Optimizer.Service
             }
         }
 
-        //public static UserDTO ConvertToDTO(ApiUser apiUser)
-        //{
-        //    return new UserDTO
-        //    {
-        //        Gender = apiUser.Gender,
-        //        FullName = $"{apiUser.Name.Title} {apiUser.Name.First} {apiUser.Name.Last}",
-        //        Location = $"{apiUser.Location.Street.Number} {apiUser.Location.Street.Name}, {apiUser.Location.City}, {apiUser.Location.State}, {apiUser.Location.Country}, {apiUser.Location.Postcode}"
-        //    };
-        //}
+        private FoodModel ConvertToDTO(ApiProduct apiProduct)
+        {
+            return new FoodModel
+            {
+                ProductID = apiProduct.product_id.ToString(),
+                Name = apiProduct.product_name,
+                ImageSource = apiProduct.image_url,
+                Price = apiProduct.price,
+                Quantity = apiProduct.stock_quantity,
+            };
+            
+        }
 
         public class RootApiResponse
         {
-            public List<FoodModel> Results { get; set; }
+            [JsonPropertyName("results")]
+            public List<ApiProduct> Results { get; set; }
         }
     }
 }
