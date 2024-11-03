@@ -54,7 +54,7 @@
                              Margin="4" 
                         />
 
-                        <TextBlock Text="123" 
+                        <TextBlock Text="{x:Bind currentOrder.OrderId}" 
                              VerticalAlignment="Center" 
                              Grid.Column="1"
                              FontWeight="Bold"
@@ -117,13 +117,13 @@
                                     </StackPanel>
 
                                     <!-- Product ID -->
-                                    <TextBlock Text="{Binding ProductID}" Grid.Column="1" VerticalAlignment="Center" Width="200"/>
+                                    <TextBlock Text="{Binding Id}" Grid.Column="1" VerticalAlignment="Center" Width="200"/>
 
                                     <!-- Price -->
                                     <TextBlock Text="{Binding Price}" Grid.Column="2" VerticalAlignment="Center" FontWeight="Bold" Width="250"/>
 
                                     <!-- Quantity -->
-                                    <TextBlock Text="{Binding Quantity}" Grid.Column="3" VerticalAlignment="Center" Width="200" Margin="10 0 0 0"/>
+                                    <TextBlock Text="1" Grid.Column="3" VerticalAlignment="Center" Width="200" Margin="10 0 0 0"/>
 
                                     <!-- Action Buttons -->
                                     <!--<StackPanel Orientation="Horizontal" Grid.Column="4" Spacing="5" Width="120">

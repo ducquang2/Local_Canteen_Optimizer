@@ -56,34 +56,32 @@
 
                 <!-- Form Fields -->
                 <StackPanel Grid.Row="1" Spacing="15" Margin="0,20,0,0">
-                    <!-- Id Field -->
-                    <StackPanel>
-                        <TextBlock Text="Id *" FontWeight="Bold" />
-                        <TextBox x:Name="IdTextBox" PlaceholderText="Product ID" Margin="5" />
-                    </StackPanel>
-                    
                     <!-- Name Field -->
                     <StackPanel>
                         <TextBlock Text="Name *" FontWeight="Bold" />
                         <TextBox x:Name="NameTextBox" PlaceholderText="Product Name" Margin="5" />
+                        <TextBlock x:Name="NameErrorText" Foreground="Red" Visibility="Collapsed" Text="Name is required." />
                     </StackPanel>
 
                     <!-- Image Field -->
                     <StackPanel>
                         <TextBlock Text="Image Source *" FontWeight="Bold" />
                         <TextBox x:Name="ImageTextBox" PlaceholderText="Product Image" Margin="5" />
+                        <TextBlock x:Name="ImageErrorText" Foreground="Red" Visibility="Collapsed" Text="Image source is required." />
                     </StackPanel>
 
                     <!-- Price Field -->
                     <StackPanel>
-                        <TextBlock Text="Price" FontWeight="Bold" />
+                        <TextBlock Text="Price*" FontWeight="Bold" />
                         <TextBox x:Name="PriceTextBox" PlaceholderText="Price" Margin="5" />
+                        <TextBlock x:Name="PriceErrorText" Foreground="Red" Visibility="Collapsed" Text="Price must be a valid number." />
                     </StackPanel>
 
-                    <!-- Id Field -->
+                    <!-- Quantity Field -->
                     <StackPanel>
-                        <TextBlock Text="Quantity" FontWeight="Bold" />
+                        <TextBlock Text="Quantity*" FontWeight="Bold" />
                         <TextBox x:Name="QuantityTextBox" PlaceholderText="Quantity" Margin="5" />
+                        <TextBlock x:Name="QuantityErrorText" Foreground="Red" Visibility="Collapsed" Text="Quantity must be a valid number." />
                     </StackPanel>
                 </StackPanel>
 

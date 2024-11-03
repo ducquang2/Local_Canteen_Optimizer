@@ -11,6 +11,7 @@ namespace Local_Canteen_Optimizer.Service
     class OrderDataServices
     {
         private static OrderDataServices _instance;
+        public static int OrderId { get; set; } = 1;
         public static OrderDataServices Instance => _instance ??= new OrderDataServices();
 
         public ObservableCollection<OrderModel> Orders { get; }

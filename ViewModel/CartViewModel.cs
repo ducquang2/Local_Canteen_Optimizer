@@ -20,6 +20,7 @@ namespace Local_Canteen_Optimizer.ViewModel
         public double Subtotal => CartItems.Sum(item => item.Price);
         public double Tax => Subtotal * 0;
         public double Total => Subtotal + Tax;
+        public int OrderId { get; set; } = 1;
 
         public CartViewModel()
         {
@@ -55,11 +56,13 @@ namespace Local_Canteen_Optimizer.ViewModel
            
             var order = new OrderModel
             {
+                OrderId = OrderDataServices.OrderId.ToString(),
                 TableNumber = 1,
                 OrderTime = DateTime.Now,
                 OrderDetails = CartItems.ToList(),
                 Total = Total
             };
+            OrderDataServices.OrderId++;
 
             OrderDataServices.Instance.Orders.Add(order);
             CartItems.Clear();

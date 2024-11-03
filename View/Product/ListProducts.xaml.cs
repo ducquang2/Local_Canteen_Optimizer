@@ -100,10 +100,10 @@ namespace Local_Canteen_Optimizer.View.Product
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            test();
+            handleSearchButtonClick();
         }
 
-        public async Task test()
+        public async Task handleSearchButtonClick()
         {
             await productViewModel.Load(1);
             UpdatePagingInfo_bootstrap();

@@ -35,23 +35,23 @@
 
                         <!-- Menu Items -->
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding HomeCommand}"
-                            ImageSource="Images/home_icon.png" Content="Home" IsChecked="True"/>
+                            ImageSource="ms-appx:///Images/home_icon.png" Content="Home" IsChecked="True"/>
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding CustomersCommand}"
-                            ImageSource="Images/customer.png" Content="Customer"/>
+                            ImageSource="ms-appx:///Images/customer.png" Content="Customer"/>
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding OrdersCommand}"
-                            ImageSource="Images/order.png" Content="Order"/>
+                            ImageSource="ms-appx:///Images/order.png" Content="Order"/>
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding ProductsCommand}"
-                            ImageSource="Images/product.png" Content="Product"/>
+                            ImageSource="ms-appx:///Images/product.png" Content="Product"/>
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding ReportsCommand}"
-                            ImageSource="Images/report.png" Content="Report"/>
+                            ImageSource="ms-appx:///Images/report.png" Content="Report"/>
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding SettingsCommand}"
-                            ImageSource="Images/setting.png" Content="Setting"/>
+                            ImageSource="ms-appx:///Images/setting.png" Content="Setting"/>
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding TablesCommand}"
-                            ImageSource="Images/meeting-room-black.png" Content="Table"/>
+                            ImageSource="ms-appx:///Images/meeting-room-black.png" Content="Table"/>
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding TransactionsCommand}"
-                            ImageSource="Images/save-money.png" Content="Transactions"/>
+                            ImageSource="ms-appx:///Images/save-money.png" Content="Transactions"/>
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding ManageUserCommand}"
-                            ImageSource="Images/save-money.png" Content="Manage Users"/>
+                            ImageSource="ms-appx:///Images/save-money.png" Content="Manage Users"/>
                     </StackPanel>
                 </Border>
             </ScrollViewer>

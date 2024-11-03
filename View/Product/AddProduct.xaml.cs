@@ -29,14 +29,52 @@ namespace Local_Canteen_Optimizer.View.Product
         }
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            // Tạo đối tượng sản phẩm mới từ dữ liệu đã nhập
+            bool hasError = false;
+
+            // Reset error messages
+            NameErrorText.Visibility = Visibility.Collapsed;
+            ImageErrorText.Visibility = Visibility.Collapsed;
+            PriceErrorText.Visibility = Visibility.Collapsed;
+            QuantityErrorText.Visibility = Visibility.Collapsed;
+
+            // Validate Name
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text))
+            {
+                NameErrorText.Visibility = Visibility.Visible;
+                hasError = true;
+            }
+
+            // Validate Image Source
+            if (string.IsNullOrWhiteSpace(ImageTextBox.Text))
+            {
+                ImageErrorText.Visibility = Visibility.Visible;
+                hasError = true;
+            }
+
+            // Validate Price
+            if (!double.TryParse(PriceTextBox.Text, out var price) || price < 0)
+            {
+                PriceErrorText.Visibility = Visibility.Visible;
+                hasError = true;
+            }
+
+            // Validate Quantity
+            if (!int.TryParse(QuantityTextBox.Text, out var quantity) || quantity < 0)
+            {
+                QuantityErrorText.Visibility = Visibility.Visible;
+                hasError = true;
+            }
+
+            // If there are errors, stop here
+            if (hasError) return;
+
             var product = new FoodModel
             {
                 //ProductID = Guid.NewGuid().ToString(),
                 Name = NameTextBox.Text,
                 ImageSource = ImageTextBox.Text,
-                Price = double.TryParse(PriceTextBox.Text, out var price) ? price : 0,
-                Quantity = int.TryParse(QuantityTextBox.Text, out var quantity) ? quantity : 0
+                Price = price,
+                Quantity = quantity
             };
 
             SaveRequested?.Invoke(this, product);
