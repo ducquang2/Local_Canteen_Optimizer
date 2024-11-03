@@ -52,6 +52,22 @@
                             ImageSource="ms-appx:///Images/save-money.png" Content="Transactions"/>
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding ManageUserCommand}"
                             ImageSource="ms-appx:///Images/save-money.png" Content="Manage Users"/>
+                        
+                        <Button
+                            Background="White"
+                            VerticalAlignment="Bottom"
+                            Foreground="{StaticResource borderColor}" 
+                            BorderBrush="{StaticResource borderColor}" 
+                            BorderThickness="1" 
+                            CornerRadius="8" 
+                            Padding="10" 
+                            Margin="5,0"
+                            Click="LogoutButton_Click">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <!-- <Image Width="10" Height="10" Source="ms-appx:///Images/add.png" /> -->
+                                <TextBlock Text="Logout" VerticalAlignment="Center" Margin="10,0,0,0" />
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                 </Border>
             </ScrollViewer>

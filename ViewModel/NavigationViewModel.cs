@@ -1,4 +1,5 @@
 ﻿using Local_Canteen_Optimizer.Commands;
+using Local_Canteen_Optimizer.DAO.AuthenDAO;
 using Local_Canteen_Optimizer.View;
 using System;
 using System.Collections.Generic;

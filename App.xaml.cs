@@ -1,22 +1,9 @@
 ﻿using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Microsoft.UI.Xaml.Shapes;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Local_Canteen_Optimizer.View;
 using Windows.Storage;
+using System.Text.Json;
+using System.Text;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -53,13 +40,13 @@ namespace Local_Canteen_Optimizer
             m_window.Activate();
             //m_window.AppWindow.Resize(new Windows.Graphics.SizeInt32(1024, 768));
 
-            if (!IsUserAuthenticated())
+            if (IsUserAuthenticated())
             {
-                m_window.NavigateToAuthPage();
+                m_window.NavigateToMainPage();
             }
             else
             {
-                m_window.NavigateToMainPage();
+                m_window.NavigateToAuthPage();
             }
         }
         public MainWindow m_window { get; private set; }
@@ -72,10 +59,58 @@ namespace Local_Canteen_Optimizer
 
             if (localSettings.Values.ContainsKey("userToken"))
             {
+                string userToken = localSettings.Values["userToken"] as string;
+
+                if (IsTokenExpired(userToken))
+                {
+                    localSettings.Values.Remove("userToken");
+                    Console.WriteLine("User token is expired and has been removed.");
+                    return false;
+                }
+
                 return true;
             }
 
             return false;
+        }
+
+        private bool IsTokenExpired(string token)
+        {
+            try
+            {
+                var tokenParts = token.Split('.');
+                if (tokenParts.Length != 3)
+                {
+                    return true; // Invalid token format
+                }
+
+                var payload = tokenParts[1];
+                var jsonBytes = Convert.FromBase64String(PadBase64String(payload));
+                var jsonString = Encoding.UTF8.GetString(jsonBytes);
+                var tokenPayload = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(jsonString);
+
+                if (tokenPayload != null && tokenPayload.TryGetValue("exp", out var exp))
+                {
+                    var expirationTime = DateTimeOffset.FromUnixTimeSeconds(exp.GetInt64());
+                    return expirationTime < DateTimeOffset.UtcNow;
+                }
+
+                return true; // If we can't parse the expiration time, assume the token is expired
+            }
+            catch
+            {
+                return true; // If any error occurs, assume the token is expired
+            }
+        }
+
+        private string PadBase64String(string base64)
+        {
+            switch (base64.Length % 4)
+            {
+                case 2: return base64 + "==";
+                case 3: return base64 + "=";
+                default: return base64;
+            }
         }
     }
 }
