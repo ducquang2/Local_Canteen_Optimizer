@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Local_Canteen_Optimizer.Model;
 using Local_Canteen_Optimizer.Service;
 using Windows.Storage;
+using System.Text.Json;
 
 namespace Local_Canteen_Optimizer.DAO.AuthenDAO
 {
@@ -43,7 +44,7 @@ namespace Local_Canteen_Optimizer.DAO.AuthenDAO
                     };
 
                     localSettings.Values["userToken"] = result.Token;
-                    localSettings.Values["userInfo"] = userInfo._user;
+                    localSettings.Values["userInfo"] = JsonSerializer.Serialize(userInfo._user);
                     return userInfo;
                 }
                 else
