@@ -8,6 +8,7 @@
     xmlns:view="using:Local_Canteen_Optimizer.View"
     xmlns:viewProduct="using:Local_Canteen_Optimizer.View.Product"
     xmlns:viewOrder="using:Local_Canteen_Optimizer.View.Order"
+    xmlns:viewManageUser="using:Local_Canteen_Optimizer.View.ManageUser"
     >
 
     <DataTemplate x:Key="HomeTemplate">
@@ -43,7 +44,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="ManageUserTemplate" >
-        <view:ManageUser />
+        <viewManageUser:ManageUser />
     </DataTemplate>
 
     <ul:DataTemplateSelect x:Key="ViewModelSelector"

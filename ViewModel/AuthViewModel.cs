@@ -1,20 +1,17 @@
-﻿using Local_Canteen_Optimizer.Model;
-using Local_Canteen_Optimizer.View;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Local_Canteen_Optimizer.Commands;
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml;
 using System.Threading.Tasks;
 using System;
-using Local_Canteen_Optimizer.Service;
+using Local_Canteen_Optimizer.DAO.AuthenDAO;
 
 namespace Local_Canteen_Optimizer.ViewModel
 {
-    public class AuthViewModel : INotifyPropertyChanged
+    public class AuthViewModel : BaseViewModel
     {
-        private AuthenService _authenService = new AuthenService();
+        private IAuthenDAO _dao = null;
         private string _username;
         private string _password;
         private string _errorMessage;
@@ -51,21 +48,20 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
 
-        //public bool IsLoggedIn => _authenService.IsLoggedIn;
-
         public ICommand LoginCommand { get; }
         public ICommand LogoutCommand { get; }
 
         public AuthViewModel()
         {
+            _dao = new AuthenDAOImp();
             LoginCommand = new RelayCommand<object>(_ => Login());
             LogoutCommand = new RelayCommand<object>(_ => Logout());
         }
 
-        private async void Login()
+        private async Task Login()
         {
             ErrorMessage = "";
-            var result = await _authenService.LoginAsync(Username, Password);
+            var result = await _dao.LoginAsync(Username, Password);
             if (result.Token != null)
             {
                 // Successful login
@@ -78,9 +74,9 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
 
-        private void Logout()
+        private async Task Logout()
         {
-            //_authenticationModel.Logout();
+            _dao.LogoutAsync();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

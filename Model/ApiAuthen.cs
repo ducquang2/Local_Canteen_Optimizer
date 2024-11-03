@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Local_Canteen_Optimizer.Model
 {
-    class ApiAuthen
+    public class AuthenModel
     {
-        public AuthUser _user { get; set; }
+        public UserModel _user { get; set; }
         public string Token { get; set; }
 
         private static readonly HttpClient _httpClient = new HttpClient();
@@ -73,11 +73,4 @@ namespace Local_Canteen_Optimizer.Model
     //{
     //    public string token { get; set; }
     //}
-
-    class AuthUser { 
-        public string Username { get; set; }
-        public string Full_name { get; set; }
-        public string Phone_number { get; set; }
-        public string Role { get; set; }
-    }
 }

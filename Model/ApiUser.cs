@@ -1,40 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using System.Text.Json.Serialization;
 
 namespace Local_Canteen_Optimizer.Model
 {
-    class ApiUser
+    public class ApiUser
     {
-        public string Gender { get; set; }
-
-        public Name Name { get; set; }
-
-        public Location Location { get; set; }
-    }
-
-    public class Name
-    {
-        public string Title { get; set; }
-        public string First { get; set; }
-        public string Last { get; set; }
-    }
-
-    public class Location
-    {
-        public Street Street { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string Country { get; set; }
-        public int Postcode { get; set; }
-    }
-
-    public class Street
-    {
-        public int Number { get; set; }
-        public string Name { get; set; }
+        [JsonPropertyName("user_id")]
+        public int user_id { get; set; }
+        [JsonPropertyName("username")]
+        public string username { get; set; }
+        [JsonPropertyName("full_name")]
+        public string full_name { get; set; }
+        [JsonPropertyName("phone_number")]
+        public string phone_number { get; set; }
+        [JsonPropertyName("role")]
+        public string role { get; set; }
     }
 }

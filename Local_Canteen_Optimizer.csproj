@@ -14,6 +14,12 @@
     <EnableMsixTooling>true</EnableMsixTooling>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="View\ManageUser\NewFolder\**" />
+    <EmbeddedResource Remove="View\ManageUser\NewFolder\**" />
+    <None Remove="View\ManageUser\NewFolder\**" />
+    <Page Remove="View\ManageUser\NewFolder\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Remove="Assets\FontAwesome\FontAwesomeFree-Solid-900.otf" />
   </ItemGroup>
   <ItemGroup>
@@ -33,7 +39,8 @@
     <None Remove="View\EditProduct.xaml" />
     <None Remove="View\Header.xaml" />
     <None Remove="View\Home.xaml" />
-    <None Remove="View\ManageUser.xaml" />
+    <None Remove="View\ManageUser\ListUser.xaml" />
+    <None Remove="View\ManageUser\ManageUser.xaml" />
     <None Remove="View\Orders.xaml" />
     <None Remove="View\Order\Order.xaml" />
     <None Remove="View\Order\ViewOrder.xaml" />
@@ -173,7 +180,10 @@
     <None Update="Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Page Update="View\ManageUser.xaml">
+    <Page Update="View\ManageUser\ListUser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="View\ManageUser\ManageUser.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="View\Order\Order.xaml">
@@ -278,4 +288,7 @@
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
   </PropertyGroup>
+  <ItemGroup>
+    <PRIResource Remove="View\ManageUser\NewFolder\**" />
+  </ItemGroup>
 </Project>
