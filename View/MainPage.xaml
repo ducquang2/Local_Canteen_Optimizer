@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Local_Canteen_Optimizer.View.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Local_Canteen_Optimizer"
+    xmlns:view="using:Local_Canteen_Optimizer.View"
+    xmlns:vm="using:Local_Canteen_Optimizer.ViewModel"
+    xmlns:Menu="using:Local_Canteen_Optimizer.Ultis"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <view:Header Grid.Row="0" />
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Navigation Menu with ScrollViewer -->
+            <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Grid.Column="0">
+                <Border Background="White">
+                    <StackPanel Width="100" Padding="0 20 0 0">
+
+                        <!-- Menu Items -->
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding HomeCommand}"
+                            ImageSource="ms-appx:///Images/home_icon.png" Content="Home" IsChecked="True"/>
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding CustomersCommand}"
+                            ImageSource="ms-appx:///Images/customer.png" Content="Customer"/>
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding OrdersCommand}"
+                            ImageSource="ms-appx:///Images/order.png" Content="Order"/>
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding ProductsCommand}"
+                            ImageSource="ms-appx:///Images/product.png" Content="Product"/>
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding ReportsCommand}"
+                            ImageSource="ms-appx:///Images/report.png" Content="Report"/>
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding SettingsCommand}"
+                            ImageSource="ms-appx:///Images/setting.png" Content="Setting"/>
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding TablesCommand}"
+                            ImageSource="ms-appx:///Images/meeting-room-black.png" Content="Table"/>
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding TransactionsCommand}"
+                            ImageSource="ms-appx:///Images/save-money.png" Content="Transactions"/>
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding ManageUserCommand}"
+                            ImageSource="ms-appx:///Images/save-money.png" Content="Manage Users"/>
+                        
+                        <Button
+                            Background="White"
+                            VerticalAlignment="Bottom"
+                            Foreground="{StaticResource borderColor}" 
+                            BorderBrush="{StaticResource borderColor}" 
+                            BorderThickness="1" 
+                            CornerRadius="8" 
+                            Padding="10" 
+                            Margin="5,0"
+                            Click="LogoutButton_Click">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <!-- <Image Width="10" Height="10" Source="ms-appx:///Images/add.png" /> -->
+                                <TextBlock Text="Logout" VerticalAlignment="Center" Margin="10,0,0,0" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </ScrollViewer>
+
+            <!-- Main Content Area -->
+            <!--<ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Grid.Column="1">-->
+            <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ContentControl x:Name="Pages"
+                Content="{Binding CurrentView}"
+                ContentTemplateSelector="{StaticResource ViewModelSelector}" />
+            </Grid>
+            <!--</ScrollViewer>-->
+        </Grid>
+    </Grid>
+
+</Page>

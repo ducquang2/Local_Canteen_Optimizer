@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Local_Canteen_Optimizer.View.AuthPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Local_Canteen_Optimizer.View"
+    xmlns:viewModel="using:Local_Canteen_Optimizer.ViewModel"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.DataContext>
+        <viewModel:AuthViewModel />
+    </Page.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" 
+            Grid.Column="0">
+
+            <StackPanel
+                VerticalAlignment="Center"
+                Margin="10">
+                <TextBlock Text="Username" />
+                <TextBox 
+                    Width="200"
+                    PlaceholderText="Username"
+                    Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+
+            <StackPanel
+                VerticalAlignment="Center"
+                Margin="10">
+
+                <TextBlock Text="Password" />
+                <PasswordBox
+                    Width="200"
+                    PlaceholderText="Password"
+                    Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,0,0,10"/>
+            </StackPanel>
+
+            <CheckBox 
+                x:Name="rememberMeCheckBox"
+                Margin="10, 0, 0, 0"
+                Content="Save Login Credentials" />
+            <Button
+                Width="200"
+                Margin="10"
+                Content="Login"
+                Command="{Binding LoginCommand}" />
+        </StackPanel>
+
+        <Image Source="ms-appx:///Assets/authen.png" 
+               Width="800" Height="500"
+               Grid.Column="1" 
+               Margin="20" />
+    </Grid>
+</Page>
