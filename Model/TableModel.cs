@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace Local_Canteen_Optimizer.Model
 {
-    public class FoodModel
+    class TableModel
     {
-        public string ProductID { get; set; }
         public string Name { get; set; }
-        public string ImageSource { get; set; }
-        public double Price { get; set; }
-        public int Quantity { get; set; }
+        public string Status { get; set; }
     }
 }

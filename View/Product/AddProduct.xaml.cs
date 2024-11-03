@@ -33,7 +33,6 @@ namespace Local_Canteen_Optimizer.View.Product
             var product = new FoodModel
             {
                 //ProductID = Guid.NewGuid().ToString(),
-                ProductID = IdTextBox.Text,
                 Name = NameTextBox.Text,
                 ImageSource = ImageTextBox.Text,
                 Price = double.TryParse(PriceTextBox.Text, out var price) ? price : 0,
