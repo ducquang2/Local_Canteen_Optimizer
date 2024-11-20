@@ -39,6 +39,8 @@
     <None Remove="View\EditProduct.xaml" />
     <None Remove="View\Header.xaml" />
     <None Remove="View\Home.xaml" />
+    <None Remove="View\ManageUser\AddUser.xaml" />
+    <None Remove="View\ManageUser\EditUser.xaml" />
     <None Remove="View\ManageUser\ListUser.xaml" />
     <None Remove="View\ManageUser\ManageUser.xaml" />
     <None Remove="View\Orders.xaml" />
@@ -180,6 +182,12 @@
     <None Update="Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Page Update="View\ManageUser\EditUser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="View\ManageUser\AddUser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="View\ManageUser\ListUser.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

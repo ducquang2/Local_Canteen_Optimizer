@@ -23,7 +23,7 @@ namespace Local_Canteen_Optimizer.DAO.AuthenDAO
         {
             var localSettings = ApplicationData.Current.LocalSettings;
             var loginData = new { username = username, password = password };
-            var apiAuthenRes = await _httpClient.PostAsJsonAsync("/auth", loginData);
+            var apiAuthenRes = await _httpClient.PostAsJsonAsync("/api/v1/auth", loginData);
 
             if (apiAuthenRes.IsSuccessStatusCode)
             {

@@ -68,5 +68,21 @@ namespace Local_Canteen_Optimizer.View.ManageUser
         {
 
         }
+
+        private void AddUserButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddUserRequested?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            var user = (sender as Button).Tag as UserModel;
+            EditUserRequested?.Invoke(this, user);
+        }
+
+        public void AddUser(UserModel user)
+        {
+            manageUserViewModel.AddUser(user);
+        }
     }
 }

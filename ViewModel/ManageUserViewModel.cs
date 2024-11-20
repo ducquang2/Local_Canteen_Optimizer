@@ -47,5 +47,19 @@ namespace Local_Canteen_Optimizer.ViewModel
             TotalItems = totalItems;
             TotalPages = (TotalItems / RowsPerPage) + ((TotalItems % RowsPerPage == 0) ? 0 : 1);
         }
+
+        public async Task<UserModel> GetUserAsync(string username)
+        {
+            return await _dao.GetUserAsync(username);
+        }
+
+        public async Task AddUser(UserModel user)
+        {
+            UserModel newUser = await _dao.AddUserAsync(user);
+            if (newUser != null)
+            {
+                UserItems.Add(newUser);
+            }
+        }
     }
 }

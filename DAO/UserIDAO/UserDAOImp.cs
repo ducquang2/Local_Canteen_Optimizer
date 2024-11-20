@@ -61,14 +61,43 @@ namespace Local_Canteen_Optimizer.DAO.UserIDAO
 
         public async Task<UserModel> AddUserAsync(UserModel newUser)
         {
-            await Task.CompletedTask;
-            return null;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            if (localSettings.Values.ContainsKey("userToken"))
+            {
+                string userToken = localSettings.Values["userToken"] as string;
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+                var response = await _httpClient.PostAsJsonAsync("api/v1/users", newUser);
+                if (response.IsSuccessStatusCode)
+                {
+                    var addedUser = await response.Content.ReadFromJsonAsync<AddApiResponse>();
+                    return ConvertToUserModel(addedUser._apiUser);
+                }
+                else
+                {
+                    throw new Exception("Error adding user");
+                }
+            }
+            throw new UnauthorizedAccessException("User not authenticated");
         }
 
-        public async Task<UserModel> UpdateUserAsync(UserModel newUser)
+        public async Task<UserModel> UpdateUserAsync(UserModel updatedUser)
         {
-            await Task.CompletedTask;
-            return null;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            if (localSettings.Values.ContainsKey("userToken"))
+            {
+                string userToken = localSettings.Values["userToken"] as string;
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+                var response = await _httpClient.PutAsJsonAsync($"api/v1/users/{updatedUser.Username}", updatedUser);
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<UserModel>();
+                }
+                else
+                {
+                    throw new Exception("Error updating user");
+                }
+            }
+            throw new UnauthorizedAccessException("User not authenticated");
         }
 
         public async Task<bool> RemoveUserAsync(int userID)
@@ -100,7 +129,7 @@ namespace Local_Canteen_Optimizer.DAO.UserIDAO
 
         public class AddApiResponse
         {
-            [JsonPropertyName("product")]
+            [JsonPropertyName("user")]
             public ApiUser _apiUser { get; set; }
         }
     }
