@@ -23,13 +23,17 @@ namespace Local_Canteen_Optimizer.View.ManageUser
             // Khởi tạo danh sách user
             userListControl = new ListUser();
             userListControl.AddUserRequested += OnAddUserRequested;
-            //userListControl.EditUserRequested += OnEditUserRequested;
+            userListControl.EditUserRequested += OnEditUserRequested;
 
             // Initialize add user form
             addUserControl = new AddUser();
             addUserControl.SaveRequested += OnAddSaveRequested;
             addUserControl.CancelRequested += OnCancelRequested;
 
+            // Edit User
+            editUserControl = new EditUser();
+            editUserControl.SaveRequested += OnEditSaveRequested;
+            editUserControl.CancelRequested += OnCancelRequested;
 
             // Hiển thị danh sách
             ManageUserContent.Content = userListControl;
@@ -42,8 +46,8 @@ namespace Local_Canteen_Optimizer.View.ManageUser
 
         private void OnEditUserRequested(object sender, UserModel user)
         {
-            //editUserControl.SetUser(user);
-            //ManageUserContent.Content = editUserControl;
+            editUserControl.SetUser(user);
+            ManageUserContent.Content = editUserControl;
         }
 
         private void OnAddSaveRequested(object sender, UserModel user)
@@ -54,8 +58,8 @@ namespace Local_Canteen_Optimizer.View.ManageUser
 
         private void OnEditSaveRequested(object sender, UserModel user)
         {
-            //userListControl.UpdateUser(user);
-            //ManageUserContent.Content = userListControl;
+            userListControl.EditUser(user);
+            ManageUserContent.Content = userListControl;
         }
 
         private void OnCancelRequested(object sender, EventArgs e)

@@ -61,5 +61,26 @@ namespace Local_Canteen_Optimizer.ViewModel
                 UserItems.Add(newUser);
             }
         }
+
+        public async Task EditUser(UserModel user)
+        {
+            UserModel editedUser = await _dao.UpdateUserAsync(user);
+            if (editedUser != null)
+            {
+                // Tìm và cập nhật sản phẩm trong danh sách
+                var existingUserIndex = UserItems.IndexOf(UserItems.FirstOrDefault(p => p.UserID == editedUser.UserID));
+                if (existingUserIndex >= 0)
+                {
+                    UserItems[existingUserIndex] = new UserModel
+                    {
+                        UserID = editedUser.UserID,
+                        Username = editedUser.Username,
+                        Full_name = editedUser.Full_name,
+                        Phone_number = editedUser.Phone_number,
+                        Role = editedUser.Role
+                    };
+                }
+            }
+        }
     }
 }

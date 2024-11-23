@@ -11,6 +11,7 @@ using System.Text.Json.Serialization;
 using Windows.Storage;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using Local_Canteen_Optimizer.View.ManageUser;
 
 namespace Local_Canteen_Optimizer.DAO.UserIDAO
 {
@@ -87,10 +88,20 @@ namespace Local_Canteen_Optimizer.DAO.UserIDAO
             {
                 string userToken = localSettings.Values["userToken"] as string;
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
-                var response = await _httpClient.PutAsJsonAsync($"api/v1/users/{updatedUser.Username}", updatedUser);
+
+                ApiUser apiUser = new ApiUser
+                {
+                    username = updatedUser.Username,
+                    full_name = updatedUser.Full_name,
+                    phone_number = updatedUser.Phone_number,
+                    role = updatedUser.Role
+                };
+
+                var response = await _httpClient.PutAsJsonAsync($"api/v1/users/{updatedUser.UserID}", apiUser);
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadFromJsonAsync<UserModel>();
+                    var editedUser = await response.Content.ReadFromJsonAsync<AddApiResponse>();
+                    return ConvertToUserModel(editedUser._apiUser);
                 }
                 else
                 {

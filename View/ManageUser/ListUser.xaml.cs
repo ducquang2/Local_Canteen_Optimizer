@@ -84,5 +84,10 @@ namespace Local_Canteen_Optimizer.View.ManageUser
         {
             manageUserViewModel.AddUser(user);
         }
+
+        public void EditUser(UserModel user)
+        {
+            manageUserViewModel.EditUser(user);
+        }
     }
 }
