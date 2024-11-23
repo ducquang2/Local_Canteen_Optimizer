@@ -47,5 +47,40 @@ namespace Local_Canteen_Optimizer.ViewModel
             TotalItems = totalItems;
             TotalPages = (TotalItems / RowsPerPage) + ((TotalItems % RowsPerPage == 0) ? 0 : 1);
         }
+
+        public async Task<UserModel> GetUserAsync(string username)
+        {
+            return await _dao.GetUserAsync(username);
+        }
+
+        public async Task AddUser(UserModel user)
+        {
+            UserModel newUser = await _dao.AddUserAsync(user);
+            if (newUser != null)
+            {
+                UserItems.Add(newUser);
+            }
+        }
+
+        public async Task EditUser(UserModel user)
+        {
+            UserModel editedUser = await _dao.UpdateUserAsync(user);
+            if (editedUser != null)
+            {
+                // Tìm và cập nhật sản phẩm trong danh sách
+                var existingUserIndex = UserItems.IndexOf(UserItems.FirstOrDefault(p => p.UserID == editedUser.UserID));
+                if (existingUserIndex >= 0)
+                {
+                    UserItems[existingUserIndex] = new UserModel
+                    {
+                        UserID = editedUser.UserID,
+                        Username = editedUser.Username,
+                        Full_name = editedUser.Full_name,
+                        Phone_number = editedUser.Phone_number,
+                        Role = editedUser.Role
+                    };
+                }
+            }
+        }
     }
 }
