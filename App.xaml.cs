@@ -49,7 +49,7 @@ namespace Local_Canteen_Optimizer
                 m_window.NavigateToAuthPage();
             }
         }
-        public MainWindow m_window { get; private set; }
+        public static MainWindow m_window { get; private set; }
 
         private bool IsUserAuthenticated()
         {

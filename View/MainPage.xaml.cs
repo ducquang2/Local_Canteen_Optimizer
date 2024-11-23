@@ -31,7 +31,7 @@ namespace Local_Canteen_Optimizer.View
             if (_authenDAO.LogoutAsync())
             {
                 // Handle successful logout, e.g., navigate to login page
-                ((App)Application.Current).m_window.NavigateToAuthPage();
+                App.m_window.NavigateToAuthPage();
             }
             else
             {
