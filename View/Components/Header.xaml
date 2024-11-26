@@ -52,7 +52,7 @@
                     Margin="5,0" />
 
             <!-- Select Table Button -->
-            <Button
+            <!--<Button
                 Background="{StaticResource borderColor}" 
                 Foreground="White" 
                 Margin="5,0" 
@@ -64,7 +64,7 @@
                        VerticalAlignment="Center" 
                        Margin="10,0,0,0" />
                 </StackPanel>
-            </Button>
+            </Button>-->
         </StackPanel>
     </Grid>
     </Border>

@@ -18,12 +18,14 @@ using Local_Canteen_Optimizer.Model;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace Local_Canteen_Optimizer.View
+namespace Local_Canteen_Optimizer.View.Cashier
 {
     public sealed partial class Home : UserControl
     {
         CartViewModel cartViewModel;
         HomeViewModel homeViewModel;
+        public CartView CartViewControl => CartView;
+        public CartViewModel CartViewModel => cartViewModel;
         public Home()
         {
             this.InitializeComponent();

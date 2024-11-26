@@ -46,6 +46,7 @@
     <None Remove="View\Order\ViewOrder.xaml" />
     <None Remove="View\Product.xaml" />
     <None Remove="View\Reports.xaml" />
+    <None Remove="View\SellProduct\SellProduct.xaml" />
     <None Remove="View\Setting.xaml" />
     <None Remove="View\Table.xaml" />
     <None Remove="View\Transactions.xaml" />
@@ -184,6 +185,9 @@
     <None Update="Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Page Update="View\Cashier\Cashier.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="View\ManageUser\ListUser.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -280,6 +284,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Themes\" />
     <Folder Include="View\Components\" />
     <Folder Include="View\Product\" />
   </ItemGroup>

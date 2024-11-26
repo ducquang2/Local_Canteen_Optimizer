@@ -13,5 +13,7 @@ namespace Local_Canteen_Optimizer.Model
         public int product_id { get; set; }
         public int quantity { get; set; }
         public double price { get; set; }
+        public string product_name { get; set; }
+        public string image_url { get; set; }
     }
 }

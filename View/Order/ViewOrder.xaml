@@ -54,7 +54,7 @@
                              Margin="4" 
                         />
 
-                        <TextBlock Text="{x:Bind currentOrder.OrderId}" 
+                        <TextBlock Text="{x:Bind currentOrderViewModel.currentOrder.OrderId, Mode=TwoWay}" 
                              VerticalAlignment="Center" 
                              Grid.Column="1"
                              FontWeight="Bold"
@@ -97,7 +97,7 @@
                 </Border>
 
                 <!-- Data Rows -->
-                <ListView ItemsSource="{x:Bind currentOrder.OrderDetails}" HorizontalAlignment="Stretch" Grid.Row="2">
+                <ListView ItemsSource="{x:Bind currentOrderViewModel.currentOrder.OrderDetails, Mode=TwoWay}" HorizontalAlignment="Stretch" Grid.Row="2">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border Margin="0,4,0,4" CornerRadius="8" BorderBrush="LightGray" BorderThickness="0,0,0,1">

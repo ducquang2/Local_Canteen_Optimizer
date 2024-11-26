@@ -22,6 +22,10 @@ namespace Local_Canteen_Optimizer.View
 {
     public sealed partial class CartView : UserControl
     {
+        public event EventHandler AddTableRequested;
+        public event EventHandler<TableModel> HoldCartRequested;
+        public event EventHandler<TableModel> CheckOutRequested;
+
         public CartView()
         {
             this.InitializeComponent();
@@ -44,12 +48,28 @@ namespace Local_Canteen_Optimizer.View
             }
         }
 
-        private void holdCartButton_Click(object sender, RoutedEventArgs e)
+        private async void holdCartButton_Click(object sender, RoutedEventArgs e)
         {
             var cartViewModel = this.DataContext as CartViewModel;
             if (cartViewModel != null)
             {
-                cartViewModel.HoldCart();
+                TableModel table = await cartViewModel.HoldCart();
+                HoldCartRequested?.Invoke(this, table);
+            }
+        }
+
+        private void SelectTable_Click(object sender, RoutedEventArgs e)
+        {
+            AddTableRequested?.Invoke(this, EventArgs.Empty);
+        }
+
+        private async void checkoutCartButton_Click(object sender, RoutedEventArgs e)
+        {
+            var cartViewModel = this.DataContext as CartViewModel;
+            if (cartViewModel != null)
+            {
+                TableModel table = await cartViewModel.CheckOut();
+                CheckOutRequested?.Invoke(this, table);
             }
         }
     }

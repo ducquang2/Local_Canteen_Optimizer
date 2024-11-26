@@ -38,7 +38,7 @@ namespace Local_Canteen_Optimizer.ViewModel
 
         public HomeViewModel()
         {
-
+            
         }
 
         //public HomeViewModel(CartViewModel cartViewModel)

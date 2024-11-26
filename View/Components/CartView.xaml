@@ -11,8 +11,34 @@
     <Border Background="White">
         <StackPanel Padding="10">
             <Border BorderBrush="#9F9F9E" BorderThickness="0,0,0,0.4">
-                <Button Content="Select Table" HorizontalAlignment="Right" Margin="0,0,0,10"/>
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" FontSize="14" VerticalAlignment="Center">
+                            <Run Text="Table " />
+                            <Run Text="{Binding SelectedTableId}" />
+                    </TextBlock>
+
+                    <Button Grid.Column="1"
+                            Background="{StaticResource borderColor}" 
+                            Foreground="White" 
+                            Margin="5"
+                            Padding="8"
+                            Click="SelectTable_Click"
+                        >
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                            <Image Width="24" Height="24" Source="ms-appx:///Images/meeting-room.png" />
+                            <TextBlock Text="Select Table" 
+                                   VerticalAlignment="Center" 
+                                   Margin="10,0,0,0" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
             </Border>
+
 
             <!-- Danh sách món trong giỏ -->
             <ListView x:Name="CartItemsList"
@@ -127,7 +153,7 @@
             <!-- Nút thanh toán -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,0,0">
                 <Button Content="Hold Cart" Click="holdCartButton_Click" Width="150" Background="{StaticResource buttonColorOrange}" Foreground="White" Padding="10" Margin="0 0 20 0"/>
-                <Button Content="Proceed" Width="150" Background="{StaticResource buttonColorGreen}" Foreground="White" Padding="10" Margin="20 0 0 0"/>
+                <Button Content="Proceed" Click="checkoutCartButton_Click" Width="150" Background="{StaticResource buttonColorGreen}" Foreground="White" Padding="10" Margin="20 0 0 0"/>
             </StackPanel>
         </StackPanel>
     </Border>

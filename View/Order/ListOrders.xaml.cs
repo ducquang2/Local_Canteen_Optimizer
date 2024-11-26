@@ -22,7 +22,7 @@ namespace Local_Canteen_Optimizer.View.Order
 {
     public sealed partial class ListOrders : UserControl
     {
-        OrderViewModel orderViewModel;
+        public OrderViewModel orderViewModel;
         public event EventHandler<OrderModel> ViewOrderDetailRequested;
         public ListOrders()
         {
@@ -30,7 +30,7 @@ namespace Local_Canteen_Optimizer.View.Order
             orderViewModel = new OrderViewModel();
         }
 
-        private void ViewButton_Click(object sender, RoutedEventArgs e)
+        private async void ViewButton_Click(object sender, RoutedEventArgs e)
         {
             // lấy sản phẩm từ nút View
             var order = (sender as Button).Tag as OrderModel;
