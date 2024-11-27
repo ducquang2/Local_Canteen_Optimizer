@@ -8,8 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Margin="16">
-        <Border Background="White" CornerRadius="8" MinHeight="500">
+    <Grid Background="{ThemeResource primaryBackColor}" Margin="16">
+        <Border Background="{ThemeResource primaryBackColor}" CornerRadius="8" MinHeight="500">
             <Grid VerticalAlignment="Top" HorizontalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -18,7 +18,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Title -->
-                <Grid Grid.Row="0" Background="White" Padding="10" VerticalAlignment="Center">
+                <Grid Grid.Row="0" Background="{ThemeResource primaryBackColor}" Padding="10" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
@@ -30,6 +30,7 @@
                     <TextBox PlaceholderText="Search Order..." 
                          VerticalAlignment="Center" 
                          Grid.Column="1"
+                         Foreground="{ThemeResource textColor}"
                          Width="300" 
                          Margin="4" 
                     />
@@ -54,8 +55,8 @@
                         <!-- Select Table Button -->
                         <!--<Button
                             Background="White" 
-                            Foreground="{StaticResource borderColor}" 
-                            BorderBrush="{StaticResource borderColor}" 
+                            Foreground="{ThemeResource borderColor}" 
+                            BorderBrush="{ThemeResource borderColor}" 
                             BorderThickness="1" 
                             CornerRadius="8" 
                             Padding="10" 
@@ -80,11 +81,11 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="Time" Grid.Column="0" FontSize="14" FontWeight="Bold" Width="400"/>
-                        <TextBlock Text="Order ID" Grid.Column="1" FontSize="14" FontWeight="Bold" Width="200"/>
-                        <TextBlock Text="Table Number" Grid.Column="2" FontSize="14" FontWeight="Bold" Width="250" />
-                        <TextBlock Text="Total" Grid.Column="3" FontSize="14" FontWeight="Bold" Width="200" />
-                        <TextBlock Text="Action" Grid.Column="4" FontSize="14" FontWeight="Bold" Width="120"/>
+                        <TextBlock Foreground="{ThemeResource textColor}" Text="Time" Grid.Column="0" FontSize="14" FontWeight="Bold" Width="400"/>
+                        <TextBlock Foreground="{ThemeResource textColor}" Text="Order ID" Grid.Column="1" FontSize="14" FontWeight="Bold" Width="200"/>
+                        <TextBlock Foreground="{ThemeResource textColor}" Text="Table Number" Grid.Column="2" FontSize="14" FontWeight="Bold" Width="250" />
+                        <TextBlock Foreground="{ThemeResource textColor}" Text="Total" Grid.Column="3" FontSize="14" FontWeight="Bold" Width="200" />
+                        <TextBlock Foreground="{ThemeResource textColor}" Text="Action" Grid.Column="4" FontSize="14" FontWeight="Bold" Width="120"/>
                     </Grid>
                 </Border>
 
@@ -104,27 +105,27 @@
 
                                     <!-- Order Time -->
                                     <StackPanel Orientation="Horizontal" Grid.Column="0" Width="400">
-                                        <TextBlock Text="{Binding OrderTime}" VerticalAlignment="Center" Margin="4 0 0 0"/>
+                                        <TextBlock Foreground="{ThemeResource textColor}" Text="{Binding OrderTime}" VerticalAlignment="Center" Margin="4 0 0 0"/>
                                     </StackPanel>
 
                                     <!-- Order ID -->
-                                    <TextBlock Text="{Binding OrderId}" Grid.Column="1" VerticalAlignment="Center" Width="200"/>
+                                    <TextBlock Foreground="{ThemeResource textColor}" Text="{Binding OrderId}" Grid.Column="1" VerticalAlignment="Center" Width="200"/>
 
                                     <!-- Table Number -->
-                                    <TextBlock Text="{Binding TableNumber}" Grid.Column="2" VerticalAlignment="Center" FontWeight="Bold" Width="250"/>
+                                    <TextBlock Foreground="{ThemeResource textColor}" Text="{Binding TableNumber}" Grid.Column="2" VerticalAlignment="Center" FontWeight="Bold" Width="250"/>
 
                                     <!-- Total -->
-                                    <TextBlock Text="{Binding Total}" Grid.Column="3" VerticalAlignment="Center" Width="200" Margin="10 0 0 0"/>
+                                    <TextBlock Foreground="{ThemeResource textColor}" Text="{Binding Total}" Grid.Column="3" VerticalAlignment="Center" Width="200" Margin="10 0 0 0"/>
 
                                     <!-- Action Buttons -->
                                     <StackPanel Orientation="Horizontal" Grid.Column="4" Spacing="5" Width="120">
-                                        <Button Width="40" Height="40" Click="ViewButton_Click" Tag="{Binding}">
+                                        <Button Background="{ThemeResource primaryBackColor}" Width="40" Height="40" Click="ViewButton_Click" Tag="{Binding}">
                                             <Image Width="16" Height="16" Source="ms-appx:///Images/view.png" />
                                         </Button>
                                         <!--<Button Width="40" Height="40" Click="EditButton_Click" Tag="{Binding}">
                                             <Image Width="16" Height="16" Source="ms-appx:///Images/edit.png" />
                                         </Button>-->
-                                        <Button Width="40" Height="40" >
+                                        <Button Background="{ThemeResource primaryBackColor}" Width="40" Height="40" >
                                             <Image Width="16" Height="16" Source="ms-appx:///Images/delete.png" />
                                         </Button>
                                     </StackPanel>

@@ -8,9 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Border Background="White">
+    <Border Background="{ThemeResource primaryBackColor}">
         <StackPanel Padding="10">
-            <Border BorderBrush="#9F9F9E" BorderThickness="0,0,0,0.4">
+            <Border BorderBrush="{ThemeResource secondaryBackColorGray}" BorderThickness="0,0,0,0.4">
                 <Button Content="Select Table" HorizontalAlignment="Right" Margin="0,0,0,10"/>
             </Border>
 
@@ -47,7 +47,7 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Border Background="{StaticResource secondaryBackColor}" Padding="20 10 20 10">
+            <Border Background="{ThemeResource secondaryBackColor}" Padding="20 10 20 10">
                 <Grid HorizontalAlignment="Stretch" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -59,21 +59,21 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <Button Margin="0 0 10 0" Background="{StaticResource secondaryBackColor}">
-                            <TextBlock Text="Discount" Foreground="{StaticResource buttonColorOrange}" FontSize="14" FontWeight="Bold"/>
+                        <Button Margin="0 0 10 0" Background="{ThemeResource secondaryBackColor}">
+                            <TextBlock Text="Discount" Foreground="{ThemeResource buttonColorOrange}" FontSize="14" FontWeight="Bold"/>
                         </Button>
-                        <Button Margin="0 0 10 0" Background="{StaticResource secondaryBackColor}">
-                            <TextBlock Text="Coupon Code" Foreground="{StaticResource buttonColorOrange}" FontSize="14" FontWeight="Bold"/>
+                        <Button Margin="0 0 10 0" Background="{ThemeResource secondaryBackColor}">
+                            <TextBlock Text="Coupon Code" Foreground="{ThemeResource buttonColorOrange}" FontSize="14" FontWeight="Bold"/>
                         </Button>
-                        <Button Margin="0 0 10 0" Background="{StaticResource secondaryBackColor}">
-                            <TextBlock Text="Note" Foreground="{StaticResource buttonColorOrange}" FontSize="14" FontWeight="Bold"/>
+                        <Button Margin="0 0 10 0" Background="{ThemeResource secondaryBackColor}">
+                            <TextBlock Text="Note" Foreground="{ThemeResource buttonColorOrange}" FontSize="14" FontWeight="Bold"/>
                         </Button>
                     </StackPanel>
                 </Grid>
             </Border>
 
             <!-- Thông tin thanh toán -->
-            <Border Background="#F5F5F5" Padding="20 10 20 10">
+            <Border Background="{ThemeResource primaryBackColor}" Padding="20 10 20 10">
                 <Grid HorizontalAlignment="Stretch" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -90,7 +90,7 @@
                 </Grid>
             </Border>
 
-            <Border Background="#F5F5F5" Padding="20 10 20 10">
+            <Border Background="{ThemeResource primaryBackColor}" Padding="20 10 20 10">
                 <Grid HorizontalAlignment="Stretch" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -107,7 +107,7 @@
                 </Grid>
             </Border>
 
-            <Border Background="#F5F5F5" Padding="20 10 20 10">
+            <Border Background="{ThemeResource primaryBackColor}" Padding="20 10 20 10">
                 <Grid HorizontalAlignment="Stretch" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -119,15 +119,15 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <TextBlock Text="{Binding Total}" FontSize="18" FontWeight="Bold" Foreground="{StaticResource buttonColorGreen}"/>
+                        <TextBlock Text="{Binding Total}" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource buttonColorGreen}"/>
                     </StackPanel>
                 </Grid>
             </Border>
 
             <!-- Nút thanh toán -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,0,0">
-                <Button Content="Hold Cart" Click="holdCartButton_Click" Width="150" Background="{StaticResource buttonColorOrange}" Foreground="White" Padding="10" Margin="0 0 20 0"/>
-                <Button Content="Proceed" Width="150" Background="{StaticResource buttonColorGreen}" Foreground="White" Padding="10" Margin="20 0 0 0"/>
+                <Button Content="Hold Cart" Click="holdCartButton_Click" Width="150" Background="{ThemeResource buttonColorOrange}" Foreground="{ThemeResource primaryBackColor}" Padding="10" Margin="0 0 20 0"/>
+                <Button Content="Proceed" Width="150" Background="{ThemeResource buttonColorGreen}" Foreground="{ThemeResource primaryBackColor}" Padding="10" Margin="20 0 0 0"/>
             </StackPanel>
         </StackPanel>
     </Border>

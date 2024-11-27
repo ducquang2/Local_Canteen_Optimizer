@@ -14,7 +14,7 @@
             <Color x:Key="borderColor">#FC8019</Color>
 
             <!--Button Colors-->
-            <Color x:Key="buttonColorOrange">#777777</Color>
+            <Color x:Key="buttonColorOrange">#FC8019</Color>
             <Color x:Key="buttonColorGreen">#09AA29</Color>
 
             <!--TextBox Colors-->
@@ -24,6 +24,9 @@
                 <Setter Property="Foreground" Value="{StaticResource textColor}" />
                 <Setter Property="FontSize" Value="16" />
             </Style>
+
+            <Color x:Key="pointerEnterColor">#3C3C3C</Color>
+            <Color x:Key="pointerExitColor">#2D2D2D</Color>
 
             <!--Etc-->
         </ResourceDictionary>
@@ -49,12 +52,15 @@
                 <Setter Property="FontSize" Value="16" />
             </Style>
 
+            <Color x:Key="pointerEnterColor">#9F9F9E</Color>
+            <Color x:Key="pointerExitColor">#FFF2E8</Color>
+
             <!--Etc-->
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
     <!-- Default Colors (Fallback) -->
-    <Color x:Key="primaryBackColor">#F5F5F5</Color>
+    <!-- <Color x:Key="primaryBackColor">#F5F5F5</Color>
     <Color x:Key="secondaryBackColor">#FFF2E8</Color>
     <Color x:Key="secondaryBackColorGray">#9F9F9E</Color>
     <Color x:Key="borderColor">#FC8019</Color>
@@ -65,5 +71,5 @@
     <Style x:Key="contentPresenterStyle" TargetType="ContentPresenter">
         <Setter Property="Foreground" Value="{StaticResource textColor}" />
         <Setter Property="FontSize" Value="16" />
-    </Style>
+    </Style> -->
 </ResourceDictionary>

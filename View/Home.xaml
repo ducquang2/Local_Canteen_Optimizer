@@ -12,7 +12,7 @@
     >
     
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Border Background="#F5F5F5" />
+        <Border Background="{ThemeResource primaryBackColor}" />
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*" />
@@ -27,21 +27,21 @@
                 
                 <!--View chứa danh sách loại món ăn-->
                 <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" Padding="0 0 0 20" Grid.Row="0">
-                    <Border Background="White" CornerRadius="10">
+                    <Border Background="{ThemeResource primaryBackColor}" CornerRadius="10">
                         <StackPanel Orientation="Horizontal">
                             <!-- Menu Items -->
-                            <Menu:CustomRadioButton Style="{StaticResource BtnSmallStyle}"
+                            <Menu:CustomRadioButton Style="{ThemeResource BtnSmallStyle}"
                                 Content="Home" IsChecked="True"/>
-                            <Menu:CustomRadioButton Style="{StaticResource BtnSmallStyle}"
+                            <Menu:CustomRadioButton Style="{ThemeResource BtnSmallStyle}"
                                 Content="Customer"/>
-                            <Menu:CustomRadioButton Style="{StaticResource BtnSmallStyle}"
+                            <Menu:CustomRadioButton Style="{ThemeResource BtnSmallStyle}"
                                 Content="Order"/>
-                            <Menu:CustomRadioButton Style="{StaticResource BtnSmallStyle}"
+                            <Menu:CustomRadioButton Style="{ThemeResource BtnSmallStyle}"
                                 Content="Product"/>
-                            <Menu:CustomRadioButton Style="{StaticResource BtnSmallStyle}"
+                            <Menu:CustomRadioButton Style="{ThemeResource BtnSmallStyle}"
                                 Content="Report"/>
-                            <Menu:CustomRadioButton Style="{StaticResource BtnSmallStyle}"
-                            Content="Setting"/>
+                            <Menu:CustomRadioButton Style="{ThemeResource BtnSmallStyle}"
+                                Content="Setting"/>
                         </StackPanel>
                     </Border>
                 </ScrollViewer>
@@ -50,7 +50,7 @@
                     ItemsSource="{Binding FoodItems}">
                     <GridView.ItemTemplate>
                         <DataTemplate>
-                            <Border Background="White" Padding="10">
+                            <Border Background="{ThemeResource primaryBackColor}" Padding="10">
                                 <StackPanel HorizontalAlignment="Center" Width="150">
                                     <Image Source="{Binding ImageSource}" Width="140" Height="140" />
                                     <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" FontSize="14" Margin="0,10,0,10"/>
@@ -58,7 +58,15 @@
                                         <Run Text="{Binding Price}" />
                                         <Run Text=" VND" />     
                                     </TextBlock>
-                                    <Button Content="Order" Click="AddToCartButton" Tag="{Binding}" Background="{StaticResource buttonColorOrange}" Foreground="White" Padding="10" Width="100" HorizontalAlignment="Center"/>
+                                    <Button 
+                                        Content="Order"
+                                        Click="AddToCartButton"
+                                        Tag="{Binding}"
+                                        Background="{ThemeResource buttonColorOrange}"
+                                        Foreground="{ThemeResource primaryBackColor}"
+                                        Padding="10"
+                                        Width="100"
+                                        HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>
