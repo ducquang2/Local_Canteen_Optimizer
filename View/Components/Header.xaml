@@ -26,21 +26,6 @@
                    Margin="10,0,10,0" 
                    Grid.Column="0" />
 
-        <!-- Search Box -->
-        <TextBox PlaceholderText="Search products..." 
-                 VerticalAlignment="Center" 
-                 Grid.Column="1"
-                 Width="300" 
-                 Margin="10,0" />
-
-        <!-- Search Button -->
-        <Button VerticalAlignment="Center" 
-                Width="40"
-                Margin="5,0"
-                Grid.Column="2" >
-            <Image Source="ms-appx:///Images/search.png" />
-        </Button>
-
         <!-- Other Icons and Buttons -->
         <StackPanel Orientation="Horizontal" 
                     VerticalAlignment="Center"

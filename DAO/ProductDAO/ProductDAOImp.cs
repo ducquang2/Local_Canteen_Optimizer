@@ -73,12 +73,17 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
         }
 
         // Phương thức GET để lấy danh sách người dùng
-        public async Task<Tuple<int, List<FoodModel>>> GetProductsAsync(int? page, int? rowsPerPage, string keyword, bool nameAscending)
+        public async Task<Tuple<int, List<FoodModel>>> GetProductsAsync(int? page, int? rowsPerPage, string keyword, bool nameAscending, double? minPrice, double? maxPrice)
         {
             try
             {
                 var sortOrder = nameAscending ? "asc" : "desc";
-                var products = await _httpClient.GetFromJsonAsync<GetApiResponse>($"api/v1/products?page={page}&pageSize={rowsPerPage}&search={keyword}&sort={sortOrder}");
+                var url = $"api/v1/products?page={page}&pageSize={rowsPerPage}&search={keyword}&sort={sortOrder}";
+                if (minPrice.HasValue && maxPrice.HasValue)
+                {
+                    url += $"&minPrice={minPrice.Value}&maxPrice={maxPrice.Value}";
+                }
+                var products = await _httpClient.GetFromJsonAsync<GetApiResponse>(url);
                 var foodModels = products.Results.Select(ConvertToFoodModel).ToList();
                 return new Tuple<int, List<FoodModel>>(products.TotalItems, foodModels);
             }

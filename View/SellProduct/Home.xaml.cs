@@ -14,6 +14,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Local_Canteen_Optimizer.ViewModel;
 using Local_Canteen_Optimizer.Model;
+using System.Threading.Tasks;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -60,6 +61,26 @@ namespace Local_Canteen_Optimizer.View.Cashier
                 // Thêm món ăn vào giỏ hàng
                 cartViewModel.AddItemToCart(cartItem);
             }
+        }
+
+        private async void searchButton_Click(object sender, RoutedEventArgs e)
+        {
+            await handleSearchButtonClick();
+        }
+
+        public async Task handleSearchButtonClick()
+        {
+            await homeViewModel.searchProductsAsync();
+        }
+
+        private async void filterButton_Click(object sender, RoutedEventArgs e)
+        {
+            await handleFilterButtonClick();
+        }
+
+        public async Task handleFilterButtonClick()
+        {
+            await homeViewModel.filterProductsAsync();
         }
     }
 }

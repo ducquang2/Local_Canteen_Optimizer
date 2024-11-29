@@ -51,7 +51,7 @@
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding TransactionsCommand}"
                             ImageSource="ms-appx:///Images/save-money.png" Content="Transactions"/>
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding ManageUserCommand}"
-                            ImageSource="ms-appx:///Images/save-money.png" Content="Manage Users"/>
+                            ImageSource="ms-appx:///Images/management.png" Content="Manage Users"/>
                         
                         <Button
                             Background="White"
@@ -60,12 +60,11 @@
                             BorderBrush="{StaticResource borderColor}" 
                             BorderThickness="1" 
                             CornerRadius="8" 
-                            Padding="10" 
-                            Margin="5,0"
+                            Padding="10"
+                            Margin="10,10,0,10"
                             Click="LogoutButton_Click">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <!-- <Image Width="10" Height="10" Source="ms-appx:///Images/add.png" /> -->
-                                <TextBlock Text="Logout" VerticalAlignment="Center" Margin="10,0,0,0" />
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock Text="Logout" VerticalAlignment="Center" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
@@ -74,7 +73,7 @@
 
             <!-- Main Content Area -->
             <!--<ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Grid.Column="1">-->
-            <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch">
                 <ContentControl x:Name="Pages"
                 Content="{Binding CurrentView}"
                 ContentTemplateSelector="{StaticResource ViewModelSelector}" />

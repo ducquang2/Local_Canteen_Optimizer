@@ -43,7 +43,10 @@
             <!-- Danh sách món trong giỏ -->
             <ListView x:Name="CartItemsList"
                       ItemsSource="{Binding CartItems}"
-                      Margin="0,10">
+                      Margin="0,10"
+                      MaxHeight="250"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid HorizontalAlignment="Stretch">

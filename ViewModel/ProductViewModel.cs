@@ -45,9 +45,15 @@ namespace Local_Canteen_Optimizer.ViewModel
             await LoadProductsAsync();
         }
 
+        public async Task LoadProductSort(bool nameAcending)
+        {
+            NameAcending = nameAcending;
+            await LoadProductsAsync();
+        }
+
         public async Task LoadProductsAsync()
         {
-            var (totalItems,products) = await _dao.GetProductsAsync(CurrentPage, RowsPerPage, Keyword, NameAcending);
+            var (totalItems,products) = await _dao.GetProductsAsync(CurrentPage, RowsPerPage, Keyword, NameAcending, null, null);
             FoodItems.Clear();
             foreach (var item in products)
             {
@@ -62,7 +68,7 @@ namespace Local_Canteen_Optimizer.ViewModel
 
         public async Task LoadAllProductsAsync()
         {
-            var (totalItems, products) = await _dao.GetProductsAsync(null, null, null, true);
+            var (totalItems, products) = await _dao.GetProductsAsync(null, null, null, true, null, null);
             allFoodItems.Clear();
             foreach (var item in products)
             {
