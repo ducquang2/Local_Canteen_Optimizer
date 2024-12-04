@@ -9,8 +9,8 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Margin="16">
-        <Border Background="White" CornerRadius="8" Padding="10" HorizontalAlignment="Stretch">
+    <Grid Background="{ThemeResource primaryBackColor}" Margin="16">
+        <Border Background="{ThemeResource primaryBackColor}" CornerRadius="8" Padding="10" HorizontalAlignment="Stretch">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -87,7 +87,7 @@
                         Content="Cancel"
                         Width="150"
                         Click="CancelButton_Click"
-                        Background="{StaticResource buttonColorOrange}"
+                        Background="{ThemeResource buttonColorOrange}"
                         Foreground="White"
                         Padding="10"
                         Margin="0 0 20 0"
@@ -96,7 +96,7 @@
                         Content="Save"
                         Width="150"
                         Click="SaveButton_Click"
-                        Background="{StaticResource buttonColorGreen}"
+                        Background="{ThemeResource buttonColorGreen}"
                         Foreground="White"
                         Padding="10"
                         Margin="20 0 0 0"
