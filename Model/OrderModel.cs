@@ -12,6 +12,6 @@ namespace Local_Canteen_Optimizer.Model
         public DateTime OrderTime { get; set; }
         public double Total { get; set; }
         public string OrderStatus { get; set; }
-        public List<CartItemModel> OrderDetails { get; set; }
+        public List<FoodModel> OrderDetails { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Local_Canteen_Optimizer.Model;
+using Local_Canteen_Optimizer.Service;
 using Local_Canteen_Optimizer.ViewModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -28,6 +30,55 @@ namespace Local_Canteen_Optimizer.View.Order
         {
             this.InitializeComponent();
             orderViewModel = new OrderViewModel();
+            InitializeAsync();
+        }
+
+        public async Task InitializeAsync()
+        {
+            orderViewModel = new OrderViewModel();
+            await orderViewModel.Init();
+            UpdatePagingInfo_bootstrap();
+        }
+
+        void UpdatePagingInfo_bootstrap()
+        {
+            var infoList = new List<object>();
+            for (int i = 1; i <= orderViewModel.TotalPages; i++)
+            {
+                infoList.Add(new
+                {
+                    Page = i,
+                    Total = orderViewModel.TotalPages
+                });
+            };
+
+            pagesComboBox.ItemsSource = infoList;
+            pagesComboBox.SelectedIndex = 0;
+        }
+
+        private void pagesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            dynamic item = pagesComboBox.SelectedItem;
+
+            if (item != null)
+            {
+                OrderDataServices.Instance.Load(item.Page);
+            }
+        }
+
+        public void SortOrderComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            var comboBox = sender as ComboBox;
+            if (comboBox != null)
+            {
+                var selectedItem = comboBox.SelectedItem as ComboBoxItem;
+                if (selectedItem != null)
+                {
+                    bool isAscending = bool.Parse(selectedItem.Tag.ToString());
+                    OrderDataServices.Instance.LoadOrderSort(isAscending);
+                }
+            }
         }
 
         private async void ViewButton_Click(object sender, RoutedEventArgs e)

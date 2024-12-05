@@ -36,9 +36,9 @@
         <view:Setting />
     </DataTemplate>
 
-    <!--<DataTemplate x:Key="TableTemplate" >
+    <DataTemplate x:Key="TableTemplate" >
         <view:Table />
-    </DataTemplate-->>
+    </DataTemplate>
 
     <DataTemplate x:Key="TransactionTemplate" >
         <view:Transactions />

@@ -35,7 +35,7 @@ namespace Local_Canteen_Optimizer.View
         private void RemoveCartItemButton_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
-            CartItemModel itemToRemove = button?.Tag as CartItemModel;
+            FoodModel itemToRemove = button?.Tag as FoodModel;
 
             if (itemToRemove != null)
             {

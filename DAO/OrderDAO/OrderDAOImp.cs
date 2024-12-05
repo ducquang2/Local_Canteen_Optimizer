@@ -10,6 +10,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Windows.Media.Playback;
 using static Local_Canteen_Optimizer.DAO.OrderDAO.OrderDAOImp;
 using static Local_Canteen_Optimizer.DAO.ProductDAO.ProductDAOImp;
 using static Local_Canteen_Optimizer.DAO.SeatDAO.SeatDAOImp;
@@ -44,7 +45,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                     {
                         ApiOrderItem apiOrderItem = new ApiOrderItem
                         {
-                            product_id = int.Parse(orderModel.OrderDetails[i].Id),
+                            product_id = int.Parse(orderModel.OrderDetails[i].ProductID),
                             quantity = 1,
                             price = orderModel.OrderDetails[i].Price
                         };
@@ -104,17 +105,19 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
             }
         }
 
-        public async Task<List<CartItemModel>> GetAllOrderItems(int orderId)
+        public async Task<List<FoodModel>> GetAllOrderItems(int orderId)
         {
             try
             {
                
                 var response = await _httpClient.GetFromJsonAsync<GetApiOrderDetailsResponse>($"api/v1/orders/{orderId}/items");
-                var orderDetails = response.items.Select(item => new CartItemModel
+                var orderDetails = response.items.Select(item => new FoodModel
                 {
-                    Id = item.product_id.ToString(),
+                    ProductID = item.product_id.ToString(),
+                    ImageSource = item.image_url,
                     Name = item.product_name.ToString(),
-                    Price = item.price
+                    Price = item.price,
+                    Quantity = item.quantity
                 }).ToList();
                 return orderDetails;
                 
@@ -126,13 +129,15 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
             }
         }
 
-        public async Task<List<OrderModel>> GetAllOrders()
+        public async Task<Tuple<int, List<OrderModel>>> GetAllOrders(int? page, int? rowsPerPage, bool dateAscending)
         {
             try
             {
-                var response = await _httpClient.GetFromJsonAsync<GetListOrderResponse>($"api/v1/orders");
-                var foodModels = response.order.Select(ConvertToOrderModel).ToList();
-                return new List<OrderModel>(foodModels);
+                var sortOrder = dateAscending ? "asc" : "desc";
+                var url = $"api/v1/orders?page={page}&pageSize={rowsPerPage}&sort={sortOrder}";
+                var response = await _httpClient.GetFromJsonAsync<GetListOrderResponse>(url);
+                var orders = response.order.Select(ConvertToOrderModel).ToList();
+                return new Tuple<int, List<OrderModel>>(response.TotalItems, orders);
             }
             catch
             {
@@ -195,6 +200,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                 OrderId = apiOrder.order_id,
                 OrderTime = apiOrder.created_at,
                 Total = apiOrder.total_price,
+                OrderStatus = apiOrder.order_status.ToString()
             };
         }
 
@@ -206,11 +212,13 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                 OrderTime = response.order.created_at,
                 Total = response.order.total_price,
                 OrderStatus = response.order.order_status.ToString(),
-                OrderDetails = response.items.Select(item => new CartItemModel
+                OrderDetails = response.items.Select(item => new FoodModel
                 {
-                    Id = item.product_id.ToString(),
+                    ProductID = item.product_id.ToString(),
+                    ImageSource = item.image_url,
                     Name = item.product_name.ToString(),
-                    Price = item.price
+                    Price = item.price,
+                    Quantity = item.quantity
                 }).ToList()
             };
         }
@@ -222,6 +230,8 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
 
         public class GetListOrderResponse
         {
+            [JsonPropertyName("totalItems")]
+            public int TotalItems { get; set; }
             [JsonPropertyName("results")]
             public List<ApiOrder> order { get; set; }
         }

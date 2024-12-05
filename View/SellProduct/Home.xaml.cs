@@ -51,15 +51,15 @@ namespace Local_Canteen_Optimizer.View.Cashier
             if (selectedFoodItem != null)
             {
                 // Tạo CartItemModel từ FoodItemModel
-                var cartItem = new CartItemModel
-                {
-                    Id = selectedFoodItem.ProductID,
-                    Name = selectedFoodItem.Name,
-                    Price = selectedFoodItem.Price
-                };
+                //var cartItem = new FoodModel
+                //{
+                //    Id = selectedFoodItem.ProductID,
+                //    Name = selectedFoodItem.Name,
+                //    Price = selectedFoodItem.Price
+                //};
 
                 // Thêm món ăn vào giỏ hàng
-                cartViewModel.AddItemToCart(cartItem);
+                cartViewModel.AddItemToCart(selectedFoodItem);
             }
         }
 

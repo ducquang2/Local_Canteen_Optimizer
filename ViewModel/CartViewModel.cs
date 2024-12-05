@@ -18,7 +18,7 @@ namespace Local_Canteen_Optimizer.ViewModel
     public class CartViewModel : INotifyPropertyChanged
     {
         private IOrderDAO _dao = null;
-        public ObservableCollection<CartItemModel> CartItems { get; set; }
+        public ObservableCollection<FoodModel> CartItems { get; set; }
         public ICommand RemoveItemCommand { get; set; }
 
         public double Subtotal => CartItems.Sum(item => item.Price);
@@ -42,8 +42,8 @@ namespace Local_Canteen_Optimizer.ViewModel
         {
             _dao = new OrderDAOImp();
             selectedTableId = 0;
-            CartItems = new ObservableCollection<CartItemModel>();
-            RemoveItemCommand = new RelayCommand<CartItemModel>(RemoveItem);
+            CartItems = new ObservableCollection<FoodModel>();
+            //RemoveItemCommand = new RelayCommand<FoodModel>(RemoveItem);
             //LoadProductsAsync();
         }
 
@@ -69,7 +69,7 @@ namespace Local_Canteen_Optimizer.ViewModel
             OnPropertyChanged(nameof(Total));
         }
 
-        public void AddItemToCart(CartItemModel item)
+        public void AddItemToCart(FoodModel item)
         {
             CartItems.Add(item);
             OnPropertyChanged(nameof(Subtotal));
@@ -77,7 +77,7 @@ namespace Local_Canteen_Optimizer.ViewModel
             OnPropertyChanged(nameof(Total));
         }
 
-        public void RemoveItem(CartItemModel item)
+        public void RemoveItem(FoodModel item)
         {
             CartItems.Remove(item);
             OnPropertyChanged(nameof(Subtotal));

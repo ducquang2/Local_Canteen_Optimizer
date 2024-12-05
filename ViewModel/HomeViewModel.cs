@@ -124,12 +124,7 @@ namespace Local_Canteen_Optimizer.ViewModel
 
         private void AddToCart(FoodModel foodItem)
         {
-            _cartViewModel.AddItemToCart(new CartItemModel
-            {
-                Id = foodItem.ProductID,
-                Name = foodItem.Name,
-                Price = foodItem.Price
-            });
+            _cartViewModel.AddItemToCart(foodItem);
         }
 
     }

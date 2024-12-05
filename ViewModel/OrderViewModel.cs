@@ -1,4 +1,5 @@
 ﻿using Local_Canteen_Optimizer.DAO.OrderDAO;
+using Local_Canteen_Optimizer.DAO.ProductDAO;
 using Local_Canteen_Optimizer.Model;
 using Local_Canteen_Optimizer.Service;
 using System;
@@ -15,17 +16,24 @@ namespace Local_Canteen_Optimizer.ViewModel
     {
         private IOrderDAO _dao = null;
         public ObservableCollection<OrderModel> Orders => OrderDataServices.Instance.Orders;
+        public int TotalPages => OrderDataServices.Instance.TotalPages;
         public OrderModel currentOrder;
 
-        public OrderViewModel()
+        //public OrderViewModel()
+        //{
+        //    _dao = new OrderDAOImp();
+        //}
+
+        public async Task Init()
         {
             _dao = new OrderDAOImp();
+            await OrderDataServices.Instance.LoadOrdersAsync();
         }
 
         public async Task UpdateOrderModel(OrderModel order)
         {
             currentOrder = order;
-            List<CartItemModel> cartItemModels = await _dao.GetAllOrderItems(order.OrderId);
+            List<FoodModel> cartItemModels = await _dao.GetAllOrderItems(order.OrderId);
             currentOrder.OrderDetails = cartItemModels;
             OnPropertyChanged(nameof(currentOrder));
         }

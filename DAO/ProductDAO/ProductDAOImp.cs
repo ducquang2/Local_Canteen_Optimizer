@@ -42,7 +42,7 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
                         image_url = newProduct.ImageSource
                     };
 
-                    var response = await _httpClient.PostAsJsonAsync("api/v1/products/add", apiProduct);
+                    var response = await _httpClient.PostAsJsonAsync("api/v1/products", apiProduct);
 
                     if (response.IsSuccessStatusCode)
                     {
