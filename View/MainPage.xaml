@@ -49,14 +49,14 @@
                                 ImageSource="ms-appx:///Images/product.png" Content="Product" />
                             <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding ReportsCommand}"
                                 ImageSource="ms-appx:///Images/report.png" Content="Report" />
-                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding SettingsCommand}"
-                                ImageSource="ms-appx:///Images/setting.png" Content="Setting" />
                             <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding TablesCommand}"
                                 ImageSource="ms-appx:///Images/meeting-room-black.png" Content="Table" />
                             <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding TransactionsCommand}"
                                 ImageSource="ms-appx:///Images/save-money.png" Content="Transactions" />
                             <Menu:CustomRadioButton x:Name="ManageUserButton" Style="{StaticResource BtnStyle}" Command="{Binding ManageUserCommand}"
                                 ImageSource="ms-appx:///Images/save-money.png" Content="Manage Users" />
+                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding SettingsCommand}"
+                                ImageSource="ms-appx:///Images/setting.png" Content="Setting" />
                         </StackPanel>
                         
                         <Button

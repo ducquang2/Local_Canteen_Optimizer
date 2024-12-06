@@ -35,39 +35,6 @@ namespace Local_Canteen_Optimizer.Ultis
                 case ManageUserViewModel: return ManageUserTemplate;
             }
 
-            //if (item is HomeViewModel)
-            //{
-            //    return HomeTemplate;
-            //}
-            //else if (item is CustomerViewModel)
-            //{
-            //    return CustomerTemplate;
-            //}
-            //else if (item is OrderViewModel)
-            //{
-            //    return OrderTemplate;
-            //}
-            //else if (item is ProductViewModel)
-            //{
-            //    return ProductTemplate;
-            //}
-            //else if (item is ReportViewModel)
-            //{
-            //    return ReportTemplate;
-            //}
-            //else if (item is SettingViewModel)
-            //{
-            //    return SettingTemplate;
-            //}
-            //else if (item is TableViewModel)
-            //{
-            //    return TableTemplate;
-            //}
-            //else if (item is TransactionViewModel)
-            //{
-            //    return TransactionTemplate;
-            //}
-
             return base.SelectTemplateCore(item);
         }
     }
