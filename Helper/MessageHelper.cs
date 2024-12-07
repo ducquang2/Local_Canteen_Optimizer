@@ -55,5 +55,24 @@ namespace Local_Canteen_Optimizer.Helper
 
             await dialog.ShowAsync();
         }
+
+        public static async Task<bool> ShowConfirmationDialog(string message, string title, Microsoft.UI.Xaml.XamlRoot xamlRoot)
+        {
+            if (xamlRoot == null)
+                throw new ArgumentNullException(nameof(xamlRoot), "XamlRoot không được null");
+
+            var dialog = new ContentDialog
+            {
+                Title = title,
+                Content = message,
+                CloseButtonText = "Cancel",
+                PrimaryButtonText = "Ok",
+                DefaultButton = ContentDialogButton.Primary,
+                XamlRoot = xamlRoot
+            };
+
+            var result = await dialog.ShowAsync();
+            return result == ContentDialogResult.Primary;
+        }
     }
 }

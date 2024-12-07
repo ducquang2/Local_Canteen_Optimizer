@@ -137,7 +137,7 @@
                 </Border>
 
                 <!-- Data Rows -->
-                <ListView ItemsSource="{x:Bind productViewModel.FoodItems}" HorizontalAlignment="Stretch" Grid.Row="2">
+                <ListView x:Name="FoodListView" DataContext="{x:Bind productViewModel}" ItemsSource="{x:Bind productViewModel.FoodItems}" HorizontalAlignment="Stretch" Grid.Row="2">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border Margin="0,4,0,4" CornerRadius="8" BorderBrush="LightGray" BorderThickness="0,0,0,1">
@@ -173,7 +173,7 @@
                                         <Button Width="40" Height="40" Click="EditButton_Click" Tag="{Binding}">
                                             <Image Width="16" Height="16" Source="ms-appx:///Images/edit.png" />
                                         </Button>
-                                        <Button Width="40" Height="40" Click="RemoveButton_Click" Tag="{Binding}">
+                                        <Button Width="40" Height="40" Click="RemoveButton_Click" Command="{Binding ElementName=FoodListView, Path=DataContext.DeleteFoodCommand}" CommandParameter="{Binding}">
                                             <Image Width="16" Height="16" Source="ms-appx:///Images/delete.png" />
                                         </Button>
                                     </StackPanel>

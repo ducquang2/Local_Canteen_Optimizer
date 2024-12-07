@@ -106,7 +106,7 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
                     //string userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMDEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzA2MDc1NjcsImV4cCI6MTczMDYxODM2N30.yeQlwaObIRDsJxUo67AexY8nx2ynSBXVNU5zWfwR8Mg";
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
 
-                    var response = await _httpClient.GetAsync($"api/v1/products/delete/{productID}");
+                    var response = await _httpClient.DeleteAsync($"api/v1/products/{productID}");
 
                     if (response.IsSuccessStatusCode)
                     {
