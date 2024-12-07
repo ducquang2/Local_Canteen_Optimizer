@@ -45,7 +45,7 @@ namespace Local_Canteen_Optimizer.View.SellProduct
 
         private void OnAddTableRequested(object sender, EventArgs e)
         {
-            // Khi nhấn nút Add Product, chuyển sang màn hình chọn bàn
+            // Khi nhấn nút Add Table, chuyển sang màn hình chọn bàn
             SellProductContent.Content = tableControl;
         }
 

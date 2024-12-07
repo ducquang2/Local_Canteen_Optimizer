@@ -32,7 +32,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                 ApiOrder apiOrder = new ApiOrder
                 {
                     order_status = "pending",
-                    total_price = orderModel.Total,
+                    //total_price = orderModel.Total,
                 };
 
                 var response = await _httpClient.PostAsJsonAsync("api/v1/orders", apiOrder);
@@ -46,7 +46,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                         ApiOrderItem apiOrderItem = new ApiOrderItem
                         {
                             product_id = int.Parse(orderModel.OrderDetails[i].ProductID),
-                            quantity = 1,
+                            quantity = orderModel.OrderDetails[i].QuantityBuy,
                             price = orderModel.OrderDetails[i].Price
                         };
                         var response2 = await _httpClient.PostAsJsonAsync($"api/v1/orders/{order_id}/items" , apiOrderItem);
@@ -77,13 +77,14 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
 
         }
 
-        public async Task<bool> CheckOut(int tableId)
+        public async Task<bool> CheckOut(int tableId, int orderId)
         {
             try
             {
                 var checkOutRequest = new
                 {
                     table_id = tableId,
+                    order_id = orderId
                 };
                 var response = await _httpClient.PostAsJsonAsync($"api/v1/orders/checkout", checkOutRequest);
                 if (response.IsSuccessStatusCode)
@@ -163,6 +164,44 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
             
         }
 
+        public async Task<bool> UpdateOrderItems(OrderModel orderModel)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"api/v1/order-items/{orderModel.OrderId}");
+                if (response.IsSuccessStatusCode) { 
+
+                    for (int i = 0; i < orderModel.OrderDetails.Count; i++)
+                    {
+                        ApiOrderItem apiOrderItem = new ApiOrderItem
+                        {
+                            product_id = int.Parse(orderModel.OrderDetails[i].ProductID),
+                            quantity = orderModel.OrderDetails[i].QuantityBuy,
+                            price = orderModel.OrderDetails[i].Price
+                        };
+                        var response2 = await _httpClient.PostAsJsonAsync($"api/v1/orders/{orderModel.OrderId}/items", apiOrderItem);
+                        if (!response2.IsSuccessStatusCode)
+                        {
+                            // Xử lý lỗi từ server
+                            var errorContent = await response2.Content.ReadAsStringAsync();
+                            Console.WriteLine($"Error: {errorContent}");
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch
+            {
+                // Xử lý lỗi nếu có
+                return false;
+            }
+        }
+
         public async Task<bool> UpdateTableAfterOrder(int orderId, int tableId)
         {
             try
@@ -218,7 +257,8 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                     ImageSource = item.image_url,
                     Name = item.product_name.ToString(),
                     Price = item.price,
-                    Quantity = item.quantity
+                    Quantity = item.quantity,
+                    QuantityBuy = item.quantity
                 }).ToList()
             };
         }

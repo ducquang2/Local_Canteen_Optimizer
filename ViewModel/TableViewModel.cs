@@ -27,6 +27,7 @@ namespace Local_Canteen_Optimizer.ViewModel
         }
 
         public void updateTable(TableModel newTable) {
+            if(newTable == null) return;
             var table = listTables.FirstOrDefault(t => t.tableId == newTable.tableId);
             if (table != null)
             {
