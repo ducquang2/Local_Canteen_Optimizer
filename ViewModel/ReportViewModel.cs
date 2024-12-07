@@ -25,11 +25,16 @@ namespace Local_Canteen_Optimizer.ViewModel
         public Axis[] UserGrowthXAxes { get; set; }
         public Axis[] UserGrowthYAxes { get; set; }
 
+        public ISeries[] MostProductSeries { get; set; }
+        public Axis[] TotalQuantityXAxes { get; set; }
+        public Axis[] MostProductYAxes { get; set; }
+
         public ReportViewModel()
         {
             _httpClient = HttpClientService.GetHttpClient();
             LoadSalesData();
             LoadUserGrowthData();
+            LoadMostProductData();
         }
 
         private async void LoadSalesData()
@@ -137,6 +142,58 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
 
+        private async void LoadMostProductData()
+        {
+            try
+            {
+                var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                if (localSettings.Values.ContainsKey("userToken"))
+                {
+                    string userToken = localSettings.Values["userToken"] as string;
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+
+                    var mostProductData = await _httpClient.GetFromJsonAsync<List<MostProductData>>("api/v1/chart/most-product");
+                    MostProductSeries = new ISeries[]
+                    {
+                        new ColumnSeries<double>
+                        {
+                            Values = mostProductData.ConvertAll(data => double.Parse(data.TotalQuantity)),
+                            Name = "Total Quantity",
+                            Fill = new SolidColorPaint(SKColors.Orange)
+                        }
+                    };
+
+                    TotalQuantityXAxes = new Axis[]
+                    {
+                        new Axis
+                        {
+                            Labels = mostProductData.ConvertAll(data => data.ProductName).ToArray()
+                        }
+                    };
+
+                    MostProductYAxes = new Axis[]
+                    {
+                        new Axis
+                        {
+                            Labeler = value => value.ToString()
+                        }
+                    };
+
+                    OnPropertyChanged(nameof(MostProductSeries));
+                    OnPropertyChanged(nameof(TotalQuantityXAxes));
+                    OnPropertyChanged(nameof(MostProductYAxes));
+                }
+                else
+                {
+                    throw new UnauthorizedAccessException("User not authenticated");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching most product data: {ex.Message}");
+            }
+        }
+
         public class SalesData
         {
             [JsonPropertyName("month")]
@@ -153,6 +210,18 @@ namespace Local_Canteen_Optimizer.ViewModel
 
             [JsonPropertyName("user_count")]
             public string UserCount { get; set; }
+        }
+
+        public class MostProductData
+        {
+            [JsonPropertyName("month")]
+            public DateTime Month { get; set; }
+
+            [JsonPropertyName("product_name")]
+            public string ProductName { get; set; }
+
+            [JsonPropertyName("total_quantity")]
+            public string TotalQuantity { get; set; }
         }
     }
 }

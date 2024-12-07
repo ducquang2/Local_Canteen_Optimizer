@@ -17,6 +17,8 @@
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -37,12 +39,22 @@
             </Border>
         </Grid>
 
-
         <Grid Grid.Row="1" Grid.Column="1" Margin="15" Width="500" Height="300" Background="White">
             <Border>
                 <lvc:CartesianChart Series="{Binding UserGrowthSeries}"
                                     XAxes="{Binding UserGrowthXAxes}"
                                     YAxes="{Binding UserGrowthYAxes}"
+                                    LegendPosition="Right" />
+            </Border>
+        </Grid>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Quantity Products Sold" FontSize="18" Margin="0,0,0,10" Grid.ColumnSpan="2"/>
+
+        <Grid Grid.Row="3" Grid.Column="0" Margin="15" Width="1000" Height="300" Background="White" Grid.ColumnSpan="2">
+            <Border>
+                <lvc:CartesianChart Series="{Binding MostProductSeries}"
+                                    XAxes="{Binding TotalQuantityXAxes}"
+                                    YAxes="{Binding MostProductYAxes}"
                                     LegendPosition="Right" />
             </Border>
         </Grid>
