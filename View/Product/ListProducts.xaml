@@ -70,8 +70,8 @@
                         <!-- Select Table Button -->
                         <Button
                         Background="White" 
-                        Foreground="{StaticResource borderColor}" 
-                        BorderBrush="{StaticResource borderColor}" 
+                        Foreground="{ThemeResource borderColor}" 
+                        BorderBrush="{ThemeResource borderColor}" 
                         BorderThickness="1" 
                         CornerRadius="8" 
                         Padding="10" 
@@ -85,8 +85,8 @@
 
                         <Button
                             Background="White" 
-                            Foreground="{StaticResource buttonColorGreen}" 
-                            BorderBrush="{StaticResource buttonColorGreen}" 
+                            Foreground="{ThemeResource buttonColorGreen}" 
+                            BorderBrush="{ThemeResource buttonColorGreen}" 
                             BorderThickness="1" 
                             CornerRadius="8" 
                             Padding="10" 
@@ -99,7 +99,7 @@
                         </Button>
 
                         <Button
-                            Background="White" 
+                            Background="{ThemeResource primaryBackColor}" 
                             Foreground="#7AB2D3" 
                             BorderBrush="#7AB2D3" 
                             BorderThickness="1" 

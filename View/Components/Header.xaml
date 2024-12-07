@@ -8,9 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Border BorderBrush="#9F9F9E" 
+    <Border BorderBrush="{ThemeResource secondaryBackColorGray}" 
             BorderThickness="0,0,0,0.4">
-    <Grid Background="White" Padding="10" VerticalAlignment="Center">
+        <Grid Background="{ThemeResource primaryBackColor}" Padding="10" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -53,8 +53,8 @@
 
             <!-- Select Table Button -->
             <Button
-                Background="{StaticResource borderColor}" 
-                Foreground="White" 
+                Background="{ThemeResource borderColor}" 
+                Foreground="{ThemeResource primaryBackColor}" 
                 Margin="5,0" 
                 Padding="8" >
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
