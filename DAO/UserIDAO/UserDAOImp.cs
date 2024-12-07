@@ -11,6 +11,7 @@ using System.Text.Json.Serialization;
 using Windows.Storage;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using Local_Canteen_Optimizer.View.ManageUser;
 
 namespace Local_Canteen_Optimizer.DAO.UserIDAO
 {
@@ -61,14 +62,53 @@ namespace Local_Canteen_Optimizer.DAO.UserIDAO
 
         public async Task<UserModel> AddUserAsync(UserModel newUser)
         {
-            await Task.CompletedTask;
-            return null;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            if (localSettings.Values.ContainsKey("userToken"))
+            {
+                string userToken = localSettings.Values["userToken"] as string;
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+                var response = await _httpClient.PostAsJsonAsync("api/v1/users", newUser);
+                if (response.IsSuccessStatusCode)
+                {
+                    var addedUser = await response.Content.ReadFromJsonAsync<AddApiResponse>();
+                    return ConvertToUserModel(addedUser._apiUser);
+                }
+                else
+                {
+                    throw new Exception("Error adding user");
+                }
+            }
+            throw new UnauthorizedAccessException("User not authenticated");
         }
 
-        public async Task<UserModel> UpdateUserAsync(UserModel newUser)
+        public async Task<UserModel> UpdateUserAsync(UserModel updatedUser)
         {
-            await Task.CompletedTask;
-            return null;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            if (localSettings.Values.ContainsKey("userToken"))
+            {
+                string userToken = localSettings.Values["userToken"] as string;
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+
+                ApiUser apiUser = new ApiUser
+                {
+                    username = updatedUser.Username,
+                    full_name = updatedUser.Full_name,
+                    phone_number = updatedUser.Phone_number,
+                    role = updatedUser.Role
+                };
+
+                var response = await _httpClient.PutAsJsonAsync($"api/v1/users/{updatedUser.UserID}", apiUser);
+                if (response.IsSuccessStatusCode)
+                {
+                    var editedUser = await response.Content.ReadFromJsonAsync<AddApiResponse>();
+                    return ConvertToUserModel(editedUser._apiUser);
+                }
+                else
+                {
+                    throw new Exception("Error updating user");
+                }
+            }
+            throw new UnauthorizedAccessException("User not authenticated");
         }
 
         public async Task<bool> RemoveUserAsync(int userID)
@@ -100,7 +140,7 @@ namespace Local_Canteen_Optimizer.DAO.UserIDAO
 
         public class AddApiResponse
         {
-            [JsonPropertyName("product")]
+            [JsonPropertyName("user")]
             public ApiUser _apiUser { get; set; }
         }
     }

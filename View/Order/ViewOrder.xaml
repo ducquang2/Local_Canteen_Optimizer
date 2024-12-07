@@ -31,8 +31,8 @@
                         <!-- Select Table Button -->
                         <Button
                             Background="White" 
-                            Foreground="{StaticResource borderColor}" 
-                            BorderBrush="{StaticResource borderColor}" 
+                            Foreground="{ThemeResource borderColor}" 
+                            BorderBrush="{ThemeResource borderColor}" 
                             BorderThickness="1" 
                             CornerRadius="8" 
                             Padding="10" 
