@@ -14,16 +14,19 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Local_Canteen_Optimizer.ViewModel;
 using Local_Canteen_Optimizer.Model;
+using System.Threading.Tasks;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace Local_Canteen_Optimizer.View
+namespace Local_Canteen_Optimizer.View.Cashier
 {
     public sealed partial class Home : UserControl
     {
         CartViewModel cartViewModel;
         HomeViewModel homeViewModel;
+        public CartView CartViewControl => CartView;
+        public CartViewModel CartViewModel => cartViewModel;
         public Home()
         {
             this.InitializeComponent();
@@ -47,17 +50,29 @@ namespace Local_Canteen_Optimizer.View
 
             if (selectedFoodItem != null)
             {
-                // Tạo CartItemModel từ FoodItemModel
-                var cartItem = new CartItemModel
-                {
-                    Id = selectedFoodItem.ProductID,
-                    Name = selectedFoodItem.Name,
-                    Price = selectedFoodItem.Price
-                };
-
                 // Thêm món ăn vào giỏ hàng
-                cartViewModel.AddItemToCart(cartItem);
+                cartViewModel.AddItemToCart(selectedFoodItem);
             }
+        }
+
+        private async void searchButton_Click(object sender, RoutedEventArgs e)
+        {
+            await handleSearchButtonClick();
+        }
+
+        public async Task handleSearchButtonClick()
+        {
+            await homeViewModel.searchProductsAsync();
+        }
+
+        private async void filterButton_Click(object sender, RoutedEventArgs e)
+        {
+            await handleFilterButtonClick();
+        }
+
+        public async Task handleFilterButtonClick()
+        {
+            await homeViewModel.filterProductsAsync();
         }
     }
 }

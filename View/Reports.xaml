@@ -6,9 +6,57 @@
     xmlns:local="using:Local_Canteen_Optimizer.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Local_Canteen_Optimizer.ViewModel"
+    xmlns:lvc="using:LiveChartsCore.SkiaSharpView.WinUI"
     mc:Ignorable="d">
 
+    <UserControl.DataContext>
+        <vm:ReportViewModel/>
+    </UserControl.DataContext>
+
     <Grid Margin="15">
-        <TextBlock Text="Report Page"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Sales Chart" FontSize="18" Margin="0,0,0,10"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="User Growth Chart" FontSize="18" Margin="0,0,0,10"/>
+
+        <Grid Grid.Row="1" Grid.Column="0" Margin="15" Width="500" Height="300" Background="White">
+            <Border>
+                <lvc:CartesianChart Series="{Binding SalesSeries}"
+                                    XAxes="{Binding SalesXAxes}"
+                                    YAxes="{Binding SalesYAxes}"
+                                    LegendPosition="Right" />
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1" Margin="15" Width="500" Height="300" Background="White">
+            <Border>
+                <lvc:CartesianChart Series="{Binding UserGrowthSeries}"
+                                    XAxes="{Binding UserGrowthXAxes}"
+                                    YAxes="{Binding UserGrowthYAxes}"
+                                    LegendPosition="Right" />
+            </Border>
+        </Grid>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Quantity Products Sold" FontSize="18" Margin="0,0,0,10" Grid.ColumnSpan="2"/>
+
+        <Grid Grid.Row="3" Grid.Column="0" Margin="15" Width="1000" Height="300" Background="White" Grid.ColumnSpan="2">
+            <Border>
+                <lvc:CartesianChart Series="{Binding MostProductSeries}"
+                                    XAxes="{Binding TotalQuantityXAxes}"
+                                    YAxes="{Binding MostProductYAxes}"
+                                    LegendPosition="Right" />
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

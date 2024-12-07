@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="Local_Canteen_Optimizer.View.Cashier.Home"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Local_Canteen_Optimizer.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:Menu="using:Local_Canteen_Optimizer.Ultis"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    >
+    
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Border Background="{ThemeResource primaryBackColor}" />
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Padding="20" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" Padding="0 0 0 20" Grid.Row="0">
+                    <Border Background="{ThemeResource primaryBackColor}" CornerRadius="10">
+                        <StackPanel Orientation="Horizontal" Height="60">
+                            <!-- Search Box -->
+                            <TextBox PlaceholderText="Search products..." 
+                                VerticalAlignment="Center" 
+                                Grid.Column="1"
+                                Width="300" 
+                                Text="{Binding keyword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Margin="10,0,0,0" />
+
+                            <!-- Search Button -->
+                            <Button VerticalAlignment="Center" 
+                                Width="45"
+                                Margin="5,0"
+                                Grid.Column="2"
+                                Click="searchButton_Click"
+                                >   
+                                <Image Source="ms-appx:///Images/search.png" />
+                            </Button>
+
+                            <StackPanel Orientation="Horizontal" Padding="10 0 0 0">
+                                <!-- Min Price Input -->
+                                <TextBox 
+                                    Text="{Binding minPrice, Mode=TwoWay}" 
+                                    Width="80" 
+                                    Margin="5" 
+                                    PlaceholderText="Min Price" 
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>      
+
+                                <Image Source="ms-appx:///Images/fast-forward.png" 
+                                    Width="20" 
+                                    VerticalAlignment="Center"/>  
+                                
+                                <!-- Max Price Input -->
+                                <TextBox 
+                                    Text="{Binding maxPrice, Mode=TwoWay}" 
+                                    Width="80" 
+                                    Margin="5" 
+                                    PlaceholderText="Max Price" 
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+
+
+                                <Button VerticalAlignment="Center" 
+                                    Width="45"
+                                    Margin="5,0"
+                                    Click="filterButton_Click"
+                                    >   
+                                    <Image Source="ms-appx:///Images/filter.png" />
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </ScrollViewer>
+
+                <!--View chứa danh sách loại món ăn-->
+                <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" Padding="0 0 0 20" Grid.Row="1">
+                    <Border Background="{ThemeResource primaryBackColor}" CornerRadius="10">
+                        <StackPanel Orientation="Horizontal">
+                            <!-- Menu Items -->
+                            <Menu:CustomRadioButton Style="{ThemeResource BtnSmallStyle}"
+                                Content="Home" IsChecked="True"/>
+                            <Menu:CustomRadioButton Style="{ThemeResource BtnSmallStyle}"
+                                Content="Customer"/>
+                            <Menu:CustomRadioButton Style="{ThemeResource BtnSmallStyle}"
+                                Content="Order"/>
+                            <Menu:CustomRadioButton Style="{ThemeResource BtnSmallStyle}"
+                                Content="Product"/>
+                            <Menu:CustomRadioButton Style="{ThemeResource BtnSmallStyle}"
+                                Content="Report"/>
+                            <Menu:CustomRadioButton Style="{ThemeResource BtnSmallStyle}"
+                                Content="Setting"/>
+                        </StackPanel>
+                    </Border>
+                </ScrollViewer>
+
+                <GridView x:Name="FoodItemsGrid"  HorizontalAlignment="Center" VerticalAlignment="Stretch" Grid.Row="2"
+                    ItemsSource="{Binding FoodItems}">
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{ThemeResource primaryBackColor}" Padding="10">
+                                <StackPanel HorizontalAlignment="Center" Width="170">
+                                    <Image Source="{Binding ImageSource}" Width="150" Height="150" />
+                                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" FontSize="14" Margin="0,10,0,10"/>
+                                    <TextBlock FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 10 ">
+                                        <Run Text="{Binding Price}" />
+                                        <Run Text=" VND" />     
+                                    </TextBlock>
+                                    <Button 
+                                        Content="Order"
+                                        Click="AddToCartButton"
+                                        Tag="{Binding}"
+                                        Background="{ThemeResource buttonColorOrange}"
+                                        Foreground="{ThemeResource primaryBackColor}"
+                                        Padding="10"
+                                        Width="100"
+                                        HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+            </Grid>
+
+             <!--View chứa giỏ hàng và thanh toán-->
+            <local:CartView x:Name="CartView" Grid.Column="1" Width="420"/>
+        </Grid>
+    </Grid>
+</UserControl>

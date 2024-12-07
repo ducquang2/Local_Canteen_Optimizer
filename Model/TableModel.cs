@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace Local_Canteen_Optimizer.Model
 {
-    class TableModel
+    public class TableModel
     {
-        public string Name { get; set; }
-        public string Status { get; set; }
+        public int tableId { get; set; }
+        public string tableName { get; set; }
+        public bool isAvailable { get; set; }
+        public int? currentOrderId { get; set; }
+        public DateTime createAt { get; set; }
+        public DateTime updateAt { get; set; }
     }
 }

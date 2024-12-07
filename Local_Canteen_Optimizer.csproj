@@ -39,6 +39,8 @@
     <None Remove="View\EditProduct.xaml" />
     <None Remove="View\Header.xaml" />
     <None Remove="View\Home.xaml" />
+    <None Remove="View\ManageUser\AddUser.xaml" />
+    <None Remove="View\ManageUser\EditUser.xaml" />
     <None Remove="View\ManageUser\ListUser.xaml" />
     <None Remove="View\ManageUser\ManageUser.xaml" />
     <None Remove="View\Orders.xaml" />
@@ -46,6 +48,7 @@
     <None Remove="View\Order\ViewOrder.xaml" />
     <None Remove="View\Product.xaml" />
     <None Remove="View\Reports.xaml" />
+    <None Remove="View\SellProduct\SellProduct.xaml" />
     <None Remove="View\Setting.xaml" />
     <None Remove="View\Table.xaml" />
     <None Remove="View\Transactions.xaml" />
@@ -68,6 +71,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.1.1" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WinUI" Version="2.0.0-rc4.5" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240923002" />
     <Manifest Include="$(ApplicationManifest)" />
@@ -117,6 +122,18 @@
     <None Update="Images\edit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Images\error.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\excel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\fast-forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\filter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\home_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -144,6 +161,9 @@
     <None Update="Images\logout.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Images\management.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\meeting-room-black.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -154,6 +174,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Images\order.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\pie-chart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Images\product.png">
@@ -177,9 +200,21 @@
     <None Update="Images\shutdown_mo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Images\success.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Page Update="View\Cashier\Cashier.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="View\ManageUser\EditUser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="View\ManageUser\AddUser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="View\ManageUser\ListUser.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -276,6 +311,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Themes\" />
     <Folder Include="View\Components\" />
     <Folder Include="View\Product\" />
   </ItemGroup>

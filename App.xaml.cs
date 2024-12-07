@@ -22,6 +22,7 @@ namespace Local_Canteen_Optimizer
         public App()
         {
             this.InitializeComponent();
+            //ApplySavedTheme();
         }
 
         /// <summary>
@@ -49,7 +50,7 @@ namespace Local_Canteen_Optimizer
                 m_window.NavigateToAuthPage();
             }
         }
-        public MainWindow m_window { get; private set; }
+        public static MainWindow m_window { get; private set; }
 
         private bool IsUserAuthenticated()
         {
@@ -110,6 +111,28 @@ namespace Local_Canteen_Optimizer
                 case 2: return base64 + "==";
                 case 3: return base64 + "=";
                 default: return base64;
+            }
+        }
+
+        private void ApplySavedTheme()
+        {
+            var localSettings = ApplicationData.Current.LocalSettings;
+            var savedTheme = localSettings.Values["AppTheme"] as string;
+
+            if (savedTheme != null)
+            {
+                switch (savedTheme)
+                {
+                    case "Light":
+                        ((FrameworkElement)App.m_window.Content).RequestedTheme = ElementTheme.Light;
+                        break;
+                    case "Dark":
+                        ((FrameworkElement)App.m_window.Content).RequestedTheme = ElementTheme.Dark;
+                        break;
+                    default:
+                        ((FrameworkElement)App.m_window.Content).RequestedTheme = ElementTheme.Default;
+                        break;
+                }
             }
         }
     }

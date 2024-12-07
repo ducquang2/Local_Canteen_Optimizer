@@ -31,8 +31,8 @@
                         <!-- Select Table Button -->
                         <Button
                             Background="White" 
-                            Foreground="{StaticResource borderColor}" 
-                            BorderBrush="{StaticResource borderColor}" 
+                            Foreground="{ThemeResource borderColor}" 
+                            BorderBrush="{ThemeResource borderColor}" 
                             BorderThickness="1" 
                             CornerRadius="8" 
                             Padding="10" 
@@ -54,7 +54,7 @@
                              Margin="4" 
                         />
 
-                        <TextBlock Text="{x:Bind currentOrder.OrderId}" 
+                        <TextBlock Text="{x:Bind currentOrderViewModel.currentOrder.OrderId, Mode=TwoWay}" 
                              VerticalAlignment="Center" 
                              Grid.Column="1"
                              FontWeight="Bold"
@@ -82,48 +82,48 @@
                     <Grid HorizontalAlignment="Center" Padding="10 16 0 16">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="Product" Grid.Column="0" FontSize="14" FontWeight="Bold" Width="400"/>
-                        <TextBlock Text="Product ID" Grid.Column="1" FontSize="14" FontWeight="Bold" Width="200"/>
-                        <TextBlock Text="Price" Grid.Column="2" FontSize="14" FontWeight="Bold" Width="250" />
-                        <TextBlock Text="Quantity" Grid.Column="3" FontSize="14" FontWeight="Bold" Width="200" />
+                        <TextBlock Text="Product" Grid.Column="0" FontSize="14" FontWeight="Bold" Width="600"/>
+                        <TextBlock Text="Product ID" Grid.Column="1" FontSize="14" FontWeight="Bold" Width="400"/>
+                        <TextBlock Text="Price" Grid.Column="2" FontSize="14" FontWeight="Bold" Width="400" />
+                        <TextBlock Text="Quantity" Grid.Column="3" FontSize="14" FontWeight="Bold" Width="400" />
                         <!--<TextBlock Text="Action" Grid.Column="4" FontSize="14" FontWeight="Bold" Width="120"/>-->
                     </Grid>
                 </Border>
 
                 <!-- Data Rows -->
-                <ListView ItemsSource="{x:Bind currentOrder.OrderDetails}" HorizontalAlignment="Stretch" Grid.Row="2">
+                <ListView ItemsSource="{x:Bind currentOrderViewModel.currentOrder.OrderDetails, Mode=TwoWay}" HorizontalAlignment="Stretch" Grid.Row="2">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border Margin="0,4,0,4" CornerRadius="8" BorderBrush="LightGray" BorderThickness="0,0,0,1">
                                 <Grid HorizontalAlignment="Stretch" Padding="0 16 0 16">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="3*"/>
-                                        <ColumnDefinition Width="1*"/>
                                         <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="2*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
                                     <!-- Product Image and Name -->
-                                    <StackPanel Orientation="Horizontal" Grid.Column="0" Width="400">
-                                        <Image Source="{Binding ImageSource}" Height="50"/>
-                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="4 0 0 0"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="0" Width="600">
+                                        <Image Source="{Binding ImageSource}" Height="50" />
+                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="10 0 0 0"/>
                                     </StackPanel>
 
                                     <!-- Product ID -->
-                                    <TextBlock Text="{Binding Id}" Grid.Column="1" VerticalAlignment="Center" Width="200"/>
+                                    <TextBlock Text="{Binding ProductID}" Grid.Column="1" VerticalAlignment="Center" Width="400" Margin="6 0 0 0"/>
 
                                     <!-- Price -->
-                                    <TextBlock Text="{Binding Price}" Grid.Column="2" VerticalAlignment="Center" FontWeight="Bold" Width="250"/>
+                                    <TextBlock Text="{Binding Price}" Grid.Column="2" VerticalAlignment="Center" FontWeight="Bold" Width="400" Margin="6 0 0 0"/>
 
                                     <!-- Quantity -->
-                                    <TextBlock Text="1" Grid.Column="3" VerticalAlignment="Center" Width="200" Margin="10 0 0 0"/>
+                                    <TextBlock Text="{Binding Quantity}" Grid.Column="3" VerticalAlignment="Center" Width="400" Margin="10 0 0 0"/>
 
                                     <!-- Action Buttons -->
                                     <!--<StackPanel Orientation="Horizontal" Grid.Column="4" Spacing="5" Width="120">

@@ -15,7 +15,7 @@
                     <Border x:Name="border" Height="40" Width="90" BorderThickness="2" CornerRadius="5">
                         
                         <Border.Background>
-                            <SolidColorBrush x:Name="BorderBackground" Color="#FFF" />
+                            <SolidColorBrush x:Name="BorderBackground" Color="{ThemeResource primaryBackColor}" />
                         </Border.Background>
 
                         <Grid>
@@ -25,14 +25,14 @@
                                 Width="4"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Background="{StaticResource buttonColorOrange}"
+                                Background="{ThemeResource buttonColorOrange}"
                                 Visibility="Collapsed"
                                 CornerRadius="2" />
 
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <!-- Icon Content -->
                                 <!--<Image x:Name="iconImage" Source="{TemplateBinding ImageSource}" 
-                                    Style="{StaticResource Image_Style}"    
+                                    Style="{ThemeResource Image_Style}"    
                                        />-->
 
                                 <!-- Text Content -->
@@ -58,7 +58,7 @@
                                         
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="border"
                                                 Storyboard.TargetProperty="BorderBrush">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="#FC8019" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource borderColor}" />
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Indicator"
@@ -68,13 +68,13 @@
                                         
                                         <ColorAnimation Storyboard.TargetName="BorderBackground"
                                                     Storyboard.TargetProperty="Color"
-                                                    To="{StaticResource secondaryBackColor}"
+                                                    To="{ThemeResource secondaryBackColor}"
                                                     Duration="0:0:0.3" />
 
                                         <!-- Change text color (Foreground) when hovered -->
                                         <ColorAnimation Storyboard.TargetName="contentPresenter"
                                                     Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
-                                                    To="#FC8019"
+                                                    To="{ThemeResource borderColor}"
                                             Duration="0:0:0.3" />
 
                                         <!-- Change Image color on hover -->
@@ -90,7 +90,7 @@
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="border"
                                                 Storyboard.TargetProperty="BorderBrush">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="#FC8019" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource borderColor}" />
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Indicator"
@@ -100,13 +100,13 @@
                                         
                                         <ColorAnimation Storyboard.TargetName="BorderBackground"
                                                     Storyboard.TargetProperty="Color"
-                                                    To="{StaticResource secondaryBackColor}"
+                                                    To="{ThemeResource secondaryBackColor}"
                                                     Duration="0:0:0.3" />
                                         
                                         <!-- Change text color (Foreground) when hovered -->
                                         <ColorAnimation Storyboard.TargetName="contentPresenter"
                                                     Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
-                                                    To="#FC8019"
+                                                    To="{ThemeResource borderColor}"
                                             Duration="0:0:0.3" />           
 
                                         <!-- Change Image color on hover -->
@@ -123,8 +123,8 @@
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetName="BorderBackground"
                                                     Storyboard.TargetProperty="Color"
-                                                    From="#3E434A"
-                                                    To="#272B2F"
+                                                    From="{ThemeResource pointerEnterColor}"
+                                                    To="{ThemeResource pointerExitColor}"
                                                     Duration="0:0:0.3" />
                                     </Storyboard>
                                 </VisualState>
@@ -154,7 +154,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border>
-                    <Border x:Name="border" BorderThickness="0" Background="{StaticResource close_app_def}">
+                        <Border x:Name="border" BorderThickness="0" Background="{StaticResource close_app_def}">
                     </Border>
 
                     <VisualStateManager.VisualStateGroups>
@@ -167,7 +167,7 @@
                                 <Storyboard>
                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="border"
                                                                    Storyboard.TargetProperty="Background">
-                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource close_app_mo}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource close_app_mo}" />
                                     </ObjectAnimationUsingKeyFrames>
                                 </Storyboard>
                             </VisualState>
@@ -177,7 +177,7 @@
                                 <Storyboard>
                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="border"
                                                                    Storyboard.TargetProperty="Background">
-                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource close_app_mo}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource close_app_mo}" />
                                     </ObjectAnimationUsingKeyFrames>
                                 </Storyboard>
                             </VisualState>

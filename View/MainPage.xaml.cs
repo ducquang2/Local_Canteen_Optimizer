@@ -3,6 +3,9 @@ using Local_Canteen_Optimizer.ViewModel;
 using Microsoft.UI.Xaml;
 using System;
 using Local_Canteen_Optimizer.DAO.AuthenDAO;
+using Local_Canteen_Optimizer.Model;
+using Windows.Storage;
+using System.Text.Json;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -23,6 +26,28 @@ namespace Local_Canteen_Optimizer.View
             this.DataContext = new NavigationViewModel();
 
             _authenDAO = new AuthenDAOImp();
+
+            var localSettings = ApplicationData.Current.LocalSettings;
+            if (localSettings.Values.ContainsKey("userInfo"))
+            {
+                var userInfoJson = localSettings.Values["userInfo"] as string;
+                var userInfo = JsonSerializer.Deserialize<UserModel>(userInfoJson);
+                
+                if (userInfo != null && (userInfo.Role == "admin" || userInfo.Role == "manage"))
+                {
+                    // User is admin or manage, show the ManageUser button
+                    ManageUserButton.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    // User is not admin or manage, hide the ManageUser button
+                    ManageUserButton.Visibility = Visibility.Collapsed;
+                }
+            }
+            else
+            {
+                ManageUserButton.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
@@ -31,7 +56,7 @@ namespace Local_Canteen_Optimizer.View
             if (_authenDAO.LogoutAsync())
             {
                 // Handle successful logout, e.g., navigate to login page
-                ((App)Application.Current).m_window.NavigateToAuthPage();
+                App.m_window.NavigateToAuthPage();
             }
             else
             {

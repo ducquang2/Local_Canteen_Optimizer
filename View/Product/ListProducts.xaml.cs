@@ -65,20 +65,20 @@ namespace Local_Canteen_Optimizer.View.Product
             var product = (sender as Button).Tag as FoodModel;
             EditProductRequested?.Invoke(this, product);
         }   
-        public void AddProduct(FoodModel product)
+        public async void AddProduct(FoodModel product)
         {
-            productViewModel.AddFoodItem(product);
+            await productViewModel.AddFoodItem(product);
         }
-        public void UpdateProduct(FoodModel product)
+        public async void UpdateProduct(FoodModel product)
         {
-            productViewModel.UpdateProduct(product);
+            await productViewModel.UpdateProduct(product);
         }
 
-        private void RemoveButton_Click(object sender, RoutedEventArgs e)
+        private async void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button deleteButton && deleteButton.Tag is FoodModel product)
             {
-                productViewModel.DeleteProduct(product);
+                await productViewModel.DeleteProduct(product);
             }
         }
 
@@ -92,21 +92,57 @@ namespace Local_Canteen_Optimizer.View.Product
             }
         }
 
+        public void SortOrderComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+                
+            var comboBox = sender as ComboBox;
+            if (comboBox != null)
+            {
+                var selectedItem = comboBox.SelectedItem as ComboBoxItem;
+                if (selectedItem != null)
+                {
+                    bool isAscending = bool.Parse(selectedItem.Tag.ToString());
+                    productViewModel.LoadProductSort(isAscending);
+                }
+            }
+        }
+
 
         private void keywordTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void searchButton_Click(object sender, RoutedEventArgs e)
+        private async void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            handleSearchButtonClick();
+            await handleSearchButtonClick();
         }
 
         public async Task handleSearchButtonClick()
         {
             await productViewModel.Load(1);
             UpdatePagingInfo_bootstrap();
+        }
+
+        private async void ImportProductExcelButton_Click(object sender, RoutedEventArgs e)
+        {
+            string filePath = await productViewModel.PickExcelFileAsync();
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                await productViewModel.ImportProductsFromExcel(filePath);
+            }
+        }
+
+        private async void ExportProductExcelButton_Click(object sender, RoutedEventArgs e)
+        {
+            var saveFilePath = await productViewModel.PickSaveFileAsync();
+            if (string.IsNullOrEmpty(saveFilePath))
+            {
+                return;
+            }
+            await productViewModel.LoadAllProductsAsync();
+
+            await productViewModel.ExportToExcel(saveFilePath, productViewModel.allFoodItems);
         }
     }
 }

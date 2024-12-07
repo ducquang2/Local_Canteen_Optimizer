@@ -8,9 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Border BorderBrush="#9F9F9E" 
+    <Border BorderBrush="{ThemeResource secondaryBackColorGray}" 
             BorderThickness="0,0,0,0.4">
-    <Grid Background="White" Padding="10" VerticalAlignment="Center">
+        <Grid Background="{ThemeResource primaryBackColor}" Padding="10" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -26,21 +26,6 @@
                    Margin="10,0,10,0" 
                    Grid.Column="0" />
 
-        <!-- Search Box -->
-        <TextBox PlaceholderText="Search products..." 
-                 VerticalAlignment="Center" 
-                 Grid.Column="1"
-                 Width="300" 
-                 Margin="10,0" />
-
-        <!-- Search Button -->
-        <Button VerticalAlignment="Center" 
-                Width="40"
-                Margin="5,0"
-                Grid.Column="2" >
-            <Image Source="ms-appx:///Images/search.png" />
-        </Button>
-
         <!-- Other Icons and Buttons -->
         <StackPanel Orientation="Horizontal" 
                     VerticalAlignment="Center"
@@ -52,9 +37,9 @@
                     Margin="5,0" />
 
             <!-- Select Table Button -->
-            <Button
-                Background="{StaticResource borderColor}" 
-                Foreground="White" 
+            <!--<Button
+                Background="{ThemeResource borderColor}" 
+                Foreground="{ThemeResource primaryBackColor}" 
                 Margin="5,0" 
                 Padding="8" >
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -64,7 +49,7 @@
                        VerticalAlignment="Center" 
                        Margin="10,0,0,0" />
                 </StackPanel>
-            </Button>
+            </Button>-->
         </StackPanel>
     </Grid>
     </Border>

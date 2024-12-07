@@ -45,9 +45,9 @@ namespace Local_Canteen_Optimizer.View.Order
             OrdersContent.Content = listOrderControl;
         }
 
-        private void OnViewDetailRequested(object sender, OrderModel order)
+        private async void OnViewDetailRequested(object sender, OrderModel order)
         {
-            viewOrderControl.SetOrder(order);
+            await viewOrderControl.SetOrder(listOrderControl.orderViewModel,order);
             OrdersContent.Content = viewOrderControl;
         }
     }

@@ -76,7 +76,7 @@ namespace Local_Canteen_Optimizer.ViewModel
             if (result.Token != null)
             {
                 // Successful login
-                ((App)Application.Current).m_window.NavigateToMainPage();
+                App.m_window.NavigateToMainPage();
                 LoginSuccess?.Invoke(); // Raise the event
             }
             else

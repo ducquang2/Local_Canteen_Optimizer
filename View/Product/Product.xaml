@@ -9,6 +9,6 @@
     mc:Ignorable="d">
 
     <Grid>
-        <ContentPresenter x:Name="ProductsContent" />
+        <ContentPresenter x:Name="ProductsContent"/>
     </Grid>
 </UserControl>
