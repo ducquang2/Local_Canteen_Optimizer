@@ -92,6 +92,21 @@ namespace Local_Canteen_Optimizer.View.Product
             }
         }
 
+        public void SortOrderComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+                
+            var comboBox = sender as ComboBox;
+            if (comboBox != null)
+            {
+                var selectedItem = comboBox.SelectedItem as ComboBoxItem;
+                if (selectedItem != null)
+                {
+                    bool isAscending = bool.Parse(selectedItem.Tag.ToString());
+                    productViewModel.LoadProductSort(isAscending);
+                }
+            }
+        }
+
 
         private void keywordTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {

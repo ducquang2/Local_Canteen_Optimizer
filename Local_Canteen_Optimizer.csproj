@@ -48,6 +48,7 @@
     <None Remove="View\Order\ViewOrder.xaml" />
     <None Remove="View\Product.xaml" />
     <None Remove="View\Reports.xaml" />
+    <None Remove="View\SellProduct\SellProduct.xaml" />
     <None Remove="View\Setting.xaml" />
     <None Remove="View\Table.xaml" />
     <None Remove="View\Transactions.xaml" />
@@ -121,7 +122,16 @@
     <None Update="Images\edit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Images\error.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\excel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\fast-forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\filter.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Images\home_icon.png">
@@ -149,6 +159,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Images\logout.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\management.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Images\meeting-room-black.png">
@@ -187,9 +200,15 @@
     <None Update="Images\shutdown_mo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Images\success.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Page Update="View\Cashier\Cashier.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="View\ManageUser\EditUser.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -292,6 +311,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Themes\" />
     <Folder Include="View\Components\" />
     <Folder Include="View\Product\" />
   </ItemGroup>

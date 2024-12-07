@@ -11,13 +11,42 @@
     <Border Background="{ThemeResource primaryBackColor}">
         <StackPanel Padding="10">
             <Border BorderBrush="{ThemeResource secondaryBackColorGray}" BorderThickness="0,0,0,0.4">
-                <Button Content="Select Table" HorizontalAlignment="Right" Margin="0,0,0,10"/>
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" FontSize="14" VerticalAlignment="Center">
+                            <Run Text="Table: " />
+                            <Run Text="{Binding DisplayTableText}" />
+                    </TextBlock>
+
+                    <Button Grid.Column="1"
+                            Background="{ThemeResource borderColor}" 
+                            Foreground="White" 
+                            Margin="5"
+                            Padding="8"
+                            Click="SelectTable_Click"
+                        >
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                            <Image Width="24" Height="24" Source="ms-appx:///Images/meeting-room.png" />
+                            <TextBlock Text="Select Table" 
+                                   VerticalAlignment="Center" 
+                                   Margin="10,0,0,0" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
             </Border>
+
 
             <!-- Danh sách món trong giỏ -->
             <ListView x:Name="CartItemsList"
                       ItemsSource="{Binding CartItems}"
-                      Margin="0,10">
+                      Margin="0,10"
+                      MaxHeight="250"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid HorizontalAlignment="Stretch">
@@ -27,8 +56,9 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Id}" FontSize="14" Margin="0 0 10 0"/>
+                                <TextBlock Text="{Binding ProductID}" FontSize="14" Margin="0 0 10 0"/>
                                 <TextBlock Text="{Binding Name}" FontSize="14" Width="150" />
+                                <TextBlock Text="{Binding QuantityBuy}" FontSize="14" Width="150" />
                             </StackPanel>
 
                             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -126,8 +156,8 @@
 
             <!-- Nút thanh toán -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,0,0">
-                <Button Content="Hold Cart" Click="holdCartButton_Click" Width="150" Background="{ThemeResource buttonColorOrange}" Foreground="{ThemeResource primaryBackColor}" Padding="10" Margin="0 0 20 0"/>
-                <Button Content="Proceed" Width="150" Background="{ThemeResource buttonColorGreen}" Foreground="{ThemeResource primaryBackColor}" Padding="10" Margin="20 0 0 0"/>
+                <Button Content="Hold Cart" Click="holdCartButton_Click" Width="150" Background="{ThemeResource buttonColorOrange}" Foreground="White" Padding="10" Margin="0 0 20 0"/>
+                <Button Content="Checkout" Click="checkoutCartButton_Click" Width="150" Background="{ThemeResource buttonColorGreen}" Foreground="White" Padding="10" Margin="20 0 0 0"/>
             </StackPanel>
         </StackPanel>
     </Border>

@@ -1,4 +1,6 @@
-﻿using Local_Canteen_Optimizer.Model;
+﻿using Local_Canteen_Optimizer.DAO.ProductDAO;
+using Local_Canteen_Optimizer.DAO.SeatDAO;
+using Local_Canteen_Optimizer.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,25 +11,42 @@ using System.Threading.Tasks;
 
 namespace Local_Canteen_Optimizer.ViewModel
 {
-    class TableViewModel : INotifyPropertyChanged
+    public class TableViewModel : BaseViewModel
     {
+        private ISeatDAO _dao = null;
         public ObservableCollection<TableModel> listTables { get; set; }
         public TableViewModel() {
-            // Giả lập danh sách món ăn
-            listTables = new ObservableCollection<TableModel>
-            {
-                new TableModel { Name = "Bàn 1", Status = "Trống" },
-                new TableModel { Name = "Bàn 2", Status = "Đầy" },
-                new TableModel { Name = "Bàn 3", Status = "Trống" },
-                new TableModel { Name = "Bàn 4", Status = "Trống" },
-                new TableModel { Name = "Bàn 5", Status = "Trống" },
-                new TableModel { Name = "Bàn 6", Status = "Đầy" },
-                new TableModel { Name = "Bàn 7", Status = "Trống" },
-                new TableModel { Name = "Bàn 8", Status = "Trống" },
-                new TableModel { Name = "Bàn 9", Status = "Trống" },
-            };
+            
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public async Task Init()
+        {
+            _dao = new SeatDAOImp();
+            listTables = new ObservableCollection<TableModel>();
+            await LoadProductsAsync();
+        }
+
+        public void updateTable(TableModel newTable) {
+            if(newTable == null) return;
+            var table = listTables.FirstOrDefault(t => t.tableId == newTable.tableId);
+            if (table != null)
+            {
+                var index = listTables.IndexOf(table);
+                newTable.tableName = table.tableName;
+                listTables[index] = newTable;
+            }
+        }
+
+        public async Task LoadProductsAsync()
+        {
+            var seats = await _dao.GetSeatsAsync();
+            listTables.Clear();
+            foreach (var item in seats)
+            {
+                listTables.Add(item);
+            }
+            OnPropertyChanged(nameof(TableModel));
+
+        }
     }
 }

@@ -13,6 +13,9 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Local_Canteen_Optimizer.Model;
+using Local_Canteen_Optimizer.ViewModel;
+using DocumentFormat.OpenXml.Vml;
+using System.Threading.Tasks;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -22,20 +25,17 @@ namespace Local_Canteen_Optimizer.View.Order
     public sealed partial class ViewOrder : UserControl
     {
         public event EventHandler CancelRequested;
-        private OrderModel currentOrder;
+        private OrderViewModel currentOrderViewModel;
         public ViewOrder()
         {
             this.InitializeComponent();
         }
-        public void SetOrder(OrderModel order)
+        public async Task SetOrder(OrderViewModel orderViewModel,OrderModel order)
         {
-            currentOrder = order;
-            //IdTextBox.Text = product.ProductID;
-            //NameTextBox.Text = product.Name;
-            //ImageTextBox.Text = product.ImageSource;
-            //PriceTextBox.Text = product.Price.ToString();
-            //QuantityTextBox.Text = product.Quantity.ToString();
+            currentOrderViewModel = orderViewModel;
+            await currentOrderViewModel.UpdateOrderModel(order);
         }
+
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             CancelRequested?.Invoke(this, EventArgs.Empty);

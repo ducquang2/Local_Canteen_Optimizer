@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Local_Canteen_Optimizer.Commands;
 using Local_Canteen_Optimizer.DAO.ProductDAO;
 using Local_Canteen_Optimizer.Helper;
 using Local_Canteen_Optimizer.Model;
@@ -15,6 +16,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Windows.Storage.Pickers;
 using Windows.System;
 
@@ -31,12 +33,14 @@ namespace Local_Canteen_Optimizer.ViewModel
         public int TotalItems { get; set; } = 0;
         public ObservableCollection<FoodModel> FoodItems { get; set; }
         public ObservableCollection<FoodModel> allFoodItems { get; set; }
+        public ICommand DeleteFoodCommand { get; set; }
 
         public async Task Init()
         {
             _dao = new ProductDAOImp();
             FoodItems = new ObservableCollection<FoodModel>();
             allFoodItems = new ObservableCollection<FoodModel>();
+            DeleteFoodCommand = new RelayCommand<FoodModel>(async (food) => await ConfirmAndAddFoodItem(food));
             await LoadProductsAsync();
         }
         public async Task Load(int page)
@@ -45,9 +49,15 @@ namespace Local_Canteen_Optimizer.ViewModel
             await LoadProductsAsync();
         }
 
+        public async Task LoadProductSort(bool nameAcending)
+        {
+            NameAcending = nameAcending;
+            await LoadProductsAsync();
+        }
+
         public async Task LoadProductsAsync()
         {
-            var (totalItems,products) = await _dao.GetProductsAsync(CurrentPage, RowsPerPage, Keyword, NameAcending);
+            var (totalItems,products) = await _dao.GetProductsAsync(CurrentPage, RowsPerPage, Keyword, NameAcending, null, null);
             FoodItems.Clear();
             foreach (var item in products)
             {
@@ -62,7 +72,7 @@ namespace Local_Canteen_Optimizer.ViewModel
 
         public async Task LoadAllProductsAsync()
         {
-            var (totalItems, products) = await _dao.GetProductsAsync(null, null, null, true);
+            var (totalItems, products) = await _dao.GetProductsAsync(null, null, null, true, null, null);
             allFoodItems.Clear();
             foreach (var item in products)
             {
@@ -105,6 +115,26 @@ namespace Local_Canteen_Optimizer.ViewModel
                         Quantity = product.Quantity
                     };
                 }
+            }
+        }
+        private async Task ConfirmAndAddFoodItem(FoodModel food)
+        {
+            if (food == null)
+            {
+                // Hiển thị thông báo lỗi nếu cần
+                return;
+            }
+
+            // Hiển thị hộp thoại xác nhận
+            bool isConfirmed = await MessageHelper.ShowConfirmationDialog(
+                $"Bạn có chắc chắn muốn xoá sản phẩm: {food.Name}?",
+                "Xác nhận thêm sản phẩm",
+                App.m_window.Content.XamlRoot
+            );
+
+            if (isConfirmed)
+            {
+                await DeleteProduct(food);
             }
         }
         public async Task DeleteProduct(FoodModel product)

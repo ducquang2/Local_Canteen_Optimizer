@@ -31,57 +31,49 @@
             <!-- Navigation Menu with ScrollViewer -->
             <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Grid.Column="0">
                 <Border Background="{ThemeResource primaryBackColor}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+                    <StackPanel Width="100" Padding="0 20 0 0">
 
                         <!-- Menu Items -->
-                        <StackPanel Width="100" Padding="0 20 0 0" Grid.Row="0">
-                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding HomeCommand}"
-                                ImageSource="ms-appx:///Images/home_icon.png" Content="Home" IsChecked="True" />
-                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding CustomersCommand}"
-                                ImageSource="ms-appx:///Images/customer.png" Content="Customer" />
-                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding OrdersCommand}"
-                                ImageSource="ms-appx:///Images/order.png" Content="Order" />
-                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding ProductsCommand}"
-                                ImageSource="ms-appx:///Images/product.png" Content="Product" />
-                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding ReportsCommand}"
-                                ImageSource="ms-appx:///Images/report.png" Content="Report" />
-                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding TablesCommand}"
-                                ImageSource="ms-appx:///Images/meeting-room-black.png" Content="Table" />
-                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding TransactionsCommand}"
-                                ImageSource="ms-appx:///Images/save-money.png" Content="Transactions" />
-                            <Menu:CustomRadioButton x:Name="ManageUserButton" Style="{StaticResource BtnStyle}" Command="{Binding ManageUserCommand}"
-                                ImageSource="ms-appx:///Images/save-money.png" Content="Manage Users" />
-                            <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding SettingsCommand}"
-                                ImageSource="ms-appx:///Images/setting.png" Content="Setting" />
-                        </StackPanel>
-                        
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding HomeCommand}"
+                            ImageSource="ms-appx:///Images/home_icon.png" Content="Home" IsChecked="True" />
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding CustomersCommand}"
+                            ImageSource="ms-appx:///Images/customer.png" Content="Customer" />
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding OrdersCommand}"
+                            ImageSource="ms-appx:///Images/order.png" Content="Order" />
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding ProductsCommand}"
+                            ImageSource="ms-appx:///Images/product.png" Content="Product" />
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding ReportsCommand}"
+                            ImageSource="ms-appx:///Images/report.png" Content="Report" />
+                        <!-- <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding TablesCommand}"
+                            ImageSource="ms-appx:///Images/meeting-room-black.png" Content="Table" /> -->
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding TransactionsCommand}"
+                            ImageSource="ms-appx:///Images/save-money.png" Content="Transactions" />
+                        <Menu:CustomRadioButton x:Name="ManageUserButton" Style="{StaticResource BtnStyle}" Command="{Binding ManageUserCommand}"
+                            ImageSource="ms-appx:///Images/management.png" Content="Manage Users" />
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding SettingsCommand}"
+                            ImageSource="ms-appx:///Images/setting.png" Content="Setting" />
+
                         <Button
                             Background="{ThemeResource primaryBackColor}"
                             HorizontalAlignment="Center"
                             Foreground="{ThemeResource borderColor}" 
                             BorderBrush="{ThemeResource borderColor}" 
                             BorderThickness="1" 
-                            Margin="0,0,0,10"
                             CornerRadius="8" 
-                            Padding="10" 
-                            Click="LogoutButton_Click"
-                            Grid.Row="1">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <!-- <Image Width="10" Height="10" Source="ms-appx:///Images/add.png" /> -->
-                                <TextBlock Text="Logout" VerticalAlignment="Center" Margin="10,0,0,0" />
+                            Padding="10"
+                            Margin="10,10,0,10"
+                            Click="LogoutButton_Click">
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock Text="Logout" VerticalAlignment="Center" />
                             </StackPanel>
                         </Button>
-                    </Grid>
+                    </StackPanel>
                 </Border>
             </ScrollViewer>
 
             <!-- Main Content Area -->
             <!--<ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Grid.Column="1">-->
-            <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch">
                 <ContentControl x:Name="Pages"
                 Content="{Binding CurrentView}"
                 ContentTemplateSelector="{StaticResource ViewModelSelector}" />
