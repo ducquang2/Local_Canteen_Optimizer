@@ -142,26 +142,6 @@ namespace Local_Canteen_Optimizer.ViewModel
 
             // Hiển thị hộp thoại xác nhận
             bool isConfirmed = await MessageHelper.ShowConfirmationDialog(
-                $"Do you want to delete: {food.Name}?",
-                "Confirm delete product",
-                App.m_window.Content.XamlRoot
-            );
-
-            if (isConfirmed)
-            {
-                await DeleteProduct(food);
-            }
-        }
-        private async Task ConfirmAndAddFoodItem(FoodModel food)
-        {
-            if (food == null)
-            {
-                // Hiển thị thông báo lỗi nếu cần
-                return;
-            }
-
-            // Hiển thị hộp thoại xác nhận
-            bool isConfirmed = await MessageHelper.ShowConfirmationDialog(
                 $"Bạn có chắc chắn muốn xoá sản phẩm: {food.Name}?",
                 "Xác nhận thêm sản phẩm",
                 App.m_window.Content.XamlRoot
