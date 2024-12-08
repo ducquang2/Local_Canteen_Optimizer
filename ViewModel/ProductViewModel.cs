@@ -172,26 +172,6 @@ namespace Local_Canteen_Optimizer.ViewModel
                 await DeleteProduct(food);
             }
         }
-        private async Task ConfirmAndAddFoodItem(FoodModel food)
-        {
-            if (food == null)
-            {
-                // Hiển thị thông báo lỗi nếu cần
-                return;
-            }
-
-            // Hiển thị hộp thoại xác nhận
-            bool isConfirmed = await MessageHelper.ShowConfirmationDialog(
-                $"Bạn có chắc chắn muốn xoá sản phẩm: {food.Name}?",
-                "Xác nhận thêm sản phẩm",
-                App.m_window.Content.XamlRoot
-            );
-
-            if (isConfirmed)
-            {
-                await DeleteProduct(food);
-            }
-        }
         public async Task DeleteProduct(FoodModel product)
         {
             bool isRemoved = await _dao.RemoveProductAsync(int.Parse(product.ProductID));
