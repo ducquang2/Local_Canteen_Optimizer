@@ -15,7 +15,7 @@
                     <Border x:Name="border" Height="40" Width="90" BorderThickness="2" CornerRadius="5">
                         
                         <Border.Background>
-                            <SolidColorBrush x:Name="BorderBackground" Color="{ThemeResource primaryBackColor}" />
+                            <SolidColorBrush x:Name="BorderBackground" Color="{ThemeResource whiteBackColor}" />
                         </Border.Background>
 
                         <Grid>

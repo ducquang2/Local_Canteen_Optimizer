@@ -37,11 +37,15 @@ namespace Local_Canteen_Optimizer.ViewModel
 
         public async Task Init()
         {
-            _dao = new ProductDAOImp();
-            FoodItems = new ObservableCollection<FoodModel>();
-            allFoodItems = new ObservableCollection<FoodModel>();
-            DeleteFoodCommand = new RelayCommand<FoodModel>(async (food) => await ConfirmAndAddFoodItem(food));
-            await LoadProductsAsync();
+            try {
+                _dao = new ProductDAOImp();
+                FoodItems = new ObservableCollection<FoodModel>();
+                allFoodItems = new ObservableCollection<FoodModel>();
+                DeleteFoodCommand = new RelayCommand<FoodModel>(async (food) => await ConfirmAndAddFoodItem(food));
+                await LoadProductsAsync(); 
+            } catch{
+                await MessageHelper.ShowErrorMessage("Can't get any products", App.m_window.Content.XamlRoot);
+            }
         }
         public async Task Load(int page)
         {
@@ -95,6 +99,9 @@ namespace Local_Canteen_Optimizer.ViewModel
             if (newFood != null)
             {
                 FoodItems.Add(newFood);
+            } else
+            {
+                throw new Exception("Fail to add new product");
             }
         }
         public async Task UpdateProduct(FoodModel product)
@@ -114,7 +121,15 @@ namespace Local_Canteen_Optimizer.ViewModel
                         Price = product.Price,
                         Quantity = product.Quantity
                     };
+                    await MessageHelper.ShowSuccessMessage("Update product successful", App.m_window.Content.XamlRoot);
                 }
+                else
+                {
+                    await MessageHelper.ShowErrorMessage("Fail to update product", App.m_window.Content.XamlRoot);
+                }
+            } else
+            {
+                await MessageHelper.ShowErrorMessage("Fail to update product", App.m_window.Content.XamlRoot);
             }
         }
         private async Task ConfirmAndAddFoodItem(FoodModel food)
@@ -127,8 +142,8 @@ namespace Local_Canteen_Optimizer.ViewModel
 
             // Hiển thị hộp thoại xác nhận
             bool isConfirmed = await MessageHelper.ShowConfirmationDialog(
-                $"Bạn có chắc chắn muốn xoá sản phẩm: {food.Name}?",
-                "Xác nhận thêm sản phẩm",
+                $"Do you want to delete: {food.Name}?",
+                "Confirm delete product",
                 App.m_window.Content.XamlRoot
             );
 
@@ -145,7 +160,11 @@ namespace Local_Canteen_Optimizer.ViewModel
                 if (FoodItems.Contains(product))
                 {
                     FoodItems.Remove(product);
+                    await MessageHelper.ShowSuccessMessage("Remove product successful", App.m_window.Content.XamlRoot);
                 }
+            } else
+            {
+                await MessageHelper.ShowErrorMessage("Fail to remove product", App.m_window.Content.XamlRoot);
             }
         }
 
@@ -193,12 +212,13 @@ namespace Local_Canteen_Optimizer.ViewModel
                     {
                         await AddFoodItem(product);
                     }
-
+                    await MessageHelper.ShowSuccessMessage("Import product successful", App.m_window.Content.XamlRoot);
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                await MessageHelper.ShowErrorMessage("Failed to import products", App.m_window.Content.XamlRoot);
             }
         }
 
