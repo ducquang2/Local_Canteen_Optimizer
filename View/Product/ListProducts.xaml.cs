@@ -1,5 +1,4 @@
-﻿using Local_Canteen_Optimizer.Helper;
-using Local_Canteen_Optimizer.Model;
+﻿using Local_Canteen_Optimizer.Model;
 using Local_Canteen_Optimizer.ViewModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -68,15 +67,7 @@ namespace Local_Canteen_Optimizer.View.Product
         }   
         public async void AddProduct(FoodModel product)
         {
-            try
-            {
-                await productViewModel.AddFoodItem(product);
-                await MessageHelper.ShowSuccessMessage("Add new product successful", App.m_window.Content.XamlRoot);
-            }
-            catch (Exception e)
-            {
-                await MessageHelper.ShowErrorMessage("Fail to add new product", App.m_window.Content.XamlRoot);
-            }
+            await productViewModel.AddFoodItem(product);
         }
         public async void UpdateProduct(FoodModel product)
         {
@@ -149,15 +140,9 @@ namespace Local_Canteen_Optimizer.View.Product
             {
                 return;
             }
-            try
-            {
-                await productViewModel.LoadAllProductsAsync();
+            await productViewModel.LoadAllProductsAsync();
 
-                await productViewModel.ExportToExcel(saveFilePath, productViewModel.allFoodItems);
-            } catch
-            {
-                await MessageHelper.ShowErrorMessage("Fail to export", App.m_window.Content.XamlRoot);
-            }
+            await productViewModel.ExportToExcel(saveFilePath, productViewModel.allFoodItems);
         }
     }
 }

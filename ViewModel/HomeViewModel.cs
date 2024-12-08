@@ -1,5 +1,4 @@
 ﻿using Local_Canteen_Optimizer.DAO.ProductDAO;
-using Local_Canteen_Optimizer.Helper;
 using Local_Canteen_Optimizer.Model;
 using Local_Canteen_Optimizer.Service;
 using System;
@@ -65,11 +64,6 @@ namespace Local_Canteen_Optimizer.ViewModel
         private async Task LoadProductsAsync()
         {
             var (totalItems, products) = await _dao.GetProductsAsync(null, null, null, true, _minPrice, _maxPrice);
-            if (products == null)
-            {
-                await MessageHelper.ShowErrorMessage("Can't get any products", App.m_window.Content.XamlRoot);
-                return;
-            }
             FoodItems.Clear();
             foreach (var item in products)
             {
@@ -81,11 +75,6 @@ namespace Local_Canteen_Optimizer.ViewModel
         public async Task searchProductsAsync()
         {
             var (totalItems, products) = await _dao.GetProductsAsync(null, null, keyword ,true, _minPrice, _maxPrice);
-            if (totalItems == 0)
-            {
-                await MessageHelper.ShowErrorMessage("Can't get any products", App.m_window.Content.XamlRoot);
-                return;
-            }
             FoodItems.Clear();
             foreach (var item in products)
             {
@@ -101,11 +90,6 @@ namespace Local_Canteen_Optimizer.ViewModel
                 return;
             }   
             var (totalItems, products) = await _dao.GetProductsAsync(null, null, keyword, true, _minPrice, _maxPrice);
-            if (totalItems == 0)
-            {
-                await MessageHelper.ShowErrorMessage("Can't get any products", App.m_window.Content.XamlRoot);
-                return;
-            }
             FoodItems.Clear();
             foreach (var item in products)
             {

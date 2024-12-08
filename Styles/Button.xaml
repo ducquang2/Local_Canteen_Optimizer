@@ -15,7 +15,7 @@
                     <Border x:Name="border" Height="56" Width="70" BorderThickness="2" CornerRadius="5">
                         
                         <Border.Background>
-                            <SolidColorBrush x:Name="BorderBackground" Color="{ThemeResource whiteBackColor}" />
+                            <SolidColorBrush x:Name="BorderBackground" Color="{ThemeResource primaryBackColor}" />
                         </Border.Background>
 
                         <Grid>
@@ -73,10 +73,10 @@
                                                     Duration="0:0:0.3" />
 
                                         <!-- Change text color (Foreground) when hovered -->
-                                        <!--<ColorAnimation Storyboard.TargetName="contentPresenter"
+                                        <ColorAnimation Storyboard.TargetName="contentPresenter"
                                                     Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
-                                                    To="red"
-                                            Duration="0:0:0.3" />-->
+                                                    To="{ThemeResource textColor}"
+                                            Duration="0:0:0.3" />
 
                                         <!-- Change Image color on hover -->
                                         <!-- <ColorAnimation Storyboard.TargetName="iconImage"
@@ -105,10 +105,10 @@
                                                     Duration="0:0:0.3" />
                                         
                                         <!-- Change text color (Foreground) when Checked -->
-                                        <!--<ColorAnimation Storyboard.TargetName="contentPresenter"
+                                        <ColorAnimation Storyboard.TargetName="contentPresenter"
                                                     Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                     To="{ThemeResource borderColor}"
-                                            Duration="0:0:0.3" />-->           
+                                            Duration="0:0:0.3" />           
 
                                         <!-- Change Image color on Checked -->
                                         <!-- <ColorAnimation Storyboard.TargetName="iconImage"

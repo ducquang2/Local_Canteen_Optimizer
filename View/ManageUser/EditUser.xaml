@@ -9,12 +9,8 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Margin="16">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid Background="{ThemeResource primaryBackColor}" Margin="16">
-            <Border Background="{ThemeResource whiteBackColor}" CornerRadius="8" Padding="10" HorizontalAlignment="Stretch" Width="1400">
+    <Grid Background="{ThemeResource primaryBackColor}" Margin="16">
+        <Border Background="{ThemeResource primaryBackColor}" CornerRadius="8" Padding="10" HorizontalAlignment="Stretch">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -30,7 +26,7 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <TextBlock Text="Edit User" FontSize="20" FontWeight="Bold" />
+                        <TextBlock Text="Edit Product" FontSize="20" FontWeight="Bold" />
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -108,6 +104,5 @@
                 </StackPanel>
             </Grid>
         </Border>
-        </Grid>
     </Grid>
 </UserControl>

@@ -6,7 +6,6 @@
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Light">
             <!--Background Colors-->
-            <Color x:Key="whiteBackColor">#fff</Color>
             <Color x:Key="primaryBackColor">#F5F5F5</Color>
             <Color x:Key="secondaryBackColor">#FFF2E8</Color>
             <Color x:Key="secondaryBackColorGray">#9F9F9E</Color>
@@ -34,7 +33,6 @@
 
         <ResourceDictionary x:Key="Dark">
             <!-- Background Colors -->
-            <Color x:Key="whiteBackColor">#1E1E1E</Color>
             <Color x:Key="primaryBackColor">#1E1E1E</Color>
             <Color x:Key="secondaryBackColor">#2D2D2D</Color>
             <Color x:Key="secondaryBackColorGray">#3C3C3C</Color>
@@ -47,7 +45,7 @@
             <Color x:Key="buttonColorGreen">#09AA29</Color>
 
             <!-- TextBox Colors -->
-            <Color x:Key="textColor">#FFF</Color>
+            <Color x:Key="textColor">#FFFFFF</Color>
 
             <Style x:Key="contentPresenterStyle" TargetType="ContentPresenter">
                 <Setter Property="Foreground" Value="{StaticResource textColor}" />

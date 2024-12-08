@@ -30,7 +30,7 @@
 
             <!-- Navigation Menu with ScrollViewer -->
             <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Grid.Column="0">
-                <Border Background="{ThemeResource whiteBackColor}">
+                <Border Background="{ThemeResource primaryBackColor}">
                     <StackPanel Width="100" Padding="0 20 0 0">
 
                         <!-- Menu Items -->
@@ -54,7 +54,7 @@
                             ImageSource="ms-appx:///Images/setting.png" Content="Setting" />
 
                         <Button
-                            Background="{ThemeResource whiteBackColor}"
+                            Background="{ThemeResource primaryBackColor}"
                             HorizontalAlignment="Center"
                             Foreground="{ThemeResource borderColor}" 
                             BorderBrush="{ThemeResource borderColor}" 

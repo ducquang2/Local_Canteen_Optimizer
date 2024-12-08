@@ -10,7 +10,7 @@
 
     <Border BorderBrush="{ThemeResource secondaryBackColorGray}" 
             BorderThickness="0,0,0,0.4">
-        <Grid Background="{ThemeResource whiteBackColor}" Padding="10" VerticalAlignment="Center">
+        <Grid Background="{ThemeResource primaryBackColor}" Padding="10" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
