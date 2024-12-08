@@ -6,7 +6,9 @@
     xmlns:local="using:Local_Canteen_Optimizer.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    >
 
     <!--<Grid>
         <StackPanel Margin="10">
@@ -25,80 +27,82 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border Background="White" CornerRadius="8" Padding="10" HorizontalAlignment="Stretch" Width="1400">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+        <Grid Background="{ThemeResource primaryBackColor}" Margin="16">
+            <Border Background="{ThemeResource whiteBackColor}" CornerRadius="8" Padding="10" HorizontalAlignment="Stretch" Width="1400">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                <!-- Title and Close Button -->
-                <Grid HorizontalAlignment="Stretch" Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+                    <!-- Title and Close Button -->
+                    <Grid HorizontalAlignment="Stretch" Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <TextBlock Text="Edit Product" FontSize="20" FontWeight="Bold" />
-                    </StackPanel>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="Edit Product" FontSize="20" FontWeight="Bold" />
+                        </StackPanel>
 
-                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <Button Content="X" Height="30" Margin="0,0,0,0" HorizontalAlignment="Right"
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <Button Content="X" Height="30" Margin="0,0,0,0" HorizontalAlignment="Right"
+                            VerticalAlignment="Top" Foreground="Gray" Background="Transparent" 
+                            Click="CancelButton_Click"/>
+                        </StackPanel>
+                    </Grid>
+                    <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="0">
+                    <TextBlock Text="Add a Product" FontSize="20" FontWeight="Bold" />
+                    <Button Content="✖" Width="30" Height="30" Margin="0,0,0,0" HorizontalAlignment="Right"
                         VerticalAlignment="Top" Foreground="Gray" Background="Transparent" 
                         Click="CancelButton_Click"/>
+                </StackPanel>-->
+
+                    <!-- Form Fields -->
+                    <StackPanel Grid.Row="1" Spacing="15" Margin="0,20,0,0">
+                        <!-- Id Field -->
+                        <StackPanel>
+                            <TextBlock Text="Id *" FontWeight="Bold" />
+                            <TextBox x:Name="IdTextBox" PlaceholderText="Product ID" Margin="5" IsReadOnly="True"/>
+                        </StackPanel>
+
+                        <!-- Name Field -->
+                        <StackPanel>
+                            <TextBlock Text="Name *" FontWeight="Bold" />
+                            <TextBox x:Name="NameTextBox" PlaceholderText="Product Name" Margin="5" />
+                            <TextBlock x:Name="NameErrorText" Foreground="Red" Visibility="Collapsed" Text="Name is required." />
+                        </StackPanel>
+
+                        <!-- Image Field -->
+                        <StackPanel>
+                            <TextBlock Text="Image Source *" FontWeight="Bold" />
+                            <TextBox x:Name="ImageTextBox" PlaceholderText="Product Image" Margin="5" />
+                            <TextBlock x:Name="ImageErrorText" Foreground="Red" Visibility="Collapsed" Text="Image source is required." />
+                        </StackPanel>
+
+                        <!-- Price Field -->
+                        <StackPanel>
+                            <TextBlock Text="Price" FontWeight="Bold" />
+                            <TextBox x:Name="PriceTextBox" PlaceholderText="Price" Margin="5" />
+                            <TextBlock x:Name="PriceErrorText" Foreground="Red" Visibility="Collapsed" Text="Price must be a valid number." />
+                        </StackPanel>
+
+                        <!-- Quantity Field -->
+                        <StackPanel>
+                            <TextBlock Text="Quantity" FontWeight="Bold" />
+                            <TextBox x:Name="QuantityTextBox" PlaceholderText="Quantity" Margin="5" />
+                            <TextBlock x:Name="QuantityErrorText" Foreground="Red" Visibility="Collapsed" Text="Quantity must be a valid number." />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,0,0" Grid.Row="2">
+                        <Button Content="Cancel" Width="150" Click="CancelButton_Click"  Background="{ThemeResource buttonColorOrange}" Foreground="White" Padding="10" Margin="0 0 20 0"/>
+                        <Button Content="Save" Width="150" Click="SaveButton_Click" Background="{ThemeResource buttonColorGreen}" Foreground="White" Padding="10" Margin="20 0 0 0"/>
                     </StackPanel>
                 </Grid>
-                <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="0">
-                <TextBlock Text="Add a Product" FontSize="20" FontWeight="Bold" />
-                <Button Content="✖" Width="30" Height="30" Margin="0,0,0,0" HorizontalAlignment="Right"
-                    VerticalAlignment="Top" Foreground="Gray" Background="Transparent" 
-                    Click="CancelButton_Click"/>
-            </StackPanel>-->
-
-                <!-- Form Fields -->
-                <StackPanel Grid.Row="1" Spacing="15" Margin="0,20,0,0">
-                    <!-- Id Field -->
-                    <StackPanel>
-                        <TextBlock Text="Id *" FontWeight="Bold" />
-                        <TextBox x:Name="IdTextBox" PlaceholderText="Product ID" Margin="5" IsReadOnly="True"/>
-                    </StackPanel>
-
-                    <!-- Name Field -->
-                    <StackPanel>
-                        <TextBlock Text="Name *" FontWeight="Bold" />
-                        <TextBox x:Name="NameTextBox" PlaceholderText="Product Name" Margin="5" />
-                        <TextBlock x:Name="NameErrorText" Foreground="Red" Visibility="Collapsed" Text="Name is required." />
-                    </StackPanel>
-
-                    <!-- Image Field -->
-                    <StackPanel>
-                        <TextBlock Text="Image Source *" FontWeight="Bold" />
-                        <TextBox x:Name="ImageTextBox" PlaceholderText="Product Image" Margin="5" />
-                        <TextBlock x:Name="ImageErrorText" Foreground="Red" Visibility="Collapsed" Text="Image source is required." />
-                    </StackPanel>
-
-                    <!-- Price Field -->
-                    <StackPanel>
-                        <TextBlock Text="Price" FontWeight="Bold" />
-                        <TextBox x:Name="PriceTextBox" PlaceholderText="Price" Margin="5" />
-                        <TextBlock x:Name="PriceErrorText" Foreground="Red" Visibility="Collapsed" Text="Price must be a valid number." />
-                    </StackPanel>
-
-                    <!-- Quantity Field -->
-                    <StackPanel>
-                        <TextBlock Text="Quantity" FontWeight="Bold" />
-                        <TextBox x:Name="QuantityTextBox" PlaceholderText="Quantity" Margin="5" />
-                        <TextBlock x:Name="QuantityErrorText" Foreground="Red" Visibility="Collapsed" Text="Quantity must be a valid number." />
-                    </StackPanel>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,0,0" Grid.Row="2">
-                    <Button Content="Cancel" Width="150" Click="CancelButton_Click"  Background="{ThemeResource buttonColorOrange}" Foreground="White" Padding="10" Margin="0 0 20 0"/>
-                    <Button Content="Save" Width="150" Click="SaveButton_Click" Background="{ThemeResource buttonColorGreen}" Foreground="White" Padding="10" Margin="20 0 0 0"/>
-                </StackPanel>
-            </Grid>
-        </Border>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

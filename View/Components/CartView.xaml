@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Border Background="{ThemeResource primaryBackColor}">
+    <Border Background="{ThemeResource whiteBackColor}">
         <StackPanel Padding="10">
             <Border BorderBrush="{ThemeResource secondaryBackColorGray}" BorderThickness="0,0,0,0.4">
                 <Grid HorizontalAlignment="Stretch">
@@ -56,15 +56,18 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding ProductID}" FontSize="14" Margin="0 0 10 0"/>
+                                <!--<TextBlock Text="{Binding ProductID}" FontSize="14" Margin="0 0 10 0"/>-->
                                 <TextBlock Text="{Binding Name}" FontSize="14" Width="150" />
-                                <TextBlock Text="{Binding QuantityBuy}" FontSize="14" Width="150" />
+                                <TextBlock FontSize="14" Width="150">
+                                    <Run Text="Quantity: " />
+                                    <Run Text="{Binding QuantityBuy}" />
+                                </TextBlock>
                             </StackPanel>
 
                             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                                 <TextBlock FontSize="14" FontWeight="Bold" VerticalAlignment="Center" Padding="0 0 10 0">
                                     <Run Text="{Binding Price}" />
-                                    <Run Text=" VND" /> 
+                                    <Run Text="$/1" /> 
                                 </TextBlock>
                                 <!--<TextBlock Text="{Binding Price}" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" Padding="0 0 20 0"/>-->
                                 <Button Click="RemoveCartItemButton_Click" Tag="{Binding}"
@@ -115,7 +118,10 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <TextBlock Text="{Binding Subtotal}" FontSize="16" FontWeight="Bold" Foreground="Green"/>
+                        <TextBlock FontSize="16" FontWeight="Bold" Foreground="Green">
+                            <Run Text="{Binding Subtotal}" />
+                            <Run Text="$" />
+                        </TextBlock>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -132,7 +138,10 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <TextBlock Text="{Binding Tax}" FontSize="16" FontWeight="Bold" Foreground="Red"/>
+                        <TextBlock FontSize="16" FontWeight="Bold" Foreground="Red">
+                            <Run Text="{Binding Tax}" />
+                            <Run Text="$" />
+                        </TextBlock>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -149,7 +158,10 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <TextBlock Text="{Binding Total}" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource buttonColorGreen}"/>
+                        <TextBlock FontSize="18" FontWeight="Bold" Foreground="{ThemeResource buttonColorGreen}">
+                            <Run Text="{Binding Total}" />
+                            <Run Text="$" />
+                        </TextBlock>
                     </StackPanel>
                 </Grid>
             </Border>
