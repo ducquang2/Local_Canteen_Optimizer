@@ -11,7 +11,7 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource primaryBackColor}" Margin="16">
-        <Border Background="{ThemeResource primaryBackColor}" CornerRadius="8" MinHeight="500">
+        <Border Background="{ThemeResource whiteBackColor}" CornerRadius="8" MinHeight="500">
             <Grid VerticalAlignment="Top" HorizontalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -20,7 +20,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Title -->
-                <Grid Grid.Row="0" Background="{ThemeResource primaryBackColor}" Padding="10" VerticalAlignment="Center">
+                <Grid Grid.Row="0" Background="{ThemeResource whiteBackColor}" Padding="10" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
@@ -59,9 +59,9 @@
 
                     <!-- Other Icons and Buttons -->
                     <StackPanel Orientation="Horizontal" 
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Right"
-                    Grid.Column="3">
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Grid.Column="3">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Padding="0 0 8 0">
                             <TextBlock Text="Sort" VerticalAlignment="Center" Padding="0 0 8 0"/>
                             <ComboBox Name="sortComboBox" SelectionChanged="SortOrderComboBox_SelectionChanged" >
@@ -71,7 +71,7 @@
                         </StackPanel>
                         <!-- Add Product Button -->
                         <Button
-                        Background="{ThemeResource primaryBackColor}"
+                        Background="{ThemeResource whiteBackColor}"
                         Foreground="{ThemeResource borderColor}" 
                         BorderBrush="{ThemeResource borderColor}" 
                         BorderThickness="1" 
@@ -86,7 +86,7 @@
                         </Button>
 
                         <Button
-                            Background="{ThemeResource primaryBackColor}"
+                            Background="{ThemeResource whiteBackColor}"
                             Foreground="{ThemeResource buttonColorGreen}" 
                             BorderBrush="{ThemeResource buttonColorGreen}" 
                             BorderThickness="1" 
@@ -101,7 +101,7 @@
                         </Button>
 
                         <Button
-                            Background="{ThemeResource primaryBackColor}" 
+                            Background="{ThemeResource whiteBackColor}" 
                             Foreground="#7AB2D3" 
                             BorderBrush="#7AB2D3" 
                             BorderThickness="1" 
@@ -160,7 +160,9 @@
                                     <TextBlock Foreground="{ThemeResource textColor}" Text="{Binding ProductID}" Margin="8 0 0 0" Grid.Column="1" VerticalAlignment="Center" Width="200"/>
 
                                     <!-- Price -->
-                                    <TextBlock Foreground="{ThemeResource textColor}" Text="{Binding Price}" Margin="8 0 0 0" Grid.Column="2" VerticalAlignment="Center" FontWeight="Bold" Width="400"/>
+                                    <TextBlock Foreground="{ThemeResource textColor}"  Margin="8 0 0 0" Grid.Column="2" VerticalAlignment="Center" FontWeight="Bold" Width="400">
+                                        <Run Text="{Binding Price}" /><Run Text="$" />
+                                    </TextBlock>
 
                                     <!-- Quantity -->
                                     <TextBlock Foreground="{ThemeResource textColor}" Text="{Binding Quantity}" Grid.Column="3" VerticalAlignment="Center" Width="200" Margin="10 0 0 0"/>

@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using DocumentFormat.OpenXml.Vml;
 using Local_Canteen_Optimizer.DAO.OrderDAO;
+using Local_Canteen_Optimizer.Helper;
 using Local_Canteen_Optimizer.Model;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,11 @@ namespace Local_Canteen_Optimizer.Service
         public async Task LoadOrdersAsync()
         {
             var (totalItems, listOrder) = await _dao.GetAllOrders(CurrentPage, RowsPerPage, DateAscending);
+            if (totalItems == 0)
+            {
+                await MessageHelper.ShowErrorMessage("Can't get any order", App.m_window.Content.XamlRoot);
+                return;
+            }
             Orders.Clear();
             foreach (var item in listOrder)
             {

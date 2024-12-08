@@ -6,7 +6,9 @@
     xmlns:local="using:Local_Canteen_Optimizer.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    >
 
     <!--<Grid>
         <StackPanel Margin="10">
@@ -25,7 +27,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border Background="White" CornerRadius="8" Padding="10" Grid.Column="0" Width="1400">
+        <Border Background="{ThemeResource whiteBackColor}" CornerRadius="8" Padding="10" Grid.Column="0" Width="1400">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

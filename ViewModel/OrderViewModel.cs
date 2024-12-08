@@ -1,5 +1,6 @@
 ﻿using Local_Canteen_Optimizer.DAO.OrderDAO;
 using Local_Canteen_Optimizer.DAO.ProductDAO;
+using Local_Canteen_Optimizer.Helper;
 using Local_Canteen_Optimizer.Model;
 using Local_Canteen_Optimizer.Service;
 using System;
@@ -27,7 +28,14 @@ namespace Local_Canteen_Optimizer.ViewModel
         public async Task Init()
         {
             _dao = new OrderDAOImp();
-            await OrderDataServices.Instance.LoadOrdersAsync();
+            try
+            {
+                await OrderDataServices.Instance.LoadOrdersAsync();
+            }
+            catch
+            {
+                await MessageHelper.ShowErrorMessage("Can't get any orders", App.m_window.Content.XamlRoot);
+            }
         }
 
         public async Task UpdateOrderModel(OrderModel order)
