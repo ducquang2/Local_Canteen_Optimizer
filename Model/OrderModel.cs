@@ -13,5 +13,6 @@ namespace Local_Canteen_Optimizer.Model
         public double Total { get; set; }
         public string OrderStatus { get; set; }
         public List<FoodModel> OrderDetails { get; set; }
+        public string Note { get; set; }
     }
 }

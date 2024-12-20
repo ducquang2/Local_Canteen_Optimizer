@@ -40,6 +40,17 @@ namespace Local_Canteen_Optimizer.ViewModel
         }
         public string DisplayTableText => SelectedTableId == 1 ? "Mang về" : $"Bàn {SelectedTableId}";
 
+        private string note;
+        public string Note
+        {
+            get => note;
+            set
+            {
+                note = value;
+                OnPropertyChanged(nameof(Note));
+            }
+        }
+
         public CartViewModel()
         {
             _dao = new OrderDAOImp();
@@ -61,6 +72,7 @@ namespace Local_Canteen_Optimizer.ViewModel
                 OnPropertyChanged(nameof(Subtotal));
                 OnPropertyChanged(nameof(Tax));
                 OnPropertyChanged(nameof(Total));
+                OnPropertyChanged(nameof(Note));
                 return;
             }
             OrderId = orderModel.OrderId;
@@ -73,6 +85,7 @@ namespace Local_Canteen_Optimizer.ViewModel
             OnPropertyChanged(nameof(Subtotal));
             OnPropertyChanged(nameof(Tax));
             OnPropertyChanged(nameof(Total));
+            OnPropertyChanged(nameof(Note));
         }
 
         public void AddItemToCart(FoodModel item)
@@ -181,7 +194,8 @@ namespace Local_Canteen_Optimizer.ViewModel
                 //TableNumber = 1,
                 //OrderTime = DateTime.Now,
                 OrderDetails = CartItems.ToList(),
-                Total = Total
+                Total = Total,
+                Note = Note
             };
             try
             {
@@ -196,7 +210,7 @@ namespace Local_Canteen_Optimizer.ViewModel
                     OrderId = newOrder.OrderId;
                 }
 
-                bool isCheckout = await _dao.CheckOut(SelectedTableId, OrderId);
+                bool isCheckout = await _dao.CheckOut(SelectedTableId, OrderId, Note);
                 if (!isCheckout)
                 {
                     await MessageHelper.ShowErrorMessage("Fail to checkout", App.m_window.Content.XamlRoot);
@@ -210,6 +224,7 @@ namespace Local_Canteen_Optimizer.ViewModel
                     OnPropertyChanged(nameof(Subtotal));
                     OnPropertyChanged(nameof(Tax));
                     OnPropertyChanged(nameof(Total));
+                    OnPropertyChanged(nameof(Note));
                     return new TableModel { tableId = SelectedTableId, isAvailable = true, currentOrderId = null };
                 }
 

@@ -12,5 +12,6 @@ namespace Local_Canteen_Optimizer.Model
         public string order_status { get; set; }
         public double total_price { get; set; }
         public DateTime created_at { get; set; }
+        public string note { get; set; }
     }
 }

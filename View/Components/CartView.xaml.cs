@@ -72,5 +72,20 @@ namespace Local_Canteen_Optimizer.View
                 CheckOutRequested?.Invoke(this, table);
             }
         }
+
+        private void NoteButton_Click(object sender, RoutedEventArgs e)
+        {
+            NotePopup.IsOpen = true;
+        }
+
+        private void SaveNoteButton_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = this.DataContext as CartViewModel;
+            if (viewModel != null)
+            {
+                viewModel.Note = NoteTextBox.Text;
+            }
+            NotePopup.IsOpen = false;
+        }
     }
 }

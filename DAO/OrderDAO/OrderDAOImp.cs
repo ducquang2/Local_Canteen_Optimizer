@@ -32,6 +32,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                 ApiOrder apiOrder = new ApiOrder
                 {
                     order_status = "pending",
+                    note = orderModel.Note,
                     //total_price = orderModel.Total,
                 };
 
@@ -77,14 +78,15 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
 
         }
 
-        public async Task<bool> CheckOut(int tableId, int orderId)
+        public async Task<bool> CheckOut(int tableId, int orderId, string note)
         {
             try
             {
                 var checkOutRequest = new
                 {
                     table_id = tableId,
-                    order_id = orderId
+                    order_id = orderId,
+                    note = note,
                 };
                 var response = await _httpClient.PostAsJsonAsync($"api/v1/orders/checkout", checkOutRequest);
                 if (response.IsSuccessStatusCode)
@@ -239,7 +241,8 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                 OrderId = apiOrder.order_id,
                 OrderTime = apiOrder.created_at,
                 Total = apiOrder.total_price,
-                OrderStatus = apiOrder.order_status.ToString()
+                OrderStatus = apiOrder.order_status.ToString(),
+                Note = apiOrder.note
             };
         }
 
@@ -251,6 +254,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                 OrderTime = response.order.created_at,
                 Total = response.order.total_price,
                 OrderStatus = response.order.order_status.ToString(),
+                Note = response.order.note,
                 OrderDetails = response.items.Select(item => new FoodModel
                 {
                     ProductID = item.product_id.ToString(),
