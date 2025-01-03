@@ -232,6 +232,35 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
             }
         }
 
+        public async Task<bool> AddRewardPoints(double totalPrice, int customerId)
+        {
+            try
+            {
+                var addRewardPointsRequest = new
+                {
+                    total_price = totalPrice,
+                };
+                var response = await _httpClient.PostAsJsonAsync($"api/v1/earn-points/{customerId}", addRewardPointsRequest);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    // Xử lý lỗi từ server
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error: {errorContent}");
+                    return false;
+                }
+            }
+            catch
+            {
+                // Xử lý lỗi nếu có
+                return false;
+            }
+        }
+
         private OrderModel ConvertToOrderModel(ApiOrder apiOrder)
         {
             return new OrderModel
@@ -239,7 +268,10 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                 OrderId = apiOrder.order_id,
                 OrderTime = apiOrder.created_at,
                 Total = apiOrder.total_price,
-                OrderStatus = apiOrder.order_status.ToString()
+                OrderStatus = apiOrder.order_status.ToString(),
+                DiscountPrice = apiOrder.discount_price,
+                RewardPoints = apiOrder.reward_value_used,
+                FinalPrice = apiOrder.final_price
             };
         }
 
@@ -263,9 +295,78 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
             };
         }
 
+        public async Task<double?> ApplyDiscount(int orderId, int promotionId)
+        {
+            try
+            {
+                var applyDiscountRequest = new
+                {           
+                    orderId = orderId,
+                    promotionId = promotionId
+                };
+                var response = await _httpClient.PostAsJsonAsync($"api/v1/discount/apply-discount", applyDiscountRequest);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadFromJsonAsync<GetDiscountAmount>();
+                    return responseContent.discountAmount;
+                }
+                else
+                {
+                    // Xử lý lỗi từ server
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error: {errorContent}");
+                    return null;
+                }
+            }
+            catch
+            {
+                // Xử lý lỗi nếu có
+                return null;
+            }
+        }
+
+        public async Task<bool> ApplyRewardPoint(int orderId, double totalPrice, string phoneNumber, int rewardPoints)
+        {
+            try
+            {
+                var applyRewardPointRequest = new
+                {
+                    order_id = orderId,
+                    final_price = totalPrice,
+                    customer_phone_number = phoneNumber,
+                    points = rewardPoints,
+                };
+                var response = await _httpClient.PostAsJsonAsync($"api/v1/orders/apply-reward-points", applyRewardPointRequest);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    // Xử lý lỗi từ server
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error: {errorContent}");
+                    return false;
+                }
+            }
+            catch
+            {
+                // Xử lý lỗi nếu có
+                return false;
+            }
+        }
+
         public class GetApiResponse
         {
             public ApiOrder order { get; set; }
+        }
+
+        public class GetDiscountAmount
+        {
+            [JsonPropertyName("discount")]
+            public double discountAmount { get; set; }
         }
 
         public class GetListOrderResponse

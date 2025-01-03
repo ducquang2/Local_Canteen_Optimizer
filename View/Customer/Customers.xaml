@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <UserControl
-    x:Class="Local_Canteen_Optimizer.View.Customers"
+    x:Class="Local_Canteen_Optimizer.View.Customer.Customers"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Local_Canteen_Optimizer.View"
@@ -8,15 +8,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Style="{StaticResource Page_Style}"
     >
 
-    <!-- Thiết lập DataContext -->
-    <UserControl.DataContext>
-        <vm:CustomerViewModel/>
-    </UserControl.DataContext>
-
-    <Grid Margin="15">
-        <TextBlock Text="Customer Page"/>
+    <Grid>
+        <ContentPresenter x:Name="CustomersContent"/>
     </Grid>
 </UserControl>
