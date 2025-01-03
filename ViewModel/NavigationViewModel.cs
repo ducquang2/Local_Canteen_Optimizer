@@ -30,6 +30,7 @@ namespace Local_Canteen_Optimizer.ViewModel
         public ICommand TablesCommand { get; set; }
         public ICommand TransactionsCommand { get; set; }
         public ICommand ManageUserCommand { get; set; }
+        public ICommand DiscountCommand { get; set; }
 
         private void Customer(object obj) => CurrentView = new CustomerViewModel();
         private void Home(object obj) => CurrentView = new HomeViewModel();
@@ -40,6 +41,7 @@ namespace Local_Canteen_Optimizer.ViewModel
         private void Table(object obj) => CurrentView = new TableViewModel();
         private void Transaction(object obj) => CurrentView = new TransactionViewModel();
         private void ManageUser(object obj) => CurrentView = new ManageUserViewModel();
+        private void Discount(object obj) => CurrentView = new DiscountViewModel();
 
         public NavigationViewModel()
         {
@@ -52,6 +54,7 @@ namespace Local_Canteen_Optimizer.ViewModel
             TablesCommand = new RelayCommand<Object>(Table);
             TransactionsCommand = new RelayCommand<Object>(Transaction);
             ManageUserCommand = new RelayCommand<Object>(ManageUser);
+            DiscountCommand = new RelayCommand<Object>(Discount);
 
             // Startup Page
             CurrentView = new HomeViewModel();

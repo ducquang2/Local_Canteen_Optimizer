@@ -52,6 +52,8 @@
                             ImageSource="ms-appx:///Images/management.png" Content="Manage Users" />
                         <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding SettingsCommand}"
                             ImageSource="ms-appx:///Images/setting.png" Content="Setting" />
+                        <Menu:CustomRadioButton Style="{StaticResource BtnStyle}" Command="{Binding DiscountCommand}"
+                            ImageSource="ms-appx:///Images/discount.png" Content="Discount" />
 
                         <Button
                             Background="{ThemeResource whiteBackColor}"

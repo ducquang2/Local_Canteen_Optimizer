@@ -14,17 +14,25 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Local_Canteen_Optimizer.Model;
 using Local_Canteen_Optimizer.ViewModel;
+using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace Local_Canteen_Optimizer.View
 {
+    /// <summary>
+    /// View for managing the cart in the Local Canteen Optimizer application.
+    /// </summary>
     public sealed partial class CartView : UserControl
     {
         public event EventHandler AddTableRequested;
         public event EventHandler<TableModel> HoldCartRequested;
         public event EventHandler<TableModel> CheckOutRequested;
+        public DiscountViewModel discountViewModel;
+        public CustomerViewModel customerViewModel;
 
         public CartView()
         {
@@ -70,6 +78,108 @@ namespace Local_Canteen_Optimizer.View
             {
                 TableModel table = await cartViewModel.CheckOut();
                 CheckOutRequested?.Invoke(this, table);
+            }
+        }
+
+        private async void DiscountButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var cartViewModel = this.DataContext as CartViewModel;
+                // Tổng tiền hiện tại từ ViewModel
+                double totalPrice = cartViewModel?.Subtotal ?? 0;
+
+                // Hiển thị danh sách khuyến mãi trong ContentDialog
+                discountViewModel = new DiscountViewModel();
+                List<DiscountModel> discounts = await discountViewModel.getEligibleDiscount(totalPrice);
+                var selectedDiscount = await ShowDiscountsDialog("Discount", discounts, App.m_window.Content.XamlRoot);
+
+                if (selectedDiscount != null)
+                {
+                    if (cartViewModel != null)
+                    {
+                        cartViewModel.SelectedDiscount = selectedDiscount;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                //await ShowMessageDialog($"Lỗi khi lấy danh sách khuyến mãi: {ex.Message}");
+            }
+        }
+
+        public async Task<DiscountModel> ShowDiscountsDialog(string title, List<DiscountModel> discounts, Microsoft.UI.Xaml.XamlRoot xamlRoot)
+        {
+            if (xamlRoot == null)
+                throw new ArgumentNullException(nameof(xamlRoot), "XamlRoot không được null");
+
+            var listView = new ListView
+            {
+                ItemsSource = discounts,
+                ItemTemplate = (DataTemplate)this.Resources["DiscountTemplate"],
+                SelectionMode = ListViewSelectionMode.Single
+            };
+
+            var dialog = new ContentDialog
+            {
+                Title = title,
+                Content = listView, 
+                CloseButtonText = "Cancel",
+                PrimaryButtonText = "Ok",
+                DefaultButton = ContentDialogButton.Primary,
+                XamlRoot = xamlRoot
+            };
+
+            var result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary && listView.SelectedItem is DiscountModel selectedDiscount)
+            {
+                return selectedDiscount;
+            }
+            return null;
+        }
+
+        private async void OnSearchCustomerClicked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                String phoneNumber = PhoneNumberTextBox.Text;
+                if (string.IsNullOrWhiteSpace(phoneNumber))
+                {
+                    return;
+                }
+                var cartViewModel = this.DataContext as CartViewModel;
+
+                // Hiển thị danh sách khuyến mãi trong ContentDialog
+                customerViewModel = new CustomerViewModel();
+                CustomerModel customer = await customerViewModel.getCustomerByPhone(phoneNumber);
+
+                if (cartViewModel != null)
+                {
+                    cartViewModel.Customer = customer;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                //await ShowMessageDialog($"Lỗi khi lấy danh sách khuyến mãi: {ex.Message}");
+            }
+        }
+
+        private void OnUsePointsClicked(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is CartViewModel viewModel)
+            {
+                if (int.TryParse(PointToUseTextBox.Text, out int pointsToUse))
+                {
+                    if (pointsToUse > 0 && pointsToUse <= viewModel.Customer.RewardPoints)
+                    {
+                        viewModel.PointsToUse = pointsToUse;
+                    } else
+                    {
+                        viewModel.PointsToUse = 0;
+                    }
+                }
             }
         }
     }

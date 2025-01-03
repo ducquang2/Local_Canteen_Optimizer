@@ -1,4 +1,5 @@
 ﻿using Local_Canteen_Optimizer.Commands;
+using Local_Canteen_Optimizer.DAO.DiscountDAO;
 using Local_Canteen_Optimizer.DAO.OrderDAO;
 using Local_Canteen_Optimizer.DAO.SeatDAO;
 using Local_Canteen_Optimizer.Helper;
@@ -15,15 +16,20 @@ using System.Windows.Input;
 
 namespace Local_Canteen_Optimizer.ViewModel
 {
+    /// <summary>
+    /// ViewModel for managing the cart in the Local Canteen Optimizer application.
+    /// </summary>
     public class CartViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Data Access Object (DAO) for interacting with order data.
+        /// </summary>
         private IOrderDAO _dao = null;
         public ObservableCollection<FoodModel> CartItems { get; set; }
         public ICommand RemoveItemCommand { get; set; }
 
         public double Subtotal { get; set; } = 0;
         public double Tax => Subtotal * 0;
-        public double Total => Subtotal + Tax;
         public int OrderId { get; set; } = 0;
 
         private int selectedTableId;
@@ -39,6 +45,54 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
         public string DisplayTableText => SelectedTableId == 1 ? "Mang về" : $"Bàn {SelectedTableId}";
+
+        private DiscountModel _selectedDiscount;
+        public DiscountModel SelectedDiscount
+        {
+            get => _selectedDiscount;
+            set
+            {
+                _selectedDiscount = value;
+                OnPropertyChanged(nameof(SelectedDiscount));
+                OnPropertyChanged(nameof(DiscountText));
+                OnPropertyChanged(nameof(DiscountAmount));
+                OnPropertyChanged(nameof(Total));
+            }
+        }
+        public double DiscountAmount => SelectedDiscount != null ? SelectedDiscount.DiscountAmount : 0 ;
+        public string DiscountText => SelectedDiscount != null
+        ? $"{SelectedDiscount.DiscountName} - {SelectedDiscount.DiscountDescription}"
+        : "No discount applied";
+        public double Total => Subtotal - DiscountAmount - PointsToUse;
+
+        private CustomerModel _customer;
+        public CustomerModel Customer
+        {
+            get => _customer;
+            set
+            {
+                _customer = value;
+                OnPropertyChanged(nameof(Customer));
+                OnPropertyChanged(nameof(IsCustomerFound));
+            }
+        }
+        public bool IsCustomerFound => Customer != null;
+
+        private int _pointsToUse = 0;
+        public int PointsToUse
+        {
+            get => _pointsToUse;
+            set
+            {
+                if (_pointsToUse != value)
+                {
+                    _pointsToUse = value;
+                    OnPropertyChanged(nameof(PointsToUse));
+                    OnPropertyChanged(nameof(Total));
+                }
+            }
+        }
+
 
         public CartViewModel()
         {
@@ -58,6 +112,8 @@ namespace Local_Canteen_Optimizer.ViewModel
                 OrderId = 0;
                 OnPropertyChanged(nameof(CartItems));
                 Subtotal = 0;
+                SelectedDiscount = null;
+                Customer = null;
                 OnPropertyChanged(nameof(Subtotal));
                 OnPropertyChanged(nameof(Tax));
                 OnPropertyChanged(nameof(Total));
@@ -122,6 +178,14 @@ namespace Local_Canteen_Optimizer.ViewModel
             {
                 try {
                     bool isUpdateOrderItems = await _dao.UpdateOrderItems(order);
+                    //if(_selectedDiscount != null)
+                    //{
+                    //    double? discountAmount = await _dao.ApplyDiscount(OrderId, int.Parse(_selectedDiscount.DiscountID));
+                    //}
+                    //if (_pointsToUse > 0)
+                    //{
+                    //    bool isApplyRewardPoint = await _dao.ApplyRewardPoint(OrderId, Subtotal - DiscountAmount, Customer.PhoneNumber, _pointsToUse);
+                    //}
                     if (isUpdateOrderItems)
                     {
                         await MessageHelper.ShowSuccessMessage("Update order items successful", App.m_window.Content.XamlRoot);
@@ -140,18 +204,22 @@ namespace Local_Canteen_Optimizer.ViewModel
                 try
                 {
                     OrderModel newOrder = await _dao.AddOrderAsync(order);
+                    //if (_selectedDiscount != null)
+                    //{
+                    //    double? discountAmount = await _dao.ApplyDiscount(newOrder.OrderId, int.Parse(_selectedDiscount.DiscountID));
+                    //}
                     if (newOrder == null)
                     {
                         await MessageHelper.ShowErrorMessage("Fail to create new order", App.m_window.Content.XamlRoot);
                         return null;
                     }
+                    OrderId = newOrder.OrderId;
                     bool isUpdateTable = await _dao.UpdateTableAfterOrder(newOrder.OrderId, SelectedTableId);
                     if (!isUpdateTable)
                     {
-                        await MessageHelper.ShowErrorMessage("Fail to update table", App.m_window.Content.XamlRoot);
+                        await MessageHelper.ShowErrorMessage("Fail to create new", App.m_window.Content.XamlRoot);
                         return null;
                     }
-
 
                     newOrder.OrderDetails = order.OrderDetails;
                     OrderDataServices.Instance.Orders.Add(newOrder);
@@ -195,6 +263,18 @@ namespace Local_Canteen_Optimizer.ViewModel
                     }
                     OrderId = newOrder.OrderId;
                 }
+                if(Customer != null)
+                {
+                    await _dao.AddRewardPoints(Subtotal, Customer.CustomerID);
+                }
+                if (_selectedDiscount != null)
+                {
+                    double? discountAmount = await _dao.ApplyDiscount(OrderId, int.Parse(_selectedDiscount.DiscountID));
+                }
+                if (_pointsToUse > 0)
+                {
+                    bool isApplyRewardPoint = await _dao.ApplyRewardPoint(OrderId, Subtotal - DiscountAmount, Customer.PhoneNumber, _pointsToUse);
+                }
 
                 bool isCheckout = await _dao.CheckOut(SelectedTableId, OrderId);
                 if (!isCheckout)
@@ -207,6 +287,10 @@ namespace Local_Canteen_Optimizer.ViewModel
                     CartItems.Clear();
                     OnPropertyChanged(nameof(CartItems));
                     Subtotal = 0;
+                    OrderId = 0;
+                    SelectedDiscount = null;
+                    PointsToUse = 0;
+                    OnPropertyChanged(nameof(SelectedDiscount));
                     OnPropertyChanged(nameof(Subtotal));
                     OnPropertyChanged(nameof(Tax));
                     OnPropertyChanged(nameof(Total));

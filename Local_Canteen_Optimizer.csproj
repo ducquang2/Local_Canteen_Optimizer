@@ -36,6 +36,14 @@
     <None Remove="View\AddProduct.xaml" />
     <None Remove="View\CartView.xaml" />
     <None Remove="View\Customers.xaml" />
+    <None Remove="View\Customer\AddCustomer.xaml" />
+    <None Remove="View\Customer\EditCustomer.xaml" />
+    <None Remove="View\Customer\ListCustomer.xaml" />
+    <None Remove="View\Discount.xaml" />
+    <None Remove="View\Discount\AddDiscount.xaml" />
+    <None Remove="View\Discount\Discount.xaml" />
+    <None Remove="View\Discount\EditDiscount.xaml" />
+    <None Remove="View\Discount\ListDiscount.xaml" />
     <None Remove="View\EditProduct.xaml" />
     <None Remove="View\Header.xaml" />
     <None Remove="View\Home.xaml" />
@@ -117,6 +125,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Images\delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\discount.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Images\edit.png">
@@ -206,6 +217,30 @@
     <None Update="Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Page Update="View\Customer\ListCustomer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="View\Customer\EditCustomer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="View\Customer\AddCustomer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="View\Discount\AddDiscount.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="View\Discount\EditDiscount.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="View\Discount\ListDiscount.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="View\Discount\Discount.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="View\Discount.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="View\Cashier\Cashier.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
