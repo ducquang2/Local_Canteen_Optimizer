@@ -17,11 +17,9 @@ namespace Local_Canteen_Optimizer.View
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
         private readonly IAuthenDAO _authenDAO;
 
-        /// <summary>
-        /// Initializes a new instance of the MainPage class.
-        /// </summary>
         public MainPage()
         {
             this.InitializeComponent();
@@ -34,7 +32,7 @@ namespace Local_Canteen_Optimizer.View
             {
                 var userInfoJson = localSettings.Values["userInfo"] as string;
                 var userInfo = JsonSerializer.Deserialize<UserModel>(userInfoJson);
-
+                
                 if (userInfo != null && (userInfo.Role == "admin" || userInfo.Role == "manage"))
                 {
                     // User is admin or manage, show the ManageUser button
@@ -52,13 +50,9 @@ namespace Local_Canteen_Optimizer.View
             }
         }
 
-        /// <summary>
-        /// Handles the click event of the Logout button.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
+
             if (_authenDAO.LogoutAsync())
             {
                 // Handle successful logout, e.g., navigate to login page

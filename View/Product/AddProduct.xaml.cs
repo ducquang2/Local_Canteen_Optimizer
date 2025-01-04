@@ -21,30 +21,12 @@ namespace Local_Canteen_Optimizer.View.Product
 {
     public sealed partial class AddProduct : UserControl
     {
-        /// <summary>
-        /// Event triggered when the save button is clicked.
-        /// </summary>
         public event EventHandler<FoodModel> SaveRequested;
-
-        /// <summary>
-        /// Event triggered when the cancel button is clicked.
-        /// </summary>
         public event EventHandler CancelRequested;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AddProduct"/> class.
-        /// </summary>
         public AddProduct()
         {
             this.InitializeComponent();
         }
-
-        /// <summary>
-        /// Handles the click event of the save button.
-        /// Validates the input fields and triggers the <see cref="SaveRequested"/> event if valid.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             bool hasError = false;
@@ -88,6 +70,7 @@ namespace Local_Canteen_Optimizer.View.Product
 
             var product = new FoodModel
             {
+                //ProductID = Guid.NewGuid().ToString(),
                 Name = NameTextBox.Text,
                 ImageSource = ImageTextBox.Text,
                 Price = price,
@@ -97,12 +80,6 @@ namespace Local_Canteen_Optimizer.View.Product
             SaveRequested?.Invoke(this, product);
         }
 
-        /// <summary>
-        /// Handles the click event of the cancel button.
-        /// Triggers the <see cref="CancelRequested"/> event.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             CancelRequested?.Invoke(this, EventArgs.Empty);

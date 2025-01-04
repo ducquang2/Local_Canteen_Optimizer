@@ -25,78 +25,57 @@ namespace Local_Canteen_Optimizer.View.Product
         private ListProducts productListControl;
         private AddProduct addProductControl;
         private EditProduct editProductControl;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Product"/> class.
-        /// </summary>
+        //private ProductViewModel productViewModel;
         public Product()
         {
             this.InitializeComponent();
+            //productViewModel = new ProductViewModel();
+            //DataContext = productViewModel;
 
-            // Initialize product list control
+            // Khởi tạo danh sách sản phẩm
             productListControl = new ListProducts();
             productListControl.AddProductRequested += OnAddProductRequested;
             productListControl.EditProductRequested += OnEditProductRequested;
 
-            // Initialize add product control
+            // Khởi tạo form thêm sản phẩm
             addProductControl = new AddProduct();
             addProductControl.SaveRequested += OnAddSaveRequested;
             addProductControl.CancelRequested += OnCancelRequested;
 
-            // Initialize edit product control
             editProductControl = new EditProduct();
             editProductControl.SaveRequested += OnEditSaveRequested;
             editProductControl.CancelRequested += OnCancelRequested;
 
-            // Display initial product list
+            // Hiển thị danh sách sản phẩm ban đầu
             ProductsContent.Content = productListControl;
         }
 
-        /// <summary>
-        /// Handles the AddProductRequested event of the productListControl control.
-        /// Switches to the add product form.
-        /// </summary>
         private void OnAddProductRequested(object sender, EventArgs e)
         {
+            // Khi nhấn nút Add Product, chuyển sang form thêm sản phẩm
             ProductsContent.Content = addProductControl;
         }
-
-        /// <summary>
-        /// Handles the EditProductRequested event of the productListControl control.
-        /// Switches to the edit product form.
-        /// </summary>
         private void OnEditProductRequested(object sender, FoodModel product)
         {
             editProductControl.SetProduct(product);
             ProductsContent.Content = editProductControl;
         }
 
-        /// <summary>
-        /// Handles the SaveRequested event of the addProductControl control.
-        /// Adds the product to the list and switches back to the product list.
-        /// </summary>
         private void OnAddSaveRequested(object sender, FoodModel product)
         {
+            // Khi lưu sản phẩm, thêm vào danh sách và quay lại danh sách sản phẩm
             productListControl.AddProduct(product);
             ProductsContent.Content = productListControl;
         }
-
-        /// <summary>
-        /// Handles the SaveRequested event of the editProductControl control.
-        /// Updates the product in the list and switches back to the product list.
-        /// </summary>
         private void OnEditSaveRequested(object sender, FoodModel product)
         {
             productListControl.UpdateProduct(product);
-            ProductsContent.Content = productListControl;
+            ProductsContent.Content = productListControl; // Quay lại danh sách sản phẩm
         }
 
-        /// <summary>
-        /// Handles the CancelRequested event of the addProductControl and editProductControl controls.
-        /// Switches back to the product list.
-        /// </summary>
         private void OnCancelRequested(object sender, EventArgs e)
         {
+            // Khi hủy, quay lại danh sách sản phẩm
             ProductsContent.Content = productListControl;
         }
     }

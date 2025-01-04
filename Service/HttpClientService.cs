@@ -9,14 +9,8 @@ namespace Local_Canteen_Optimizer.Service
 {
     class HttpClientService
     {
-        /// <summary>
-        /// The static HttpClient instance.
-        /// </summary>
         private static HttpClient _httpClient;
 
-        /// <summary>
-        /// Static constructor to initialize the HttpClient with a base address.
-        /// </summary>
         static HttpClientService()
         {
             _httpClient = new HttpClient
@@ -26,10 +20,6 @@ namespace Local_Canteen_Optimizer.Service
             //_httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
         }
 
-        /// <summary>
-        /// Gets the static HttpClient instance.
-        /// </summary>
-        /// <returns>The HttpClient instance.</returns>
         public static HttpClient GetHttpClient()
         {
             return _httpClient;

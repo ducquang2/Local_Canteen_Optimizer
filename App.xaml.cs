@@ -16,7 +16,7 @@ namespace Local_Canteen_Optimizer
     public partial class App : Application
     {
         /// <summary>
-        /// Initializes the singleton application object. This is the first line of authored code
+        /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
@@ -50,16 +50,8 @@ namespace Local_Canteen_Optimizer
                 m_window.NavigateToAuthPage();
             }
         }
-
-        /// <summary>
-        /// Gets the main window of the application.
-        /// </summary>
         public static MainWindow m_window { get; private set; }
 
-        /// <summary>
-        /// Checks if the user is authenticated.
-        /// </summary>
-        /// <returns>True if the user is authenticated, otherwise false.</returns>
         private bool IsUserAuthenticated()
         {
             // Implement your authentication check logic here
@@ -83,11 +75,6 @@ namespace Local_Canteen_Optimizer
             return false;
         }
 
-        /// <summary>
-        /// Checks if the token is expired.
-        /// </summary>
-        /// <param name="token">The token to check.</param>
-        /// <returns>True if the token is expired, otherwise false.</returns>
         private bool IsTokenExpired(string token)
         {
             try
@@ -117,11 +104,6 @@ namespace Local_Canteen_Optimizer
             }
         }
 
-        /// <summary>
-        /// Pads a Base64 string to ensure it is properly formatted.
-        /// </summary>
-        /// <param name="base64">The Base64 string to pad.</param>
-        /// <returns>The padded Base64 string.</returns>
         private string PadBase64String(string base64)
         {
             switch (base64.Length % 4)
@@ -132,9 +114,6 @@ namespace Local_Canteen_Optimizer
             }
         }
 
-        /// <summary>
-        /// Applies the saved theme to the application.
-        /// </summary>
         private void ApplySavedTheme()
         {
             var localSettings = ApplicationData.Current.LocalSettings;

@@ -22,103 +22,46 @@ using Windows.System;
 
 namespace Local_Canteen_Optimizer.ViewModel
 {
-    /// <summary>
-    /// ViewModel class for managing products.
-    /// </summary>
     class ProductViewModel : BaseViewModel
     {
         private IProductDao _dao = null;
-
-        /// <summary>
-        /// Gets or sets the keyword for searching products.
-        /// </summary>
         public string Keyword { get; set; } = "";
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the product names are sorted in ascending order.
-        /// </summary>
         public bool NameAcending { get; set; } = true;
-
-        /// <summary>
-        /// Gets or sets the current page number.
-        /// </summary>
         public int CurrentPage { get; set; } = 0;
-
-        /// <summary>
-        /// Gets or sets the number of rows per page.
-        /// </summary>
         public int RowsPerPage { get; set; } = 10;
-
-        /// <summary>
-        /// Gets or sets the total number of pages.
-        /// </summary>
         public int TotalPages { get; set; } = 0;
-
-        /// <summary>
-        /// Gets or sets the total number of items.
-        /// </summary>
         public int TotalItems { get; set; } = 0;
-
-        /// <summary>
-        /// Gets or sets the collection of food items.
-        /// </summary>
         public ObservableCollection<FoodModel> FoodItems { get; set; }
-
-        /// <summary>
-        /// Gets or sets the collection of all food items.
-        /// </summary>
         public ObservableCollection<FoodModel> allFoodItems { get; set; }
-
-        /// <summary>
-        /// Gets or sets the command for deleting a food item.
-        /// </summary>
         public ICommand DeleteFoodCommand { get; set; }
 
-        /// <summary>
-        /// Initializes the ViewModel.
-        /// </summary>
         public async Task Init()
         {
-            try
-            {
+            try {
                 _dao = new ProductDAOImp();
                 FoodItems = new ObservableCollection<FoodModel>();
                 allFoodItems = new ObservableCollection<FoodModel>();
                 DeleteFoodCommand = new RelayCommand<FoodModel>(async (food) => await ConfirmAndAddFoodItem(food));
-                await LoadProductsAsync();
-            }
-            catch
-            {
+                await LoadProductsAsync(); 
+            } catch{
                 await MessageHelper.ShowErrorMessage("Can't get any products", App.m_window.Content.XamlRoot);
             }
         }
-
-        /// <summary>
-        /// Loads the products for the specified page.
-        /// </summary>
-        /// <param name="page">The page number to load.</param>
         public async Task Load(int page)
         {
             CurrentPage = page;
             await LoadProductsAsync();
         }
 
-        /// <summary>
-        /// Loads the products sorted by name.
-        /// </summary>
-        /// <param name="nameAcending">Indicates whether the names should be sorted in ascending order.</param>
         public async Task LoadProductSort(bool nameAcending)
         {
             NameAcending = nameAcending;
             await LoadProductsAsync();
         }
 
-        /// <summary>
-        /// Loads the products asynchronously.
-        /// </summary>
         public async Task LoadProductsAsync()
         {
-            var (totalItems, products) = await _dao.GetProductsAsync(CurrentPage, RowsPerPage, Keyword, NameAcending, null, null);
+            var (totalItems,products) = await _dao.GetProductsAsync(CurrentPage, RowsPerPage, Keyword, NameAcending, null, null);
             FoodItems.Clear();
             foreach (var item in products)
             {
@@ -128,11 +71,9 @@ namespace Local_Canteen_Optimizer.ViewModel
 
             TotalItems = totalItems;
             TotalPages = (TotalItems / RowsPerPage) + ((TotalItems % RowsPerPage == 0) ? 0 : 1);
+
         }
 
-        /// <summary>
-        /// Loads all products asynchronously.
-        /// </summary>
         public async Task LoadAllProductsAsync()
         {
             var (totalItems, products) = await _dao.GetProductsAsync(null, null, null, true, null, null);
@@ -143,32 +84,32 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
 
-        /// <summary>
-        /// Adds a new food item.
-        /// </summary>
-        /// <param name="food">The food item to add.</param>
+        //public void UpdatePageOptions()
+        //{
+        //    PageOptions.Clear();
+        //    for (int i = 1; i <= TotalPages; i++)
+        //    {
+        //        PageOptions.Add($"{i}/{TotalPages}");
+        //    }
+        //}
+
         public async Task AddFoodItem(FoodModel food)
         {
             FoodModel newFood = await _dao.AddProductAsync(food);
             if (newFood != null)
             {
                 FoodItems.Add(newFood);
-            }
-            else
+            } else
             {
                 throw new Exception("Fail to add new product");
             }
         }
-
-        /// <summary>
-        /// Updates an existing product.
-        /// </summary>
-        /// <param name="product">The product to update.</param>
         public async Task UpdateProduct(FoodModel product)
         {
             FoodModel updateFood = await _dao.UpdateProductAsync(product);
-            if (updateFood != null)
-            {
+            if(updateFood != null)
+            {        
+                // Tìm và cập nhật sản phẩm trong danh sách
                 var existingProductIndex = FoodItems.IndexOf(FoodItems.FirstOrDefault(p => p.Name == product.Name));
                 if (existingProductIndex >= 0)
                 {
@@ -186,27 +127,23 @@ namespace Local_Canteen_Optimizer.ViewModel
                 {
                     await MessageHelper.ShowErrorMessage("Fail to update product", App.m_window.Content.XamlRoot);
                 }
-            }
-            else
+            } else
             {
                 await MessageHelper.ShowErrorMessage("Fail to update product", App.m_window.Content.XamlRoot);
             }
         }
-
-        /// <summary>
-        /// Confirms and adds a food item.
-        /// </summary>
-        /// <param name="food">The food item to confirm and add.</param>
         private async Task ConfirmAndAddFoodItem(FoodModel food)
         {
             if (food == null)
             {
+                // Hiển thị thông báo lỗi nếu cần
                 return;
             }
 
+            // Hiển thị hộp thoại xác nhận
             bool isConfirmed = await MessageHelper.ShowConfirmationDialog(
-                $"Are you sure you want to delete: {food.Name}?",
-                "Confirm customer deletion",
+                $"Bạn có chắc chắn muốn xoá sản phẩm: {food.Name}?",
+                "Xác nhận thêm sản phẩm",
                 App.m_window.Content.XamlRoot
             );
 
@@ -215,11 +152,6 @@ namespace Local_Canteen_Optimizer.ViewModel
                 await DeleteProduct(food);
             }
         }
-
-        /// <summary>
-        /// Deletes a product.
-        /// </summary>
-        /// <param name="product">The product to delete.</param>
         public async Task DeleteProduct(FoodModel product)
         {
             bool isRemoved = await _dao.RemoveProductAsync(int.Parse(product.ProductID));
@@ -230,17 +162,12 @@ namespace Local_Canteen_Optimizer.ViewModel
                     FoodItems.Remove(product);
                     await MessageHelper.ShowSuccessMessage("Remove product successful", App.m_window.Content.XamlRoot);
                 }
-            }
-            else
+            } else
             {
                 await MessageHelper.ShowErrorMessage("Fail to remove product", App.m_window.Content.XamlRoot);
             }
         }
 
-        /// <summary>
-        /// Picks an Excel file asynchronously.
-        /// </summary>
-        /// <returns>The file path of the picked Excel file.</returns>
         public async Task<string> PickExcelFileAsync()
         {
             var picker = new FileOpenPicker();
@@ -248,6 +175,7 @@ namespace Local_Canteen_Optimizer.ViewModel
             picker.FileTypeFilter.Add(".xlsx");
             picker.FileTypeFilter.Add(".xls");
 
+            // Kết nối với cửa sổ ứng dụng
             var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
             WinRT.Interop.InitializeWithWindow.Initialize(picker, hwnd);
 
@@ -255,10 +183,6 @@ namespace Local_Canteen_Optimizer.ViewModel
             return file?.Path;
         }
 
-        /// <summary>
-        /// Imports products from an Excel file.
-        /// </summary>
-        /// <param name="filePath">The file path of the Excel file.</param>
         public async Task ImportProductsFromExcel(string filePath)
         {
             try
@@ -298,12 +222,6 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
 
-        /// <summary>
-        /// Gets the cell value from a spreadsheet document.
-        /// </summary>
-        /// <param name="document">The spreadsheet document.</param>
-        /// <param name="cell">The cell to get the value from.</param>
-        /// <returns>The cell value as a string.</returns>
         private string GetCellValue(SpreadsheetDocument document, Cell cell)
         {
             SharedStringTablePart stringTablePart = document.WorkbookPart.SharedStringTablePart;
@@ -320,10 +238,6 @@ namespace Local_Canteen_Optimizer.ViewModel
             return value;
         }
 
-        /// <summary>
-        /// Picks a save file asynchronously.
-        /// </summary>
-        /// <returns>The file path of the picked save file.</returns>
         public async Task<string> PickSaveFileAsync()
         {
             var picker = new FileSavePicker();
@@ -338,11 +252,6 @@ namespace Local_Canteen_Optimizer.ViewModel
             return file?.Path;
         }
 
-        /// <summary>
-        /// Exports data to an Excel file.
-        /// </summary>
-        /// <param name="filePath">The file path to save the Excel file.</param>
-        /// <param name="data">The data to export.</param>
         public async Task ExportToExcel(string filePath, ObservableCollection<FoodModel> data)
         {
             try
@@ -408,12 +317,6 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
 
-        /// <summary>
-        /// Creates a text cell.
-        /// </summary>
-        /// <param name="cellReference">The cell reference.</param>
-        /// <param name="cellValue">The cell value.</param>
-        /// <returns>The created text cell.</returns>
         private Cell CreateTextCell(string cellReference, string cellValue)
         {
             return new Cell()
@@ -424,12 +327,6 @@ namespace Local_Canteen_Optimizer.ViewModel
             };
         }
 
-        /// <summary>
-        /// Creates a number cell.
-        /// </summary>
-        /// <param name="cellReference">The cell reference.</param>
-        /// <param name="cellValue">The cell value.</param>
-        /// <returns>The created number cell.</returns>
         private Cell CreateNumberCell(string cellReference, string cellValue)
         {
             return new Cell()
@@ -439,5 +336,25 @@ namespace Local_Canteen_Optimizer.ViewModel
                 CellValue = new CellValue(cellValue)
             };
         }
+
+
+        //public ProductViewModel()
+        //{
+        //    // Giả lập danh sách món ăn
+        //    FoodItems = new ObservableCollection<FoodModel>
+        //    {
+        //        new FoodModel { ProductID = "1", Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00, Quantity = 20},
+        //        new FoodModel { ProductID = "1", Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00, Quantity = 20},
+        //        new FoodModel { ProductID = "1", Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00, Quantity = 20},
+        //        new FoodModel { ProductID = "1", Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00, Quantity = 20},
+        //        new FoodModel { ProductID = "1", Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00, Quantity = 20},
+        //        new FoodModel { ProductID = "1", Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00, Quantity = 20},
+        //        new FoodModel { ProductID = "1", Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00, Quantity = 20},
+        //        new FoodModel { ProductID = "1", Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00, Quantity = 20},
+        //        new FoodModel { ProductID = "1", Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00, Quantity = 20},
+        //        new FoodModel { ProductID = "1", Name = "Schezwan Egg Noodles", ImageSource = "ms-appx:///Assets/ImgFood/mi-quang.png", Price = 24.00, Quantity = 20},
+
+        //    };
+        //}
     }
 }

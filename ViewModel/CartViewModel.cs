@@ -1,4 +1,4 @@
-using Local_Canteen_Optimizer.Commands;
+﻿using Local_Canteen_Optimizer.Commands;
 using Local_Canteen_Optimizer.DAO.DiscountDAO;
 using Local_Canteen_Optimizer.DAO.OrderDAO;
 using Local_Canteen_Optimizer.DAO.SeatDAO;
@@ -25,20 +25,11 @@ namespace Local_Canteen_Optimizer.ViewModel
         /// Data Access Object (DAO) for interacting with order data.
         /// </summary>
         private IOrderDAO _dao = null;
-
-        /// <summary>
-        /// Collection of items in the cart.
-        /// </summary>
         public ObservableCollection<FoodModel> CartItems { get; set; }
-
-        /// <summary>
-        /// Command to remove an item from the cart.
-        /// </summary>
         public ICommand RemoveItemCommand { get; set; }
 
         public double Subtotal { get; set; } = 0;
         public double Tax => Subtotal * 0;
-        public double Total => Subtotal + Tax;
         public int OrderId { get; set; } = 0;
 
         private int selectedTableId;
@@ -103,70 +94,6 @@ namespace Local_Canteen_Optimizer.ViewModel
         }
 
 
-        private DiscountModel _selectedDiscount;
-        public DiscountModel SelectedDiscount
-        {
-            get => _selectedDiscount;
-            set
-            {
-                _selectedDiscount = value;
-                OnPropertyChanged(nameof(SelectedDiscount));
-                OnPropertyChanged(nameof(DiscountText));
-                OnPropertyChanged(nameof(DiscountAmount));
-                OnPropertyChanged(nameof(Total));
-            }
-        }
-
-        /// <summary>
-        /// Gets the discount amount.
-        /// </summary>
-        public double DiscountAmount => SelectedDiscount != null ? SelectedDiscount.DiscountAmount : 0 ;
-        public string DiscountText => SelectedDiscount != null
-        ? $"{SelectedDiscount.DiscountName} - {SelectedDiscount.DiscountDescription}"
-        : "No discount applied";
-
-        /// <summary>
-        /// Gets the total amount after applying discounts and points.
-        /// </summary>
-        public double Total => Subtotal - DiscountAmount - PointsToUse;
-
-        /// <summary>
-        /// Gets or sets the customer.
-        /// </summary>
-        private CustomerModel _customer;
-        public CustomerModel Customer
-        {
-            get => _customer;
-            set
-            {
-                _customer = value;
-                OnPropertyChanged(nameof(Customer));
-                OnPropertyChanged(nameof(IsCustomerFound));
-            }
-        }
-        public bool IsCustomerFound => Customer != null;
-
-        /// <summary>
-        /// Gets or sets the points to use.
-        /// </summary>
-        private int _pointsToUse = 0;
-        public int PointsToUse
-        {
-            get => _pointsToUse;
-            set
-            {
-                if (_pointsToUse != value)
-                {
-                    _pointsToUse = value;
-                    OnPropertyChanged(nameof(PointsToUse));
-                    OnPropertyChanged(nameof(Total));
-                }
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CartViewModel"/> class.
-        /// </summary>
         public CartViewModel()
         {
             _dao = new OrderDAOImp();
@@ -176,9 +103,6 @@ namespace Local_Canteen_Optimizer.ViewModel
             LoadOrderItemsAsync();
         }
 
-        /// <summary>
-        /// Loads all order items by table with asynchronously.
-        /// </summary>
         public async Task LoadOrderItemsAsync()
         {
             OrderModel orderModel = await _dao.GetOrderModelFromTable(selectedTableId);
@@ -207,10 +131,6 @@ namespace Local_Canteen_Optimizer.ViewModel
             OnPropertyChanged(nameof(Total));
         }
 
-        /// <summary>
-        /// Adds an item to the cart.
-        /// </summary>
-        /// <param name="item">The item to add.</param>
         public void AddItemToCart(FoodModel item)
         {
             FoodModel existingItem = CartItems.FirstOrDefault(i => i.ProductID == item.ProductID);
@@ -233,10 +153,6 @@ namespace Local_Canteen_Optimizer.ViewModel
             OnPropertyChanged(nameof(Total));
         }
 
-        /// <summary>
-        /// Removes an item from the cart.
-        /// </summary>
-        /// <param name="item">The item to remove.</param>
         public void RemoveItem(FoodModel item)
         {
             CartItems.Remove(item);
@@ -246,10 +162,6 @@ namespace Local_Canteen_Optimizer.ViewModel
             OnPropertyChanged(nameof(Total));
         }
 
-        /// <summary>
-        /// Holds the current cart asynchronously.
-        /// </summary>
-        /// <returns>The table information after holding the cart.</returns>
         public async Task<TableModel> HoldCart()
         {
             var order = new OrderModel
@@ -329,10 +241,6 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
 
-        /// <summary>
-        /// Checks out the current cart asynchronously.
-        /// </summary>
-        /// <returns>The table information after checkout.</returns>
         public async Task<TableModel> CheckOut()
         {
             var order = new OrderModel

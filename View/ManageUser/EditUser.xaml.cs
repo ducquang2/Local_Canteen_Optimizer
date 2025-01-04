@@ -14,33 +14,15 @@ namespace Local_Canteen_Optimizer.View.ManageUser
     /// </summary>
     public sealed partial class EditUser : UserControl
     {
-        /// <summary>
-        /// Event triggered when a save is requested.
-        /// </summary>
         public event EventHandler<UserModel> SaveRequested;
-
-        /// <summary>
-        /// Event triggered when a cancel is requested.
-        /// </summary>
         public event EventHandler CancelRequested;
-
-        /// <summary>
-        /// The current user being edited.
-        /// </summary>
         private UserModel currentUser;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EditUser"/> class.
-        /// </summary>
         public EditUser()
         {
             this.InitializeComponent();
         }
 
-        /// <summary>
-        /// Sets the user to be edited.
-        /// </summary>
-        /// <param name="user">The user to be edited.</param>
         public void SetUser(UserModel user)
         {
             currentUser = user;
@@ -52,11 +34,6 @@ namespace Local_Canteen_Optimizer.View.ManageUser
             RoleComboBox.SelectedItem = user.Role.ToUpper();
         }
 
-        /// <summary>
-        /// Handles the click event of the save button.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             bool hasError = false;
@@ -95,11 +72,6 @@ namespace Local_Canteen_Optimizer.View.ManageUser
             SaveRequested?.Invoke(this, currentUser);
         }
 
-        /// <summary>
-        /// Handles the click event of the cancel button.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             // Reset error messages

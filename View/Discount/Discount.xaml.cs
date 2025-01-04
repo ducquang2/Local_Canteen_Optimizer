@@ -20,81 +20,62 @@ using Windows.Foundation.Collections;
 
 namespace Local_Canteen_Optimizer.View.Discount
 {
-    /// <summary>
-    /// Interaction logic for Discount UserControl.
-    /// </summary>
     public sealed partial class Discount : UserControl
     {
         private ListDiscount discountListControl;
         private AddDiscount addDiscountControl;
         private EditDiscount editDiscountControl;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Discount"/> class.
-        /// </summary>
+        //private ProductViewModel productViewModel;
         public Discount()
         {
             this.InitializeComponent();
+            //productViewModel = new ProductViewModel();
+            //DataContext = productViewModel;
 
-            // Initialize discount list control
+            // Khởi tạo danh sách sản phẩm
             discountListControl = new ListDiscount();
             discountListControl.AddDiscountRequested += OnAddDiscountRequested;
             discountListControl.EditDiscountRequested += OnEditDiscountRequested;
 
-            // Initialize add discount control
+            // Khởi tạo form thêm sản phẩm
             addDiscountControl = new AddDiscount();
             addDiscountControl.SaveRequested += OnAddSaveRequested;
             addDiscountControl.CancelRequested += OnCancelRequested;
 
-            // Initialize edit discount control
             editDiscountControl = new EditDiscount();
             editDiscountControl.SaveRequested += OnEditSaveRequested;
             editDiscountControl.CancelRequested += OnCancelRequested;
 
-            // Display initial discount list
+            // Hiển thị danh sách sản phẩm ban đầu
             DiscountsContent.Content = discountListControl;
         }
 
-        /// <summary>
-        /// Handles the AddDiscountRequested event.
-        /// </summary>
         private void OnAddDiscountRequested(object sender, EventArgs e)
         {
+            // Khi nhấn nút Add Discount, chuyển sang form thêm sản phẩm
             DiscountsContent.Content = addDiscountControl;
         }
-
-        /// <summary>
-        /// Handles the EditDiscountRequested event.
-        /// </summary>
         private void OnEditDiscountRequested(object sender, DiscountModel discount)
         {
             editDiscountControl.SetDiscount(discount);
             DiscountsContent.Content = editDiscountControl;
         }
 
-        /// <summary>
-        /// Handles the SaveRequested event for adding a discount.
-        /// </summary>
         private void OnAddSaveRequested(object sender, DiscountModel discount)
         {
+            // Khi lưu sản phẩm, thêm vào danh sách và quay lại danh sách sản phẩm
             discountListControl.AddDiscount(discount);
             DiscountsContent.Content = discountListControl;
         }
-
-        /// <summary>
-        /// Handles the SaveRequested event for editing a discount.
-        /// </summary>
         private void OnEditSaveRequested(object sender, DiscountModel discount)
         {
             discountListControl.UpdateDiscount(discount);
-            DiscountsContent.Content = discountListControl;
+            DiscountsContent.Content = discountListControl; // Quay lại danh sách sản phẩm
         }
 
-        /// <summary>
-        /// Handles the CancelRequested event.
-        /// </summary>
         private void OnCancelRequested(object sender, EventArgs e)
         {
+            // Khi hủy, quay lại danh sách sản phẩm
             DiscountsContent.Content = discountListControl;
         }
     }

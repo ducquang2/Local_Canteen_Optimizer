@@ -20,35 +20,15 @@ using Windows.Foundation.Collections;
 
 namespace Local_Canteen_Optimizer.View.Product
 {
-    /// <summary>
-    /// UserControl for editing a product.
-    /// </summary>
     public sealed partial class EditProduct : UserControl
     {
-        /// <summary>
-        /// Event triggered when the save button is clicked.
-        /// </summary>
         public event EventHandler<FoodModel> SaveRequested;
-
-        /// <summary>
-        /// Event triggered when the cancel button is clicked.
-        /// </summary>
         public event EventHandler CancelRequested;
-
         private FoodModel currentProduct;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EditProduct"/> class.
-        /// </summary>
         public EditProduct()
         {
             this.InitializeComponent();
         }
-
-        /// <summary>
-        /// Sets the product to be edited.
-        /// </summary>
-        /// <param name="product">The product to be edited.</param>
         public void SetProduct(FoodModel product)
         {
             currentProduct = product;
@@ -58,12 +38,6 @@ namespace Local_Canteen_Optimizer.View.Product
             PriceTextBox.Text = product.Price.ToString();
             QuantityTextBox.Text = product.Quantity.ToString();
         }
-
-        /// <summary>
-        /// Handles the click event of the save button.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             bool hasError = false;
@@ -114,11 +88,6 @@ namespace Local_Canteen_Optimizer.View.Product
             SaveRequested?.Invoke(this, currentProduct);
         }
 
-        /// <summary>
-        /// Handles the click event of the cancel button.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             CancelRequested?.Invoke(this, EventArgs.Empty);

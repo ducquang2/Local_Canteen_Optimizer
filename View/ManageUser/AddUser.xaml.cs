@@ -14,30 +14,14 @@ namespace Local_Canteen_Optimizer.View.ManageUser
     /// </summary>
     public sealed partial class AddUser : UserControl
     {
-        /// <summary>
-        /// Event triggered when the save button is clicked.
-        /// </summary>
         public event EventHandler<UserModel> SaveRequested;
-
-        /// <summary>
-        /// Event triggered when the cancel button is clicked.
-        /// </summary>
         public event EventHandler CancelRequested;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AddUser"/> class.
-        /// </summary>
         public AddUser()
         {
             this.InitializeComponent();
         }
 
-        /// <summary>
-        /// Handles the click event of the save button.
-        /// Validates the input fields and triggers the <see cref="SaveRequested"/> event if validation passes.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             bool hasError = false;
@@ -76,12 +60,6 @@ namespace Local_Canteen_Optimizer.View.ManageUser
             SaveRequested?.Invoke(this, user);
         }
 
-        /// <summary>
-        /// Handles the click event of the cancel button.
-        /// Triggers the <see cref="CancelRequested"/> event.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             CancelRequested?.Invoke(this, EventArgs.Empty);

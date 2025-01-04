@@ -11,25 +11,14 @@ using System.Threading.Tasks;
 
 namespace Local_Canteen_Optimizer.DAO.SeatDAO
 {
-    /// <summary>
-    /// Implementation of the Seat Data Access Object (DAO) interface.
-    /// </summary>
     public class SeatDAOImp : ISeatDAO
     {
         private readonly HttpClient _httpClient;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SeatDAOImp"/> class.
-        /// </summary>
         public SeatDAOImp()
         {
             _httpClient = HttpClientService.GetHttpClient();
         }
-
-        /// <summary>
-        /// Asynchronously retrieves a list of seats.
-        /// </summary>
-        /// <returns>A task that represents the asynchronous operation. The task result contains a list of <see cref="TableModel"/>.</returns>
         public async Task<List<TableModel>> GetSeatsAsync()
         {
             try
@@ -37,19 +26,15 @@ namespace Local_Canteen_Optimizer.DAO.SeatDAO
                 var response = await _httpClient.GetFromJsonAsync<GetApiSeatsResponse>("api/v1/seats");
                 var seats = response.results.Select(ConvertToTableModel).ToList();
                 return new List<TableModel>(seats);
+
             }
             catch
             {
-                // Handle errors if any
+                // Xử lý lỗi nếu có
                 return null;
             }
         }
 
-        /// <summary>
-        /// Converts an <see cref="ApiSeats"/> object to a <see cref="TableModel"/> object.
-        /// </summary>
-        /// <param name="seat">The <see cref="ApiSeats"/> object to convert.</param>
-        /// <returns>The converted <see cref="TableModel"/> object.</returns>
         private TableModel ConvertToTableModel(ApiSeats seat)
         {
             return new TableModel
@@ -61,16 +46,11 @@ namespace Local_Canteen_Optimizer.DAO.SeatDAO
                 createAt = seat.created_at,
                 updateAt = seat.updated_at
             };
+
         }
 
-        /// <summary>
-        /// Represents the response from the API for retrieving seats.
-        /// </summary>
         public class GetApiSeatsResponse
         {
-            /// <summary>
-            /// Gets or sets the list of <see cref="ApiSeats"/> objects.
-            /// </summary>
             [JsonPropertyName("results")]
             public List<ApiSeats> results { get; set; }
         }

@@ -10,28 +10,16 @@ using System.Text.Json;
 
 namespace Local_Canteen_Optimizer.DAO.AuthenDAO
 {
-    /// <summary>
-    /// Implementation of the authentication data access object.
-    /// </summary>
     public class AuthenDAOImp : IAuthenDAO
     {
         private readonly HttpClient _httpClient;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AuthenDAOImp"/> class.
-        /// </summary>
         public AuthenDAOImp()
         {
             _httpClient = HttpClientService.GetHttpClient();
         }
 
-        /// <summary>
-        /// Logs in a user asynchronously.
-        /// </summary>
-        /// <param name="username">The username of the user.</param>
-        /// <param name="password">The password of the user.</param>
-        /// <returns>A task that represents the asynchronous login operation. The task result contains the authentication model.</returns>
-        public async Task<AuthenModel> LoginAsync(string username, string password)
+        public async Task<AuthenModel> LoginAsync(string username, string password) 
         {
             var localSettings = ApplicationData.Current.LocalSettings;
             var loginData = new { username = username, password = password };
@@ -69,11 +57,7 @@ namespace Local_Canteen_Optimizer.DAO.AuthenDAO
                 return new AuthenModel();
             }
         }
-
-        /// <summary>
-        /// Logs out a user asynchronously.
-        /// </summary>
-        /// <returns>True if the user was logged out successfully; otherwise, false.</returns>
+        
         public bool LogoutAsync()
         {
             var localSettings = ApplicationData.Current.LocalSettings;
@@ -91,19 +75,9 @@ namespace Local_Canteen_Optimizer.DAO.AuthenDAO
         }
     }
 
-    /// <summary>
-    /// Represents the response from the login API.
-    /// </summary>
     public class LoginApiResponse
     {
-        /// <summary>
-        /// Gets or sets the authentication token.
-        /// </summary>
         public string Token { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user information.
-        /// </summary>
         public UserModel User { get; set; }
     }
 }
