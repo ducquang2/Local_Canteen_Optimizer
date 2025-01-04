@@ -42,6 +42,8 @@ namespace Local_Canteen_Optimizer.View
         /// Event triggered when a request to check out is made.
         /// </summary>
         public event EventHandler<TableModel> CheckOutRequested;
+        public DiscountViewModel discountViewModel;
+        public CustomerViewModel customerViewModel;
 
         /// <summary>
         /// ViewModel for managing discounts.
@@ -118,126 +120,6 @@ namespace Local_Canteen_Optimizer.View
             {
                 TableModel table = await cartViewModel.CheckOut();
                 CheckOutRequested?.Invoke(this, table);
-            }
-        }
-
-        /// <summary>
-        /// Handles the click event for applying a discount to the cart.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
-        private async void DiscountButton_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var cartViewModel = this.DataContext as CartViewModel;
-                double totalPrice = cartViewModel?.Subtotal ?? 0;
-
-                discountViewModel = new DiscountViewModel();
-                List<DiscountModel> discounts = await discountViewModel.getEligibleDiscount(totalPrice);
-                var selectedDiscount = await ShowDiscountsDialog("Discount", discounts, App.m_window.Content.XamlRoot);
-
-                if (selectedDiscount != null)
-                {
-                    if (cartViewModel != null)
-                    {
-                        cartViewModel.SelectedDiscount = selectedDiscount;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Handle exception
-            }
-        }
-
-        /// <summary>
-        /// Displays a dialog for selecting a discount.
-        /// </summary>
-        /// <param name="title">The title of the dialog.</param>
-        /// <param name="discounts">The list of available discounts.</param>
-        /// <param name="xamlRoot">The XAML root for the dialog.</param>
-        /// <returns>The selected discount, or null if no discount was selected.</returns>
-        public async Task<DiscountModel> ShowDiscountsDialog(string title, List<DiscountModel> discounts, Microsoft.UI.Xaml.XamlRoot xamlRoot)
-        {
-            if (xamlRoot == null)
-                throw new ArgumentNullException(nameof(xamlRoot), "XamlRoot cannot be null");
-
-            var listView = new ListView
-            {
-                ItemsSource = discounts,
-                ItemTemplate = (DataTemplate)this.Resources["DiscountTemplate"],
-                SelectionMode = ListViewSelectionMode.Single
-            };
-
-            var dialog = new ContentDialog
-            {
-                Title = title,
-                Content = listView,
-                CloseButtonText = "Cancel",
-                PrimaryButtonText = "Ok",
-                DefaultButton = ContentDialogButton.Primary,
-                XamlRoot = xamlRoot
-            };
-
-            var result = await dialog.ShowAsync();
-            if (result == ContentDialogResult.Primary && listView.SelectedItem is DiscountModel selectedDiscount)
-            {
-                return selectedDiscount;
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Handles the click event for searching a customer by phone number.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
-        private async void OnSearchCustomerClicked(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                String phoneNumber = PhoneNumberTextBox.Text;
-                if (string.IsNullOrWhiteSpace(phoneNumber))
-                {
-                    return;
-                }
-                var cartViewModel = this.DataContext as CartViewModel;
-
-                customerViewModel = new CustomerViewModel();
-                CustomerModel customer = await customerViewModel.getCustomerByPhone(phoneNumber);
-
-                if (cartViewModel != null)
-                {
-                    cartViewModel.Customer = customer;
-                }
-            }
-            catch (Exception ex)
-            {
-                // Handle exception
-            }
-        }
-
-        /// <summary>
-        /// Handles the click event for using reward points.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
-        private void OnUsePointsClicked(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is CartViewModel viewModel)
-            {
-                if (int.TryParse(PointToUseTextBox.Text, out int pointsToUse))
-                {
-                    if (pointsToUse > 0 && pointsToUse <= viewModel.Customer.RewardPoints)
-                    {
-                        viewModel.PointsToUse = pointsToUse;
-                    }
-                    else
-                    {
-                        viewModel.PointsToUse = 0;
-                    }
-                }
             }
         }
     }

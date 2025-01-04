@@ -1,4 +1,4 @@
-﻿using Local_Canteen_Optimizer.Commands;
+using Local_Canteen_Optimizer.Commands;
 using Local_Canteen_Optimizer.DAO.DiscountDAO;
 using Local_Canteen_Optimizer.DAO.OrderDAO;
 using Local_Canteen_Optimizer.DAO.SeatDAO;
@@ -38,10 +38,7 @@ namespace Local_Canteen_Optimizer.ViewModel
 
         public double Subtotal { get; set; } = 0;
         public double Tax => Subtotal * 0;
-
-        /// <summary>
-        /// Gets or sets the order ID to check new order or old order.
-        /// </summary>
+        public double Total => Subtotal + Tax;
         public int OrderId { get; set; } = 0;
 
         private int selectedTableId;
@@ -57,6 +54,54 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
         public string DisplayTableText => SelectedTableId == 1 ? "Mang về" : $"Bàn {SelectedTableId}";
+
+        private DiscountModel _selectedDiscount;
+        public DiscountModel SelectedDiscount
+        {
+            get => _selectedDiscount;
+            set
+            {
+                _selectedDiscount = value;
+                OnPropertyChanged(nameof(SelectedDiscount));
+                OnPropertyChanged(nameof(DiscountText));
+                OnPropertyChanged(nameof(DiscountAmount));
+                OnPropertyChanged(nameof(Total));
+            }
+        }
+        public double DiscountAmount => SelectedDiscount != null ? SelectedDiscount.DiscountAmount : 0 ;
+        public string DiscountText => SelectedDiscount != null
+        ? $"{SelectedDiscount.DiscountName} - {SelectedDiscount.DiscountDescription}"
+        : "No discount applied";
+        public double Total => Subtotal - DiscountAmount - PointsToUse;
+
+        private CustomerModel _customer;
+        public CustomerModel Customer
+        {
+            get => _customer;
+            set
+            {
+                _customer = value;
+                OnPropertyChanged(nameof(Customer));
+                OnPropertyChanged(nameof(IsCustomerFound));
+            }
+        }
+        public bool IsCustomerFound => Customer != null;
+
+        private int _pointsToUse = 0;
+        public int PointsToUse
+        {
+            get => _pointsToUse;
+            set
+            {
+                if (_pointsToUse != value)
+                {
+                    _pointsToUse = value;
+                    OnPropertyChanged(nameof(PointsToUse));
+                    OnPropertyChanged(nameof(Total));
+                }
+            }
+        }
+
 
         private DiscountModel _selectedDiscount;
         public DiscountModel SelectedDiscount

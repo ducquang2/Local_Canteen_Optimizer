@@ -66,10 +66,6 @@ namespace Local_Canteen_Optimizer.ViewModel
         /// Command for navigating to the Manage User view.
         /// </summary>
         public ICommand ManageUserCommand { get; set; }
-        /// <summary>
-        /// Command for navigating to the Discount view.
-        /// </summary>
-        public ICommand DiscountCommand { get; set; }
 
         /// <summary>
         /// Navigates to the Customers view.
@@ -116,11 +112,6 @@ namespace Local_Canteen_Optimizer.ViewModel
         /// </summary>
         /// <param name="obj">The parameter passed to the command.</param>
         private void ManageUser(object obj) => CurrentView = new ManageUserViewModel();
-        /// <summary>
-        /// Navigates to the Discount view.
-        /// </summary>
-        /// <param name="obj">The parameter passed to the command.</param>
-        private void Discount(object obj) => CurrentView = new DiscountViewModel();
 
         /// <summary>
         /// Initializes a new instance of the NavigationViewModel class.
