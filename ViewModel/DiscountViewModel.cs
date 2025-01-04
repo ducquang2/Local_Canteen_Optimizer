@@ -12,21 +12,65 @@ using System.Windows.Input;
 
 namespace Local_Canteen_Optimizer.ViewModel
 {
+
+    /// <summary>
+    /// ViewModel class for managing discounts.
+    /// </summary>
     public class DiscountViewModel : BaseViewModel
     {
         private IDiscountDAO _dao = null;
+
+        /// <summary>
+        /// Keyword for searching discounts.
+        /// </summary>
         public string Keyword { get; set; } = "";
+
+        /// <summary>
+        /// Flag indicating if the start date is ascending.
+        /// </summary>
         public bool StartDateAcending { get; set; } = true;
+
+        /// <summary>
+        /// Current page number.
+        /// </summary>
         public int CurrentPage { get; set; } = 0;
+
+        /// <summary>
+        /// Number of rows per page.
+        /// </summary>
         public int RowsPerPage { get; set; } = 10;
+
+        /// <summary>
+        /// Total number of pages.
+        /// </summary>
         public int TotalPages { get; set; } = 0;
+
+        /// <summary>
+        /// Total number of items.
+        /// </summary>
         public int TotalItems { get; set; } = 0;
+
+        /// <summary>
+        /// Collection of discounts.
+        /// </summary>
         public ObservableCollection<DiscountModel> discounts { get; set; }
+
+        /// <summary>
+        /// Command for deleting a food item.
+        /// </summary>
         public ICommand DeleteFoodCommand { get; set; }
+
+        /// <summary>
+        /// Constructor for DiscountViewModel.
+        /// </summary>
         public DiscountViewModel()
         {
             _dao = new DiscountDAOImp();
         }
+
+        /// <summary>
+        /// Initializes the ViewModel.
+        /// </summary>
         public async Task Init()
         {
             try
@@ -41,18 +85,29 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
 
+        /// <summary>
+        /// Loads discounts for a specific page.
+        /// </summary>
+        /// <param name="page">The page number to load.</param>
         public async Task Load(int page)
         {
             CurrentPage = page;
             await LoadDiscountAsync();
         }
 
+        /// <summary>
+        /// Loads discounts with sorting.
+        /// </summary>
+        /// <param name="startDateAcending">Flag indicating if the start date is ascending.</param>
         public async Task LoadDiscountSort(bool startDateAcending)
         {
             StartDateAcending = startDateAcending;
             await LoadDiscountAsync();
         }
 
+        /// <summary>
+        /// Loads discounts asynchronously.
+        /// </summary>
         public async Task LoadDiscountAsync()
         {
             var (totalItems, results) = await _dao.GetDiscountsAsync(CurrentPage, RowsPerPage, Keyword, StartDateAcending);
@@ -65,9 +120,13 @@ namespace Local_Canteen_Optimizer.ViewModel
 
             TotalItems = totalItems;
             TotalPages = (TotalItems / RowsPerPage) + ((TotalItems % RowsPerPage == 0) ? 0 : 1);
-
         }
 
+        /// <summary>
+        /// Gets eligible discounts based on total price.
+        /// </summary>
+        /// <param name="totalPrice">The total price to check for eligibility.</param>
+        /// <returns>A list of eligible discounts.</returns>
         public async Task<List<DiscountModel>> getEligibleDiscount(double totalPrice)
         {
             try
@@ -89,18 +148,22 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
 
+        /// <summary>
+        /// Confirms and deletes a food item.
+        /// </summary>
+        /// <param name="discount">The discount to delete.</param>
         private async Task ConfirmAndDeleteFoodItem(DiscountModel discount)
         {
             if (discount == null)
             {
-                // Hiển thị thông báo lỗi nếu cần
+                // Display error message if needed
                 return;
             }
 
-            // Hiển thị hộp thoại xác nhận
+            // Display confirmation dialog
             bool isConfirmed = await MessageHelper.ShowConfirmationDialog(
-                $"Bạn có chắc chắn muốn xoá sản phẩm: {discount.DiscountName}?",
-                "Xác nhận thêm sản phẩm",
+                $"Are you sure you want to delete: {discount.DiscountName}?",
+                "Confirm customer deletion",
                 App.m_window.Content.XamlRoot
             );
 
@@ -110,6 +173,10 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
 
+        /// <summary>
+        /// Adds a new discount.
+        /// </summary>
+        /// <param name="discount">The discount to add.</param>
         public async Task AddDiscount(DiscountModel discount)
         {
             DiscountModel newDiscount = await _dao.AddDiscountAsync(discount);
@@ -123,12 +190,16 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
 
+        /// <summary>
+        /// Updates an existing discount.
+        /// </summary>
+        /// <param name="discount">The discount to update.</param>
         public async Task UpdateDiscount(DiscountModel discount)
         {
             DiscountModel updateDiscount = await _dao.UpdateDiscountAsync(discount);
             if (updateDiscount != null)
             {
-                // Tìm và cập nhật sản phẩm trong danh sách
+                // Find and update the discount in the list
                 var existingDiscountIndex = discounts.IndexOf(discounts.FirstOrDefault(p => p.DiscountID == discount.DiscountID));
                 if (existingDiscountIndex >= 0)
                 {
@@ -157,6 +228,10 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
 
+        /// <summary>
+        /// Deletes a discount.
+        /// </summary>
+        /// <param name="discount">The discount to delete.</param>
         public async Task DeleteDiscount(DiscountModel discount)
         {
             bool isRemoved = await _dao.RemoveDiscountAsync(int.Parse(discount.DiscountID));

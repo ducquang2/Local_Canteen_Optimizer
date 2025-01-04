@@ -19,15 +19,35 @@ using Windows.Foundation.Collections;
 
 namespace Local_Canteen_Optimizer.View.Customer
 {
+    /// <summary>
+    /// A UserControl for editing customer details.
+    /// </summary>
     public sealed partial class EditCustomer : UserControl
     {
+        /// <summary>
+        /// Event triggered when the save button is clicked.
+        /// </summary>
         public event EventHandler<CustomerModel> SaveRequested;
+
+        /// <summary>
+        /// Event triggered when the cancel button is clicked.
+        /// </summary>
         public event EventHandler CancelRequested;
+
         private CustomerModel currentCustomer;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EditCustomer"/> class.
+        /// </summary>
         public EditCustomer()
         {
             this.InitializeComponent();
         }
+
+        /// <summary>
+        /// Sets the customer details to be edited.
+        /// </summary>
+        /// <param name="customer">The customer model.</param>
         public void SetCustomer(CustomerModel customer)
         {
             currentCustomer = customer;
@@ -37,6 +57,12 @@ namespace Local_Canteen_Optimizer.View.Customer
             AddressTextBox.Text = customer.Address;
             RewardTextBox.Text = customer.RewardPoints.ToString();
         }
+
+        /// <summary>
+        /// Handles the save button click event.
+        /// </summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             bool hasError = false;
@@ -55,28 +81,28 @@ namespace Local_Canteen_Optimizer.View.Customer
                 hasError = true;
             }
 
-            // Validate Image Source
+            // Validate Email
             if (string.IsNullOrWhiteSpace(EmailTextBox.Text))
             {
                 EmailErrorText.Visibility = Visibility.Visible;
                 hasError = true;
             }
 
-            // Validate Price
+            // Validate Phone
             if (string.IsNullOrWhiteSpace(PhoneTextBox.Text))
             {
                 PhoneErrorText.Visibility = Visibility.Visible;
                 hasError = true;
             }
 
-            // Validate Quantity
+            // Validate Address
             if (string.IsNullOrWhiteSpace(AddressTextBox.Text))
             {
                 AddressErrorText.Visibility = Visibility.Visible;
                 hasError = true;
             }
 
-            // Validate Quantity
+            // Validate Reward Points
             if (!int.TryParse(RewardTextBox.Text, out var reward) || reward < 0)
             {
                 RewardErrorText.Visibility = Visibility.Visible;
@@ -95,6 +121,11 @@ namespace Local_Canteen_Optimizer.View.Customer
             SaveRequested?.Invoke(this, currentCustomer);
         }
 
+        /// <summary>
+        /// Handles the cancel button click event.
+        /// </summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             CancelRequested?.Invoke(this, EventArgs.Empty);

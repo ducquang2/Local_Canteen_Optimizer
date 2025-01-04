@@ -141,7 +141,7 @@
                                         <Button Width="40" Height="40" Click="EditButton_Click" Tag="{Binding}">
                                             <Image Width="16" Height="16" Source="ms-appx:///Images/edit.png" />
                                         </Button>
-                                        <Button Width="40" Height="40" Click="RemoveButton_Click" Command="{Binding ElementName=FoodListView, Path=DataContext.DeleteFoodCommand}" CommandParameter="{Binding}">
+                                        <Button Width="40" Height="40" Click="RemoveButton_Click" Command="{Binding ElementName=FoodListView, Path=DataContext.DeleteCustomerCommand}" CommandParameter="{Binding}">
                                             <Image Width="16" Height="16" Source="ms-appx:///Images/delete.png" />
                                         </Button>
                                     </StackPanel>

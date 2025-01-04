@@ -20,21 +20,44 @@ using Windows.Foundation.Collections;
 
 namespace Local_Canteen_Optimizer.View.Discount
 {
+    /// <summary>
+    /// Interaction logic for EditDiscount.xaml
+    /// </summary>
     public sealed partial class EditDiscount : UserControl
     {
+        /// <summary>
+        /// Event triggered when a save is requested.
+        /// </summary>
         public event EventHandler<DiscountModel> SaveRequested;
+
+        /// <summary>
+        /// Event triggered when a cancel is requested.
+        /// </summary>
         public event EventHandler CancelRequested;
+
+        /// <summary>
+        /// The current discount being edited.
+        /// </summary>
         private DiscountModel currentDiscount;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EditDiscount"/> class.
+        /// </summary>
         public EditDiscount()
         {
             this.InitializeComponent();
         }
+
+        /// <summary>
+        /// Sets the discount to be edited.
+        /// </summary>
+        /// <param name="discount">The discount model to edit.</param>
         public void SetDiscount(DiscountModel discount)
         {
             currentDiscount = discount;
             NameTextBox.Text = discount.DiscountName;
             DescriptionTextBox.Text = discount.DiscountDescription;
-            if(discount.DiscountType == "percentage")
+            if (discount.DiscountType == "percentage")
             {
                 TypeComboBox.SelectedIndex = 0;
             }
@@ -49,9 +72,13 @@ namespace Local_Canteen_Optimizer.View.Discount
             EndTimePicker.Time = discount.DiscountEndDate.TimeOfDay;
             MinValueTextBox.Text = discount.DiscountMinOrderValue.ToString();
             MaxValueTextBox.Text = discount.DiscountMaxValue.ToString();
-
-
         }
+
+        /// <summary>
+        /// Handles the save button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             bool hasError = false;
@@ -131,6 +158,11 @@ namespace Local_Canteen_Optimizer.View.Discount
             SaveRequested?.Invoke(this, currentDiscount);
         }
 
+        /// <summary>
+        /// Handles the cancel button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             CancelRequested?.Invoke(this, EventArgs.Empty);
