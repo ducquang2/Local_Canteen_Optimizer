@@ -29,7 +29,7 @@ namespace Local_Canteen_Optimizer.View
         public CartView()
         {
             this.InitializeComponent();
-            //this.DataContext = new CartViewModel();
+            this.DataContext = new CartViewModel();
         }
 
         private void RemoveCartItemButton_Click(object sender, RoutedEventArgs e)
@@ -78,14 +78,23 @@ namespace Local_Canteen_Optimizer.View
             NotePopup.IsOpen = true;
         }
 
-        private void SaveNoteButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveNoteButton_Click(object sender, RoutedEventArgs e)
         {
             var viewModel = this.DataContext as CartViewModel;
             if (viewModel != null)
             {
                 viewModel.Note = NoteTextBox.Text;
+                bool success = await viewModel.UpdateOrderNoteAsync();
+                if (success)
+                {
+                    // Optionally show a success message
+                    NotePopup.IsOpen = false;
+                }
+                else
+                {
+                    // Optionally show an error message
+                }
             }
-            NotePopup.IsOpen = false;
         }
     }
 }

@@ -81,11 +81,30 @@ namespace Local_Canteen_Optimizer.ViewModel
                 CartItems.Add(item);
             }
             Subtotal = CartItems.Sum(i => i.Price * i.QuantityBuy);
+            Note = orderModel.Note;
             OnPropertyChanged(nameof(CartItems));
             OnPropertyChanged(nameof(Subtotal));
             OnPropertyChanged(nameof(Tax));
             OnPropertyChanged(nameof(Total));
             OnPropertyChanged(nameof(Note));
+        }
+
+        public async Task<bool> UpdateOrderNoteAsync()
+        {
+            try
+            {
+                var order = await _dao.GetOrderModelFromTable(SelectedTableId);
+                if (order != null)
+                {
+                    order.Note = Note;
+                    return await _dao.UpdateOrder(order);
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public void AddItemToCart(FoodModel item)
@@ -127,7 +146,7 @@ namespace Local_Canteen_Optimizer.ViewModel
                 //TableNumber = 1,
                 //OrderTime = DateTime.Now,
                 OrderDetails = CartItems.ToList(),
-                Total = Total
+                Total = Total,
             };
 
             // update order items in order

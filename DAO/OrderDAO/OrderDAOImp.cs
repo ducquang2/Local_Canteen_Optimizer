@@ -204,6 +204,30 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
             }
         }
 
+        public async Task<bool> UpdateOrder(OrderModel orderModel)
+        {
+            ApiOrder apiOrder = new ApiOrder
+            {
+                note = orderModel.Note,
+            };
+            try
+            {
+                var response = await _httpClient.PutAsJsonAsync($"api/v1/orders/{orderModel.OrderId}", apiOrder);
+                if (response.IsSuccessStatusCode) {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                // Xử lý lỗi nếu có
+                return false;
+            }
+        }
+
         public async Task<bool> UpdateTableAfterOrder(int orderId, int tableId)
         {
             try

@@ -16,5 +16,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
         public Task<List<FoodModel>> GetAllOrderItems(int orderId);
         public Task<bool> CheckOut(int tableId, int orderId, string note);
         public Task<bool> UpdateOrderItems(OrderModel orderModel);
+
+        public Task<bool> UpdateOrder(OrderModel orderModel);
     }
 }
