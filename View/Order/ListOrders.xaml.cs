@@ -24,8 +24,19 @@ namespace Local_Canteen_Optimizer.View.Order
 {
     public sealed partial class ListOrders : UserControl
     {
+        /// <summary>
+        /// ViewModel for managing orders.
+        /// </summary>
         public OrderViewModel orderViewModel;
+
+        /// <summary>
+        /// Event triggered when order detail view is requested.
+        /// </summary>
         public event EventHandler<OrderModel> ViewOrderDetailRequested;
+
+        /// <summary>
+        /// Initializes a new instance of the ListOrders class.
+        /// </summary>
         public ListOrders()
         {
             this.InitializeComponent();
@@ -33,6 +44,9 @@ namespace Local_Canteen_Optimizer.View.Order
             InitializeAsync();
         }
 
+        /// <summary>
+        /// Asynchronously initializes the ViewModel and updates paging information.
+        /// </summary>
         public async Task InitializeAsync()
         {
             orderViewModel = new OrderViewModel();
@@ -40,6 +54,9 @@ namespace Local_Canteen_Optimizer.View.Order
             UpdatePagingInfo_bootstrap();
         }
 
+        /// <summary>
+        /// Updates the paging information for the orders.
+        /// </summary>
         void UpdatePagingInfo_bootstrap()
         {
             var infoList = new List<object>();
@@ -56,6 +73,11 @@ namespace Local_Canteen_Optimizer.View.Order
             pagesComboBox.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Handles the selection change event of the pages combo box.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void pagesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             dynamic item = pagesComboBox.SelectedItem;
@@ -66,9 +88,13 @@ namespace Local_Canteen_Optimizer.View.Order
             }
         }
 
+        /// <summary>
+        /// Handles the selection change event of the sort order combo box.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         public void SortOrderComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
             var comboBox = sender as ComboBox;
             if (comboBox != null)
             {
@@ -81,9 +107,13 @@ namespace Local_Canteen_Optimizer.View.Order
             }
         }
 
+        /// <summary>
+        /// Handles the click event of the view button.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private async void ViewButton_Click(object sender, RoutedEventArgs e)
         {
-            // lấy sản phẩm từ nút View
             var order = (sender as Button).Tag as OrderModel;
             ViewOrderDetailRequested?.Invoke(this, order);
         }

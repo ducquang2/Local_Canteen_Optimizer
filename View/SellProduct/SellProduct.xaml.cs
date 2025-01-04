@@ -20,56 +20,77 @@ using Windows.Foundation.Collections;
 
 namespace Local_Canteen_Optimizer.View.SellProduct
 {
+    /// <summary>
+    /// UserControl for selling products.
+    /// </summary>
     public sealed partial class SellProduct : UserControl
     {
         private Home homeControl;
         private Table tableControl;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SellProduct"/> class.
+        /// </summary>
         public SellProduct()
         {
             this.InitializeComponent();
 
-            // Khởi tạo trang bán hàng
+            // Initialize home page
             homeControl = new Home();
             homeControl.CartViewControl.AddTableRequested += OnAddTableRequested;
             homeControl.CartViewControl.HoldCartRequested += OnHoldCartRequested;
             homeControl.CartViewControl.CheckOutRequested += OnCheckOutRequested;
 
-            // Khởi tạo trang thêm bàn
+            // Initialize table page
             tableControl = new Table();
             tableControl.SaveTableRequested += OnSaveTableRequested;
             tableControl.CancelRequested += OnCancelRequested;
 
-            // Hiển thị trang bán hàng
+            // Display home page
             SellProductContent.Content = homeControl;
         }
 
+        /// <summary>
+        /// Handles the AddTableRequested event.
+        /// </summary>
         private void OnAddTableRequested(object sender, EventArgs e)
         {
-            // Khi nhấn nút Add Table, chuyển sang màn hình chọn bàn
+            // Switch to table selection screen when Add Table button is clicked
             SellProductContent.Content = tableControl;
         }
 
+        /// <summary>
+        /// Handles the SaveTableRequested event.
+        /// </summary>
         private void OnSaveTableRequested(object sender, int tableId)
         {
             homeControl.CartViewModel.SelectedTableId = tableId;
             SellProductContent.Content = homeControl;
         }
 
+        /// <summary>
+        /// Handles the HoldCartRequested event.
+        /// </summary>
         private void OnHoldCartRequested(object sender, TableModel table)
         {
             tableControl.tableViewModel.updateTable(table);
         }
 
+        /// <summary>
+        /// Handles the CheckOutRequested event.
+        /// </summary>
         private void OnCheckOutRequested(object sender, TableModel table)
         {
             tableControl.tableViewModel.updateTable(table);
         }
 
+        /// <summary>
+        /// Handles the CancelRequested event.
+        /// </summary>
         private void OnCancelRequested(object sender, EventArgs e)
         {
-            // Khi hủy, quay lại danh sách sản phẩm
+            // Return to product list when cancel is clicked
             SellProductContent.Content = homeControl;
         }
-
     }
 }

@@ -12,14 +12,29 @@ using System.Threading.Tasks;
 
 namespace Local_Canteen_Optimizer.ViewModel
 {
+    /// <summary>
+    /// ViewModel for managing table data.
+    /// </summary>
     public class TableViewModel : BaseViewModel
     {
         private ISeatDAO _dao = null;
+
+        /// <summary>
+        /// Collection of table models.
+        /// </summary>
         public ObservableCollection<TableModel> listTables { get; set; }
-        public TableViewModel() {
-            
+
+        /// <summary>
+        /// Initializes a new instance of the TableViewModel class.
+        /// </summary>
+        public TableViewModel()
+        {
+
         }
 
+        /// <summary>
+        /// Initializes the ViewModel by setting up the DAO and loading products.
+        /// </summary>
         public async Task Init()
         {
             _dao = new SeatDAOImp();
@@ -27,8 +42,13 @@ namespace Local_Canteen_Optimizer.ViewModel
             await LoadProductsAsync();
         }
 
-        public void updateTable(TableModel newTable) {
-            if(newTable == null) return;
+        /// <summary>
+        /// Updates the table with new data.
+        /// </summary>
+        /// <param name="newTable">The new table data to update.</param>
+        public void updateTable(TableModel newTable)
+        {
+            if (newTable == null) return;
             var table = listTables.FirstOrDefault(t => t.tableId == newTable.tableId);
             if (table != null)
             {
@@ -38,6 +58,9 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
 
+        /// <summary>
+        /// Loads the products asynchronously.
+        /// </summary>
         public async Task LoadProductsAsync()
         {
             var seats = await _dao.GetSeatsAsync();
@@ -52,7 +75,6 @@ namespace Local_Canteen_Optimizer.ViewModel
                 listTables.Add(item);
             }
             OnPropertyChanged(nameof(TableModel));
-
         }
     }
 }

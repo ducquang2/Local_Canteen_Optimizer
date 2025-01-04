@@ -19,10 +19,24 @@ using Windows.Foundation.Collections;
 
 namespace Local_Canteen_Optimizer.View.Discount
 {
+    /// <summary>
+    /// A UserControl for adding discounts.
+    /// </summary>
     public sealed partial class AddDiscount : UserControl
     {
+        /// <summary>
+        /// Event triggered when a discount is saved.
+        /// </summary>
         public event EventHandler<DiscountModel> SaveRequested;
+
+        /// <summary>
+        /// Event triggered when the cancel button is clicked.
+        /// </summary>
         public event EventHandler CancelRequested;
+
+        /// <summary>
+        /// Initializes a new instance of the AddDiscount class.
+        /// </summary>
         public AddDiscount()
         {
             this.InitializeComponent();
@@ -31,6 +45,12 @@ namespace Local_Canteen_Optimizer.View.Discount
             EndDatePicker.Date = DateTimeOffset.Now.AddDays(1);
             EndTimePicker.Time = new TimeSpan(7, 0, 0);
         }
+
+        /// <summary>
+        /// Handles the click event of the save button.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             bool hasError = false;
@@ -113,6 +133,11 @@ namespace Local_Canteen_Optimizer.View.Discount
             SaveRequested?.Invoke(this, discount);
         }
 
+        /// <summary>
+        /// Handles the click event of the cancel button.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             CancelRequested?.Invoke(this, EventArgs.Empty);

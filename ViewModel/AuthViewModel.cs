@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using System;
 using Local_Canteen_Optimizer.DAO.AuthenDAO;
 
+/// <summary>
+/// ViewModel for handling authentication logic.
+/// </summary>
 namespace Local_Canteen_Optimizer.ViewModel
 {
     public class AuthViewModel : BaseViewModel, INotifyPropertyChanged
@@ -16,6 +19,9 @@ namespace Local_Canteen_Optimizer.ViewModel
         private string _password;
         private string _errorMessage;
 
+        /// <summary>
+        /// Event to notify successful login.
+        /// </summary>
         public event Action LoginSuccess; // Event to notify successful login
 
         public string Username
@@ -48,9 +54,19 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
 
+        /// <summary>
+        /// Command for logging in.
+        /// </summary>
         public ICommand LoginCommand { get; }
+
+        /// <summary>
+        /// Command for logging out.
+        /// </summary>
         public ICommand LogoutCommand { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthViewModel"/> class.
+        /// </summary>
         public AuthViewModel()
         {
             _dao = new AuthenDAOImp();
@@ -58,6 +74,9 @@ namespace Local_Canteen_Optimizer.ViewModel
             LogoutCommand = new RelayCommand<object>(_ => Logout());
         }
 
+        /// <summary>
+        /// Handles the login logic.
+        /// </summary>
         private async void Login()
         {
             ErrorMessage = "";
@@ -85,13 +104,22 @@ namespace Local_Canteen_Optimizer.ViewModel
             }
         }
 
+        /// <summary>
+        /// Handles the logout logic.
+        /// </summary>
         private async void Logout()
         {
             _dao.LogoutAsync();
         }
 
+        /// <summary>
+        /// Event to notify property changes.
+        /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        /// <summary>
+        /// Notifies that a property has changed.
+        /// </summary>
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

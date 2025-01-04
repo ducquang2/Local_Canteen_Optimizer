@@ -20,61 +20,84 @@ using Local_Canteen_Optimizer.View.Product;
 
 namespace Local_Canteen_Optimizer.View.Customer
 {
+    /// <summary>
+    /// A UserControl that manages customer-related operations.
+    /// </summary>
     public sealed partial class Customers : UserControl
     {
         private ListCustomer customerListControl;
         private AddCustomer addCustomerControl;
         private EditCustomer editCustomerControl;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Customers"/> class.
+        /// </summary>
         public Customers()
         {
             this.InitializeComponent();
-            //productViewModel = new ProductViewModel();
-            //DataContext = productViewModel;
 
-            // Khởi tạo danh sách sản phẩm
+            // Initialize customer list control
             customerListControl = new ListCustomer();
             customerListControl.AddCustomerRequested += OnAddCustomerRequested;
             customerListControl.EditCustomerRequested += OnEditCustomerRequested;
 
-            // Khởi tạo form thêm sản phẩm
+            // Initialize add customer control
             addCustomerControl = new AddCustomer();
             addCustomerControl.SaveRequested += OnAddSaveRequested;
             addCustomerControl.CancelRequested += OnCancelRequested;
 
+            // Initialize edit customer control
             editCustomerControl = new EditCustomer();
             editCustomerControl.SaveRequested += OnEditSaveRequested;
             editCustomerControl.CancelRequested += OnCancelRequested;
 
-            // Hiển thị danh sách sản phẩm ban đầu
+            // Display initial customer list
             CustomersContent.Content = customerListControl;
         }
 
+        /// <summary>
+        /// Handles the AddCustomerRequested event.
+        /// </summary>
         private void OnAddCustomerRequested(object sender, EventArgs e)
         {
-            // Khi nhấn nút Add Customer, chuyển sang form thêm sản phẩm
+            // Switch to add customer form
             CustomersContent.Content = addCustomerControl;
         }
+
+        /// <summary>
+        /// Handles the EditCustomerRequested event.
+        /// </summary>
         private void OnEditCustomerRequested(object sender, CustomerModel customer)
         {
             editCustomerControl.SetCustomer(customer);
             CustomersContent.Content = editCustomerControl;
         }
 
+        /// <summary>
+        /// Handles the SaveRequested event from the add customer control.
+        /// </summary>
         private void OnAddSaveRequested(object sender, CustomerModel customer)
         {
-            // Khi lưu sản phẩm, thêm vào danh sách và quay lại danh sách sản phẩm
+            // Add customer to list and switch back to customer list
             customerListControl.AddCustomer(customer);
             CustomersContent.Content = customerListControl;
         }
+
+        /// <summary>
+        /// Handles the SaveRequested event from the edit customer control.
+        /// </summary>
         private void OnEditSaveRequested(object sender, CustomerModel customer)
         {
             customerListControl.UpdateCustomer(customer);
-            CustomersContent.Content = customerListControl; // Quay lại danh sách sản phẩm
+            CustomersContent.Content = customerListControl; // Switch back to customer list
         }
 
+        /// <summary>
+        /// Handles the CancelRequested event.
+        /// </summary>
         private void OnCancelRequested(object sender, EventArgs e)
         {
-            // Khi hủy, quay lại danh sách sản phẩm
+            // Switch back to customer list
             CustomersContent.Content = customerListControl;
         }
     }

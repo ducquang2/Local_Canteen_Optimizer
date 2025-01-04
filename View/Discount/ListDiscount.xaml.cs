@@ -24,15 +24,33 @@ namespace Local_Canteen_Optimizer.View.Discount
 {
     public sealed partial class ListDiscount : UserControl
     {
+        /// <summary>
+        /// ViewModel for managing discounts.
+        /// </summary>
         DiscountViewModel discountViewModel;
+
+        /// <summary>
+        /// Event triggered when a request to add a discount is made.
+        /// </summary>
         public event EventHandler AddDiscountRequested;
+
+        /// <summary>
+        /// Event triggered when a request to edit a discount is made.
+        /// </summary>
         public event EventHandler<DiscountModel> EditDiscountRequested;
+
+        /// <summary>
+        /// Initializes a new instance of the ListDiscount class.
+        /// </summary>
         public ListDiscount()
         {
             this.InitializeComponent();
             InitializeAsync();
         }
 
+        /// <summary>
+        /// Asynchronously initializes the ViewModel and updates paging information.
+        /// </summary>
         public async Task InitializeAsync()
         {
             discountViewModel = new DiscountViewModel();
@@ -40,6 +58,9 @@ namespace Local_Canteen_Optimizer.View.Discount
             UpdatePagingInfo_bootstrap();
         }
 
+        /// <summary>
+        /// Updates the paging information for the discount list.
+        /// </summary>
         void UpdatePagingInfo_bootstrap()
         {
             var infoList = new List<object>();
@@ -56,16 +77,26 @@ namespace Local_Canteen_Optimizer.View.Discount
             pagesComboBox.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Handles the click event for adding a discount.
+        /// </summary>
         private void AddDiscountButton_Click(object sender, RoutedEventArgs e)
         {
             AddDiscountRequested?.Invoke(this, EventArgs.Empty);
         }
+
+        /// <summary>
+        /// Handles the click event for editing a discount.
+        /// </summary>
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            // Lấy sản phẩm từ nút Edit
             var discount = (sender as Button).Tag as DiscountModel;
             EditDiscountRequested?.Invoke(this, discount);
         }
+
+        /// <summary>
+        /// Adds a new discount.
+        /// </summary>
         public async void AddDiscount(DiscountModel discount)
         {
             try
@@ -78,11 +109,18 @@ namespace Local_Canteen_Optimizer.View.Discount
                 await MessageHelper.ShowErrorMessage("Fail to add new discount", App.m_window.Content.XamlRoot);
             }
         }
+
+        /// <summary>
+        /// Updates an existing discount.
+        /// </summary>
         public async void UpdateDiscount(DiscountModel discount)
         {
             await discountViewModel.UpdateDiscount(discount);
         }
 
+        /// <summary>
+        /// Handles the click event for removing a discount.
+        /// </summary>
         private async void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button deleteButton && deleteButton.Tag is DiscountModel discount)
@@ -91,6 +129,9 @@ namespace Local_Canteen_Optimizer.View.Discount
             }
         }
 
+        /// <summary>
+        /// Handles the selection changed event for the pages combo box.
+        /// </summary>
         private void pagesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             dynamic item = pagesComboBox.SelectedItem;
@@ -101,9 +142,11 @@ namespace Local_Canteen_Optimizer.View.Discount
             }
         }
 
+        /// <summary>
+        /// Handles the selection changed event for the sort order combo box.
+        /// </summary>
         public void SortOrderComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
             var comboBox = sender as ComboBox;
             if (comboBox != null)
             {
@@ -116,23 +159,28 @@ namespace Local_Canteen_Optimizer.View.Discount
             }
         }
 
-
+        /// <summary>
+        /// Handles the text changed event for the keyword text box.
+        /// </summary>
         private void keywordTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
         }
 
+        /// <summary>
+        /// Handles the click event for the search button.
+        /// </summary>
         private async void searchButton_Click(object sender, RoutedEventArgs e)
         {
             await handleSearchButtonClick();
         }
 
+        /// <summary>
+        /// Handles the search button click event asynchronously.
+        /// </summary>
         public async Task handleSearchButtonClick()
         {
             await discountViewModel.Load(1);
             UpdatePagingInfo_bootstrap();
         }
-
-        
     }
 }
