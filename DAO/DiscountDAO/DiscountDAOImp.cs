@@ -13,19 +13,30 @@ using static Local_Canteen_Optimizer.DAO.OrderDAO.OrderDAOImp;
 
 namespace Local_Canteen_Optimizer.DAO.DiscountDAO
 {
+    /// <summary>
+    /// Implementation of the IDiscountDAO interface.
+    /// </summary>
     public class DiscountDAOImp : IDiscountDAO
     {
         private readonly HttpClient _httpClient;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiscountDAOImp"/> class.
+        /// </summary>
         public DiscountDAOImp()
         {
             _httpClient = HttpClientService.GetHttpClient();
         }
+
+        /// <summary>
+        /// Gets the eligible discounts based on the total price.
+        /// </summary>
+        /// <param name="totalPrice">The total price.</param>
+        /// <returns>A list of eligible discounts.</returns>
         public async Task<List<DiscountModel>> GetEligibleDiscount(double totalPrice)
         {
             try
             {
-
                 var response = await _httpClient.GetFromJsonAsync<GetEligibleDiscountResponse>($"api/v1/discount/eligible?totalPrice={totalPrice}");
                 var discounts = response.discounts.Select(item => new DiscountModel
                 {
@@ -39,19 +50,25 @@ namespace Local_Canteen_Optimizer.DAO.DiscountDAO
                     DiscountStartDate = item.start_date,
                     DiscountEndDate = item.end_date,
                     DiscountAmount = Double.Parse(item.discount_amount)
-
                 }).ToList();
-            
-                return discounts;
 
+                return discounts;
             }
             catch
             {
-                // Xử lý lỗi nếu có
+                // Handle errors if any
                 return null;
             }
         }
 
+        /// <summary>
+        /// Gets the discounts asynchronously.
+        /// </summary>
+        /// <param name="page">The page number.</param>
+        /// <param name="rowsPerPage">The number of rows per page.</param>
+        /// <param name="keyword">The search keyword.</param>
+        /// <param name="startDateAscending">if set to <c>true</c> [start date ascending].</param>
+        /// <returns>A tuple containing the total items and a list of discounts.</returns>
         public async Task<Tuple<int, List<DiscountModel>>> GetDiscountsAsync(int? page, int? rowsPerPage, string keyword, bool startDateAscending)
         {
             try
@@ -64,11 +81,16 @@ namespace Local_Canteen_Optimizer.DAO.DiscountDAO
             }
             catch
             {
-                // Xử lý lỗi nếu có
+                // Handle errors if any
                 return null;
             }
         }
 
+        /// <summary>
+        /// Adds the discount asynchronously.
+        /// </summary>
+        /// <param name="newDiscount">The new discount.</param>
+        /// <returns>The added discount model.</returns>
         public async Task<DiscountModel> AddDiscountAsync(DiscountModel newDiscount)
         {
             try
@@ -100,7 +122,7 @@ namespace Local_Canteen_Optimizer.DAO.DiscountDAO
                     }
                     else
                     {
-                        // Xử lý lỗi từ server
+                        // Handle server errors
                         var errorContent = await response.Content.ReadAsStringAsync();
                         Console.WriteLine($"Error: {errorContent}");
                         return null;
@@ -115,12 +137,16 @@ namespace Local_Canteen_Optimizer.DAO.DiscountDAO
             }
             catch
             {
-                // Xử lý lỗi nếu có
+                // Handle errors if any
                 return null;
             }
-
         }
 
+        /// <summary>
+        /// Updates the discount asynchronously.
+        /// </summary>
+        /// <param name="newDiscount">The new discount.</param>
+        /// <returns>The updated discount model.</returns>
         public async Task<DiscountModel> UpdateDiscountAsync(DiscountModel newDiscount)
         {
             try
@@ -152,7 +178,7 @@ namespace Local_Canteen_Optimizer.DAO.DiscountDAO
                     }
                     else
                     {
-                        // Xử lý lỗi từ server
+                        // Handle server errors
                         var errorContent = await response.Content.ReadAsStringAsync();
                         Console.WriteLine($"Error: {errorContent}");
                         return null;
@@ -167,11 +193,16 @@ namespace Local_Canteen_Optimizer.DAO.DiscountDAO
             }
             catch
             {
-                // Xử lý lỗi nếu có
+                // Handle errors if any
                 return null;
             }
         }
 
+        /// <summary>
+        /// Removes the discount asynchronously.
+        /// </summary>
+        /// <param name="discountId">The discount identifier.</param>
+        /// <returns><c>true</c> if the discount was removed; otherwise, <c>false</c>.</returns>
         public async Task<bool> RemoveDiscountAsync(int discountId)
         {
             try
@@ -190,7 +221,7 @@ namespace Local_Canteen_Optimizer.DAO.DiscountDAO
                     }
                     else
                     {
-                        // Xử lý lỗi từ server
+                        // Handle server errors
                         var errorContent = await response.Content.ReadAsStringAsync();
                         Console.WriteLine($"Error: {errorContent}");
                         return false;
@@ -205,10 +236,16 @@ namespace Local_Canteen_Optimizer.DAO.DiscountDAO
             }
             catch
             {
-                // Xử lý lỗi nếu có
+                // Handle errors if any
                 return false;
             }
         }
+
+        /// <summary>
+        /// Converts the API discount to a discount model.
+        /// </summary>
+        /// <param name="apiDiscount">The API discount.</param>
+        /// <returns>The discount model.</returns>
         private DiscountModel ConvertToDiscountModel(ApiDiscount apiDiscount)
         {
             return new DiscountModel
@@ -223,13 +260,19 @@ namespace Local_Canteen_Optimizer.DAO.DiscountDAO
                 DiscountStartDate = apiDiscount.start_date,
                 DiscountEndDate = apiDiscount.end_date,
             };
-
         }
+
+        /// <summary>
+        /// Response class for getting eligible discounts.
+        /// </summary>
         public class GetEligibleDiscountResponse
         {
             public List<ApiDiscount> discounts { get; set; }
         }
 
+        /// <summary>
+        /// Response class for getting discounts.
+        /// </summary>
         public class GetApiResponse
         {
             [JsonPropertyName("totalItems")]
@@ -239,6 +282,9 @@ namespace Local_Canteen_Optimizer.DAO.DiscountDAO
             public List<ApiDiscount> Results { get; set; }
         }
 
+        /// <summary>
+        /// Response class for adding a discount.
+        /// </summary>
         public class AddApiResponse
         {
             public ApiDiscount discount { get; set; }
