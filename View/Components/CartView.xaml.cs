@@ -42,8 +42,6 @@ namespace Local_Canteen_Optimizer.View
         /// Event triggered when a request to check out is made.
         /// </summary>
         public event EventHandler<TableModel> CheckOutRequested;
-        public DiscountViewModel discountViewModel;
-        public CustomerViewModel customerViewModel;
 
         /// <summary>
         /// ViewModel for managing discounts.
