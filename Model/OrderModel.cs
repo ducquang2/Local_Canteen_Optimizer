@@ -16,5 +16,6 @@ namespace Local_Canteen_Optimizer.Model
         public int RewardPoints { get; set; }
         public string FinalPrice { get; set; }
         public List<FoodModel> OrderDetails { get; set; }
+        public string Note { get; set; }
     }
 }

@@ -58,6 +58,17 @@ namespace Local_Canteen_Optimizer.ViewModel
         }
         public string DisplayTableText => SelectedTableId == 1 ? "Mang về" : $"Bàn {SelectedTableId}";
 
+        private string note;
+        public string Note
+        {
+            get => note;
+            set
+            {
+                note = value;
+                OnPropertyChanged(nameof(Note));
+            }
+        }
+
         private DiscountModel _selectedDiscount;
         public DiscountModel SelectedDiscount
         {
@@ -148,6 +159,7 @@ namespace Local_Canteen_Optimizer.ViewModel
                 OnPropertyChanged(nameof(Subtotal));
                 OnPropertyChanged(nameof(Tax));
                 OnPropertyChanged(nameof(Total));
+                OnPropertyChanged(nameof(Note));
                 return;
             }
             OrderId = orderModel.OrderId;
@@ -156,10 +168,30 @@ namespace Local_Canteen_Optimizer.ViewModel
                 CartItems.Add(item);
             }
             Subtotal = CartItems.Sum(i => i.Price * i.QuantityBuy);
+            Note = orderModel.Note;
             OnPropertyChanged(nameof(CartItems));
             OnPropertyChanged(nameof(Subtotal));
             OnPropertyChanged(nameof(Tax));
             OnPropertyChanged(nameof(Total));
+            OnPropertyChanged(nameof(Note));
+        }
+
+        public async Task<bool> UpdateOrderNoteAsync()
+        {
+            try
+            {
+                var order = await _dao.GetOrderModelFromTable(SelectedTableId);
+                if (order != null)
+                {
+                    order.Note = Note;
+                    return await _dao.UpdateOrder(order);
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -213,7 +245,7 @@ namespace Local_Canteen_Optimizer.ViewModel
                 //TableNumber = 1,
                 //OrderTime = DateTime.Now,
                 OrderDetails = CartItems.ToList(),
-                Total = Total
+                Total = Total,
             };
 
             // update order items in order
@@ -296,7 +328,8 @@ namespace Local_Canteen_Optimizer.ViewModel
                 //TableNumber = 1,
                 //OrderTime = DateTime.Now,
                 OrderDetails = CartItems.ToList(),
-                Total = Total
+                Total = Total,
+                Note = Note
             };
             try
             {
@@ -323,7 +356,7 @@ namespace Local_Canteen_Optimizer.ViewModel
                     bool isApplyRewardPoint = await _dao.ApplyRewardPoint(OrderId, Subtotal - DiscountAmount, Customer.PhoneNumber, _pointsToUse);
                 }
 
-                bool isCheckout = await _dao.CheckOut(SelectedTableId, OrderId);
+                bool isCheckout = await _dao.CheckOut(SelectedTableId, OrderId, Note);
                 if (!isCheckout)
                 {
                     await MessageHelper.ShowErrorMessage("Fail to checkout", App.m_window.Content.XamlRoot);
@@ -341,6 +374,7 @@ namespace Local_Canteen_Optimizer.ViewModel
                     OnPropertyChanged(nameof(Subtotal));
                     OnPropertyChanged(nameof(Tax));
                     OnPropertyChanged(nameof(Total));
+                    OnPropertyChanged(nameof(Note));
                     return new TableModel { tableId = SelectedTableId, isAvailable = true, currentOrderId = null };
                 }
 

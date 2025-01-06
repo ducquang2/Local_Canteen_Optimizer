@@ -44,6 +44,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                 ApiOrder apiOrder = new ApiOrder
                 {
                     order_status = "pending",
+                    note = orderModel.Note,
                     //total_price = orderModel.Total,
                 };
 
@@ -102,7 +103,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                 var checkOutRequest = new
                 {
                     table_id = tableId,
-                    order_id = orderId
+                    order_id = orderId,
                 };
                 var response = await _httpClient.PostAsJsonAsync($"api/v1/orders/checkout", checkOutRequest);
                 if (response.IsSuccessStatusCode)
@@ -243,6 +244,35 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
         }
 
         /// <summary>
+        /// Updates order asynchronously.
+        /// </summary>
+        /// <param name="orderModel">The order model.</param>
+        /// <returns>True if update is successful, otherwise false.</returns>
+        public async Task<bool> UpdateOrder(OrderModel orderModel)
+        {
+            ApiOrder apiOrder = new ApiOrder
+            {
+                note = orderModel.Note,
+            };
+            try
+            {
+                var response = await _httpClient.PutAsJsonAsync($"api/v1/orders/{orderModel.OrderId}", apiOrder);
+                if (response.IsSuccessStatusCode) {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                // Xử lý lỗi nếu có
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Updates the table after an order asynchronously.
         /// </summary>
         /// <param name="orderId">The order ID.</param>
@@ -326,6 +356,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                 OrderTime = apiOrder.created_at,
                 Total = apiOrder.total_price,
                 OrderStatus = apiOrder.order_status.ToString(),
+                Note = apiOrder.note
                 DiscountPrice = apiOrder.discount_price,
                 RewardPoints = apiOrder.reward_value_used,
                 FinalPrice = apiOrder.final_price
@@ -345,6 +376,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                 OrderTime = response.order.created_at,
                 Total = response.order.total_price,
                 OrderStatus = response.order.order_status.ToString(),
+                Note = response.order.note,
                 OrderDetails = response.items.Select(item => new FoodModel
                 {
                     ProductID = item.product_id.ToString(),

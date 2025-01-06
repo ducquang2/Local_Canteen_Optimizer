@@ -76,17 +76,19 @@
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Foreground="{ThemeResource textColor}" Text="Time" Grid.Column="0" FontSize="14" FontWeight="Bold" Width="200"/>
                         <TextBlock Foreground="{ThemeResource textColor}" Text="Order ID" Grid.Column="1" FontSize="14" FontWeight="Bold" Width="200"/>
                         <TextBlock Foreground="{ThemeResource textColor}" Text="Status" Grid.Column="2" FontSize="14" FontWeight="Bold" Width="200" />
-                        <TextBlock Foreground="{ThemeResource textColor}" Text="Total" Grid.Column="3" FontSize="14" FontWeight="Bold" Width="200" />
-                        <TextBlock Foreground="{ThemeResource textColor}" Text="Discount" Grid.Column="4" FontSize="14" FontWeight="Bold" Width="200" />
-                        <TextBlock Foreground="{ThemeResource textColor}" Text="Reward Point" Grid.Column="5" FontSize="14" FontWeight="Bold" Width="200" />
-                        <TextBlock Foreground="{ThemeResource textColor}" Text="Final Price" Grid.Column="6" FontSize="14" FontWeight="Bold" Width="200" />
-                        <TextBlock Foreground="{ThemeResource textColor}" Text="Action" Grid.Column="7" FontSize="14" FontWeight="Bold" Width="200"/>
+                        <TextBlock Foreground="{ThemeResource textColor}" Text="Note" Grid.Column="3" FontSize="14" FontWeight="Bold" Width="200" />
+                        <TextBlock Foreground="{ThemeResource textColor}" Text="Total" Grid.Column="4" FontSize="14" FontWeight="Bold" Width="200" />
+                        <TextBlock Foreground="{ThemeResource textColor}" Text="Discount" Grid.Column="5" FontSize="14" FontWeight="Bold" Width="200" />
+                        <TextBlock Foreground="{ThemeResource textColor}" Text="Reward Point" Grid.Column="6" FontSize="14" FontWeight="Bold" Width="200" />
+                        <TextBlock Foreground="{ThemeResource textColor}" Text="Final Price" Grid.Column="7" FontSize="14" FontWeight="Bold" Width="200" />
+                        <TextBlock Foreground="{ThemeResource textColor}" Text="Action" Grid.Column="8" FontSize="14" FontWeight="Bold" Width="200"/>
                     </Grid>
                 </Border>
 
@@ -97,6 +99,7 @@
                             <Border Margin="0,4,0,4" CornerRadius="8" BorderBrush="LightGray" BorderThickness="0,0,0,1">
                                 <Grid HorizontalAlignment="Stretch" Padding="0 16 0 16">
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
                                         <ColumnDefinition Width="1*"/>
                                         <ColumnDefinition Width="1*"/>
                                         <ColumnDefinition Width="1*"/>
@@ -117,27 +120,29 @@
 
                                     <!-- Table Number -->
                                     <TextBlock Text="{Binding OrderStatus}" Grid.Column="2" VerticalAlignment="Center" FontWeight="Bold" Width="200" Foreground="{Binding OrderStatus, Converter={StaticResource OrderStatusToBrushConverter}}"/>
-
-                                    <!-- Total -->
-                                    <TextBlock Foreground="{ThemeResource textColor}" Grid.Column="3" VerticalAlignment="Center" Width="200" Margin="4 0 0 0">
-                                        <Run Text="{Binding Total}" /><Run Text="$" />
-                                    </TextBlock>
+                                  
+                                    <!-- Note -->
+                                    <TextBlock Foreground="{ThemeResource textColor}" Grid.Column="3" VerticalAlignment="Center" Width="200" Margin="10 0 0 0">
 
                                     <!-- Total -->
                                     <TextBlock Foreground="{ThemeResource textColor}" Grid.Column="4" VerticalAlignment="Center" Width="200" Margin="4 0 0 0">
+                                        <Run Text="{Binding Total}" /><Run Text="$" />
+                                    </TextBlock>
+                                    
+                                    <!-- Discount -->
+                                    <TextBlock Foreground="{ThemeResource textColor}" Grid.Column="5" VerticalAlignment="Center" Width="200" Margin="4 0 0 0">
                                         <Run Text="{Binding DiscountPrice}" /><Run Text="$" />
                                     </TextBlock>
 
-                                    <TextBlock Foreground="{ThemeResource textColor}" Grid.Column="5" VerticalAlignment="Center" Width="200" Margin="14 0 0 0">
+                                    <TextBlock Foreground="{ThemeResource textColor}" Grid.Column="6" VerticalAlignment="Center" Width="200" Margin="14 0 0 0">
                                         <Run Text="{Binding RewardPoints}" /><Run Text="$" />
                                     </TextBlock>
 
-                                    <TextBlock Foreground="{ThemeResource textColor}" Grid.Column="6" VerticalAlignment="Center" Width="200" Margin="8 0 0 0">
+                                    <TextBlock Foreground="{ThemeResource textColor}" Grid.Column="7" VerticalAlignment="Center" Width="200" Margin="8 0 0 0">
                                         <Run Text="{Binding FinalPrice}" /><Run Text="$" />
                                     </TextBlock>
 
-                                    <!-- Action Buttons -->
-                                    <StackPanel Orientation="Horizontal" Grid.Column="7" Spacing="5" Width="200">
+                                    <StackPanel Orientation="Horizontal" Grid.Column="8" Spacing="5" Width="200">
                                         <Button Background="{ThemeResource whiteBackColor}" Width="40" Height="40" Click="ViewButton_Click" Tag="{Binding}">
                                             <Image Width="16" Height="16" Source="ms-appx:///Images/view.png" />
                                         </Button>

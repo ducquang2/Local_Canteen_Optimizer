@@ -16,5 +16,6 @@ namespace Local_Canteen_Optimizer.Model
         public string final_price { get; set; }
 
         public DateTime created_at { get; set; }
+        public string note { get; set; }
     }
 }

@@ -50,6 +50,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
         /// <returns>A list of food models in the order.</returns>
         public Task<List<FoodModel>> GetAllOrderItems(int orderId);
 
+
         /// <summary>
         /// Checks out an order for a specific table.
         /// </summary>
@@ -64,6 +65,13 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
         /// <param name="orderModel">The order model with updated items.</param>
         /// <returns>True if the update was successful, otherwise false.</returns>
         public Task<bool> UpdateOrderItems(OrderModel orderModel);
+      
+        /// <summary>
+        /// Updates the order.
+        /// </summary>
+        /// <param name="orderModel">The order model with updated value.</param>
+        /// <returns>True if the update was successful, otherwise false.</returns>
+        public Task<bool> UpdateOrder(OrderModel orderModel);
 
         /// <summary>
         /// Applies a discount to an order.

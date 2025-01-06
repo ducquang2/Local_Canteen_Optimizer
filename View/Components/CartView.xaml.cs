@@ -59,6 +59,7 @@ namespace Local_Canteen_Optimizer.View
         public CartView()
         {
             this.InitializeComponent();
+            this.DataContext = new CartViewModel();
         }
 
         /// <summary>
@@ -120,7 +121,41 @@ namespace Local_Canteen_Optimizer.View
                 CheckOutRequested?.Invoke(this, table);
             }
         }
+        
+        /// <summary>
+        /// Handles the click event for open note popup.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
+        private void NoteButton_Click(object sender, RoutedEventArgs e)
+        {
+            NotePopup.IsOpen = true;
+        }
 
+        /// <summary>
+        /// Handles the click event for applying a note to the order.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
+        private async void SaveNoteButton_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = this.DataContext as CartViewModel;
+            if (viewModel != null)
+            {
+                viewModel.Note = NoteTextBox.Text;
+                bool success = await viewModel.UpdateOrderNoteAsync();
+                if (success)
+                {
+                    // Optionally show a success message
+                    NotePopup.IsOpen = false;
+                }
+                else
+                {
+                    // Optionally show an error message
+                }
+            }
+        }
+        
         /// <summary>
         /// Handles the click event for applying a discount to the cart.
         /// </summary>
