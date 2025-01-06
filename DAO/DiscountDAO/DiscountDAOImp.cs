@@ -33,6 +33,7 @@ namespace Local_Canteen_Optimizer.DAO.DiscountDAO
         /// </summary>
         /// <param name="totalPrice">The total price.</param>
         /// <returns>A list of eligible discounts.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<List<DiscountModel>> GetEligibleDiscount(double totalPrice)
         {
             try
@@ -69,6 +70,7 @@ namespace Local_Canteen_Optimizer.DAO.DiscountDAO
         /// <param name="keyword">The search keyword.</param>
         /// <param name="startDateAscending">if set to <c>true</c> [start date ascending].</param>
         /// <returns>A tuple containing the total items and a list of discounts.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<Tuple<int, List<DiscountModel>>> GetDiscountsAsync(int? page, int? rowsPerPage, string keyword, bool startDateAscending)
         {
             try
@@ -91,6 +93,7 @@ namespace Local_Canteen_Optimizer.DAO.DiscountDAO
         /// </summary>
         /// <param name="newDiscount">The new discount.</param>
         /// <returns>The added discount model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<DiscountModel> AddDiscountAsync(DiscountModel newDiscount)
         {
             try
@@ -147,6 +150,7 @@ namespace Local_Canteen_Optimizer.DAO.DiscountDAO
         /// </summary>
         /// <param name="newDiscount">The new discount.</param>
         /// <returns>The updated discount model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<DiscountModel> UpdateDiscountAsync(DiscountModel newDiscount)
         {
             try
@@ -203,6 +207,7 @@ namespace Local_Canteen_Optimizer.DAO.DiscountDAO
         /// </summary>
         /// <param name="discountId">The discount identifier.</param>
         /// <returns><c>true</c> if the discount was removed; otherwise, <c>false</c>.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<bool> RemoveDiscountAsync(int discountId)
         {
             try
@@ -246,6 +251,7 @@ namespace Local_Canteen_Optimizer.DAO.DiscountDAO
         /// </summary>
         /// <param name="apiDiscount">The API discount.</param>
         /// <returns>The discount model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         private DiscountModel ConvertToDiscountModel(ApiDiscount apiDiscount)
         {
             return new DiscountModel

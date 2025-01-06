@@ -31,6 +31,7 @@ namespace Local_Canteen_Optimizer.DAO.AuthenDAO
         /// <param name="username">The username of the user.</param>
         /// <param name="password">The password of the user.</param>
         /// <returns>A task that represents the asynchronous login operation. The task result contains the authentication model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<AuthenModel> LoginAsync(string username, string password)
         {
             var localSettings = ApplicationData.Current.LocalSettings;
@@ -74,6 +75,7 @@ namespace Local_Canteen_Optimizer.DAO.AuthenDAO
         /// Logs out a user asynchronously.
         /// </summary>
         /// <returns>True if the user was logged out successfully; otherwise, false.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public bool LogoutAsync()
         {
             var localSettings = ApplicationData.Current.LocalSettings;

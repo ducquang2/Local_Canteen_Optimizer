@@ -32,6 +32,7 @@ namespace Local_Canteen_Optimizer.DAO.CustomerDAO
         /// </summary>
         /// <param name="phoneNumber">The phone number of the customer.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains the customer model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<CustomerModel> GetCustomerByPhoneNumber(String phoneNumber)
         {
             try
@@ -51,6 +52,7 @@ namespace Local_Canteen_Optimizer.DAO.CustomerDAO
         /// </summary>
         /// <param name="newCustomer">The new customer model.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains the added customer model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<CustomerModel> AddCustomerAsync(CustomerModel newCustomer)
         {
             try
@@ -106,6 +108,7 @@ namespace Local_Canteen_Optimizer.DAO.CustomerDAO
         /// <param name="keyword">The search keyword.</param>
         /// <param name="nameAscending">if set to <c>true</c> [name ascending].</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains a tuple with the total items and a list of customer models.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<Tuple<int, List<CustomerModel>>> GetCustomersAsync(int? page, int? rowsPerPage, string keyword, bool nameAscending)
         {
             try
@@ -127,6 +130,7 @@ namespace Local_Canteen_Optimizer.DAO.CustomerDAO
         /// </summary>
         /// <param name="customerID">The customer identifier.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains a boolean indicating success or failure.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<bool> RemoveCustomerAsync(int customerID)
         {
             try
@@ -170,6 +174,7 @@ namespace Local_Canteen_Optimizer.DAO.CustomerDAO
         /// </summary>
         /// <param name="newCustomer">The new customer model.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains the updated customer model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<CustomerModel> UpdateCustomerAsync(CustomerModel newCustomer)
         {
             try
@@ -223,6 +228,7 @@ namespace Local_Canteen_Optimizer.DAO.CustomerDAO
         /// </summary>
         /// <param name="apiCustomer">The API customer model.</param>
         /// <returns>The customer model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         private CustomerModel ConvertToCustomerModel(ApiCustomer apiCustomer)
         {
             return new CustomerModel
