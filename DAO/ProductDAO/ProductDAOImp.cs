@@ -29,6 +29,7 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
         /// </summary>
         /// <param name="newProduct">The new product to add.</param>
         /// <returns>The added product as a <see cref="FoodModel"/>.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<FoodModel> AddProductAsync(FoodModel newProduct)
         {
             try
@@ -83,6 +84,7 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
         /// <param name="minPrice">The minimum price filter.</param>
         /// <param name="maxPrice">The maximum price filter.</param>
         /// <returns>A tuple containing the total number of items and a list of <see cref="FoodModel"/>.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<Tuple<int, List<FoodModel>>> GetProductsAsync(int? page, int? rowsPerPage, string keyword, bool nameAscending, double? minPrice, double? maxPrice)
         {
             try
@@ -108,6 +110,7 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
         /// </summary>
         /// <param name="productID">The ID of the product to remove.</param>
         /// <returns>True if the product was removed successfully, otherwise false.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<bool> RemoveProductAsync(int productID)
         {
             try
@@ -148,6 +151,7 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
         /// </summary>
         /// <param name="newProduct">The product to update.</param>
         /// <returns>The updated product as a <see cref="FoodModel"/>.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<FoodModel> UpdateProductAsync(FoodModel newProduct)
         {
             try
@@ -197,6 +201,7 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
         /// </summary>
         /// <param name="apiProduct">The API product to convert.</param>
         /// <returns>The converted <see cref="FoodModel"/>.</returns>
+        [ArmDot.Client.VirtualizeCode]
         private FoodModel ConvertToFoodModel(ApiProduct apiProduct)
         {
             return new FoodModel

@@ -37,6 +37,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
         /// </summary>
         /// <param name="orderModel">The order model.</param>
         /// <returns>The added order model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<OrderModel> AddOrderAsync(OrderModel orderModel)
         {
             try
@@ -96,6 +97,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
         /// <param name="tableId">The table ID.</param>
         /// <param name="orderId">The order ID.</param>
         /// <returns>True if checkout is successful, otherwise false.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<bool> CheckOut(int tableId, int orderId)
         {
             try
@@ -130,6 +132,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
         /// </summary>
         /// <param name="orderId">The order ID.</param>
         /// <returns>A list of food models.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<List<FoodModel>> GetAllOrderItems(int orderId)
         {
             try
@@ -161,6 +164,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
         /// <param name="rowsPerPage">The number of rows per page.</param>
         /// <param name="dateAscending">Sort order by date.</param>
         /// <returns>A tuple containing total items and a list of order models.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<Tuple<int, List<OrderModel>>> GetAllOrders(int? page, int? rowsPerPage, bool dateAscending)
         {
             try
@@ -183,6 +187,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
         /// </summary>
         /// <param name="tableId">The table ID.</param>
         /// <returns>The order model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<OrderModel> GetOrderModelFromTable(int tableId)
         {
             try
@@ -205,6 +210,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
         /// </summary>
         /// <param name="orderModel">The order model.</param>
         /// <returns>True if update is successful, otherwise false.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<bool> UpdateOrderItems(OrderModel orderModel)
         {
             try
@@ -248,6 +254,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
         /// </summary>
         /// <param name="orderModel">The order model.</param>
         /// <returns>True if update is successful, otherwise false.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<bool> UpdateOrder(OrderModel orderModel)
         {
             ApiOrder apiOrder = new ApiOrder
@@ -278,6 +285,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
         /// <param name="orderId">The order ID.</param>
         /// <param name="tableId">The table ID.</param>
         /// <returns>True if update is successful, otherwise false.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<bool> UpdateTableAfterOrder(int orderId, int tableId)
         {
             try
@@ -314,6 +322,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
         /// <param name="totalPrice">The total price.</param>
         /// <param name="customerId">The customer ID.</param>
         /// <returns>True if reward points are added successfully, otherwise false.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<bool> AddRewardPoints(double totalPrice, int customerId)
         {
             try
@@ -348,6 +357,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
         /// </summary>
         /// <param name="apiOrder">The API order.</param>
         /// <returns>The order model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         private OrderModel ConvertToOrderModel(ApiOrder apiOrder)
         {
             return new OrderModel
@@ -356,7 +366,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                 OrderTime = apiOrder.created_at,
                 Total = apiOrder.total_price,
                 OrderStatus = apiOrder.order_status.ToString(),
-                Note = apiOrder.note
+                Note = apiOrder.note,
                 DiscountPrice = apiOrder.discount_price,
                 RewardPoints = apiOrder.reward_value_used,
                 FinalPrice = apiOrder.final_price
@@ -368,6 +378,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
         /// </summary>
         /// <param name="response">The API order details response.</param>
         /// <returns>The order model with items.</returns>
+        [ArmDot.Client.VirtualizeCode]
         private OrderModel ConvertToOrderModelWithItems(GetApiOrderDetailsResponse response)
         {
             return new OrderModel
@@ -395,6 +406,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
         /// <param name="orderId">The order ID.</param>
         /// <param name="promotionId">The promotion ID.</param>
         /// <returns>The discount amount if successful, otherwise null.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<double?> ApplyDiscount(int orderId, int promotionId)
         {
             try
@@ -434,6 +446,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
         /// <param name="phoneNumber">The customer's phone number.</param>
         /// <param name="rewardPoints">The reward points to apply.</param>
         /// <returns>True if reward points are applied successfully, otherwise false.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<bool> ApplyRewardPoint(int orderId, double totalPrice, string phoneNumber, int rewardPoints)
         {
             try

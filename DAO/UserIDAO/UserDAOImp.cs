@@ -38,6 +38,7 @@ namespace Local_Canteen_Optimizer.DAO.UserIDAO
         /// <param name="keyword">The search keyword.</param>
         /// <param name="nameAscending">Sort order by name.</param>
         /// <returns>A tuple containing the total number of items and a list of user models.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<Tuple<int, List<UserModel>>> GetUsersAsync(int? page, int? rowsPerPage, string keyword, bool nameAscending)
         {
             var localSettings = ApplicationData.Current.LocalSettings;
@@ -73,6 +74,7 @@ namespace Local_Canteen_Optimizer.DAO.UserIDAO
         /// </summary>
         /// <param name="username">The username of the user.</param>
         /// <returns>The user model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<UserModel> GetUserAsync(string username)
         {
             await Task.CompletedTask;
@@ -84,6 +86,7 @@ namespace Local_Canteen_Optimizer.DAO.UserIDAO
         /// </summary>
         /// <param name="newUser">The new user model.</param>
         /// <returns>The added user model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<UserModel> AddUserAsync(UserModel newUser)
         {
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
@@ -110,6 +113,7 @@ namespace Local_Canteen_Optimizer.DAO.UserIDAO
         /// </summary>
         /// <param name="updatedUser">The updated user model.</param>
         /// <returns>The updated user model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<UserModel> UpdateUserAsync(UserModel updatedUser)
         {
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
@@ -145,6 +149,7 @@ namespace Local_Canteen_Optimizer.DAO.UserIDAO
         /// </summary>
         /// <param name="userID">The user ID.</param>
         /// <returns>A boolean indicating success or failure.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<bool> RemoveUserAsync(int userID)
         {
             await Task.CompletedTask;
@@ -156,6 +161,7 @@ namespace Local_Canteen_Optimizer.DAO.UserIDAO
         /// </summary>
         /// <param name="apiUser">The API user.</param>
         /// <returns>The user model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         private UserModel ConvertToUserModel(ApiUser apiUser)
         {
             return new UserModel

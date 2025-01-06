@@ -17,12 +17,15 @@ namespace Local_Canteen_Optimizer.Service
         /// <summary>
         /// Static constructor to initialize the HttpClient with a base address.
         /// </summary>
+        [ArmDot.Client.VirtualizeCode]
         static HttpClientService()
         {
             _httpClient = new HttpClient
             {
                 BaseAddress = new Uri("https://8080-idx-local-canteen-pos-1732536380411.cluster-a3grjzek65cxex762e4mwrzl46.cloudworkstations.dev/")
+                // BaseAddress = new Uri("https://damp-wand-7w45w44w9573rg5g-8080.app.github.dev/")
             };
+
             //_httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
         }
 

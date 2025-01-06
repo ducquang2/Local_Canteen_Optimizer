@@ -30,6 +30,7 @@ namespace Local_Canteen_Optimizer.DAO.SeatDAO
         /// Asynchronously retrieves a list of seats.
         /// </summary>
         /// <returns>A task that represents the asynchronous operation. The task result contains a list of <see cref="TableModel"/>.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<List<TableModel>> GetSeatsAsync()
         {
             try
@@ -50,6 +51,7 @@ namespace Local_Canteen_Optimizer.DAO.SeatDAO
         /// </summary>
         /// <param name="seat">The <see cref="ApiSeats"/> object to convert.</param>
         /// <returns>The converted <see cref="TableModel"/> object.</returns>
+        [ArmDot.Client.VirtualizeCode]
         private TableModel ConvertToTableModel(ApiSeats seat)
         {
             return new TableModel

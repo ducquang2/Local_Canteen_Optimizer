@@ -356,7 +356,7 @@ namespace Local_Canteen_Optimizer.ViewModel
                     bool isApplyRewardPoint = await _dao.ApplyRewardPoint(OrderId, Subtotal - DiscountAmount, Customer.PhoneNumber, _pointsToUse);
                 }
 
-                bool isCheckout = await _dao.CheckOut(SelectedTableId, OrderId, Note);
+                bool isCheckout = await _dao.CheckOut(SelectedTableId, OrderId);
                 if (!isCheckout)
                 {
                     await MessageHelper.ShowErrorMessage("Fail to checkout", App.m_window.Content.XamlRoot);
