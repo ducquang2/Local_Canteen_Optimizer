@@ -16,11 +16,24 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
+        <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" >
+        <TextBlock  Text="Local Canteen Optimizer" FontWeight="Bold" FontSize="30" Padding="0 0 0 40"/>
+        <Border 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" 
+            
+            Background="White" 
+            BorderBrush="Gray" 
+            BorderThickness="0.5" 
+            CornerRadius="8">
         <StackPanel 
             HorizontalAlignment="Center" 
             VerticalAlignment="Center" 
-            Grid.Column="0">
+            Padding="30"
+            Background="#ffffff"
+            >
+            
+            <TextBlock  Text="Login" FontWeight="Bold" FontSize="20"/>
 
             <StackPanel
                 VerticalAlignment="Center"
@@ -54,6 +67,9 @@
                 Margin="10"
                 Content="Login"
                 Command="{Binding LoginCommand}" />
+
+        </StackPanel>
+        </Border>
         </StackPanel>
 
         <Image Source="ms-appx:///Assets/authen.png" 

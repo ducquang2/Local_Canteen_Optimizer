@@ -1,4 +1,5 @@
 ﻿using Local_Canteen_Optimizer.DAO.UserIDAO;
+using Local_Canteen_Optimizer.Helper;
 using Local_Canteen_Optimizer.Model;
 using System;
 using System.Collections.Generic;
@@ -108,6 +109,11 @@ namespace Local_Canteen_Optimizer.ViewModel
             if (newUser != null)
             {
                 UserItems.Add(newUser);
+                await MessageHelper.ShowSuccessMessage("Add new user successful", App.m_window.Content.XamlRoot);
+            }
+            else
+            {
+                await MessageHelper.ShowErrorMessage("Fail to add new user", App.m_window.Content.XamlRoot);
             }
         }
 
@@ -131,7 +137,16 @@ namespace Local_Canteen_Optimizer.ViewModel
                         Phone_number = editedUser.Phone_number,
                         Role = editedUser.Role
                     };
+                    await MessageHelper.ShowSuccessMessage("Update user successful", App.m_window.Content.XamlRoot);
                 }
+                else
+                {
+                    await MessageHelper.ShowErrorMessage("Fail to update user", App.m_window.Content.XamlRoot);
+                }
+            }
+            else
+            {
+                await MessageHelper.ShowErrorMessage("Fail to update user", App.m_window.Content.XamlRoot);
             }
         }
     }
