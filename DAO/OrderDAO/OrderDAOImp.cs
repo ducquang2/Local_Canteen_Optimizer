@@ -17,14 +17,26 @@ using static Local_Canteen_Optimizer.DAO.SeatDAO.SeatDAOImp;
 
 namespace Local_Canteen_Optimizer.DAO.OrderDAO
 {
+    /// <summary>
+    /// Implementation of the IOrderDAO interface.
+    /// </summary>
     public class OrderDAOImp : IOrderDAO
     {
         private readonly HttpClient _httpClient;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrderDAOImp"/> class.
+        /// </summary>
         public OrderDAOImp()
         {
             _httpClient = HttpClientService.GetHttpClient();
         }
+
+        /// <summary>
+        /// Adds a new order asynchronously.
+        /// </summary>
+        /// <param name="orderModel">The order model.</param>
+        /// <returns>The added order model.</returns>
         public async Task<OrderModel> AddOrderAsync(OrderModel orderModel)
         {
             try
@@ -78,7 +90,13 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
 
         }
 
-        public async Task<bool> CheckOut(int tableId, int orderId, string note)
+        /// <summary>
+        /// Checks out an order asynchronously.
+        /// </summary>
+        /// <param name="tableId">The table ID.</param>
+        /// <param name="orderId">The order ID.</param>
+        /// <returns>True if checkout is successful, otherwise false.</returns>
+        public async Task<bool> CheckOut(int tableId, int orderId)
         {
             try
             {
@@ -86,7 +104,6 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                 {
                     table_id = tableId,
                     order_id = orderId,
-                    note = note,
                 };
                 var response = await _httpClient.PostAsJsonAsync($"api/v1/orders/checkout", checkOutRequest);
                 if (response.IsSuccessStatusCode)
@@ -108,6 +125,11 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
             }
         }
 
+        /// <summary>
+        /// Gets all order items asynchronously.
+        /// </summary>
+        /// <param name="orderId">The order ID.</param>
+        /// <returns>A list of food models.</returns>
         public async Task<List<FoodModel>> GetAllOrderItems(int orderId)
         {
             try
@@ -132,6 +154,13 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
             }
         }
 
+        /// <summary>
+        /// Gets all orders asynchronously.
+        /// </summary>
+        /// <param name="page">The page number.</param>
+        /// <param name="rowsPerPage">The number of rows per page.</param>
+        /// <param name="dateAscending">Sort order by date.</param>
+        /// <returns>A tuple containing total items and a list of order models.</returns>
         public async Task<Tuple<int, List<OrderModel>>> GetAllOrders(int? page, int? rowsPerPage, bool dateAscending)
         {
             try
@@ -149,6 +178,11 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
             }
         }
 
+        /// <summary>
+        /// Gets the order model from a table asynchronously.
+        /// </summary>
+        /// <param name="tableId">The table ID.</param>
+        /// <returns>The order model.</returns>
         public async Task<OrderModel> GetOrderModelFromTable(int tableId)
         {
             try
@@ -166,6 +200,11 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
             
         }
 
+        /// <summary>
+        /// Updates order items asynchronously.
+        /// </summary>
+        /// <param name="orderModel">The order model.</param>
+        /// <returns>True if update is successful, otherwise false.</returns>
         public async Task<bool> UpdateOrderItems(OrderModel orderModel)
         {
             try
@@ -204,6 +243,11 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
             }
         }
 
+        /// <summary>
+        /// Updates order asynchronously.
+        /// </summary>
+        /// <param name="orderModel">The order model.</param>
+        /// <returns>True if update is successful, otherwise false.</returns>
         public async Task<bool> UpdateOrder(OrderModel orderModel)
         {
             ApiOrder apiOrder = new ApiOrder
@@ -228,6 +272,12 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
             }
         }
 
+        /// <summary>
+        /// Updates the table after an order asynchronously.
+        /// </summary>
+        /// <param name="orderId">The order ID.</param>
+        /// <param name="tableId">The table ID.</param>
+        /// <returns>True if update is successful, otherwise false.</returns>
         public async Task<bool> UpdateTableAfterOrder(int orderId, int tableId)
         {
             try
@@ -258,6 +308,46 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
             }
         }
 
+        /// <summary>
+        /// Adds reward points to a customer asynchronously.
+        /// </summary>
+        /// <param name="totalPrice">The total price.</param>
+        /// <param name="customerId">The customer ID.</param>
+        /// <returns>True if reward points are added successfully, otherwise false.</returns>
+        public async Task<bool> AddRewardPoints(double totalPrice, int customerId)
+        {
+            try
+            {
+                var addRewardPointsRequest = new
+                {
+                    total_price = totalPrice,
+                };
+                var response = await _httpClient.PostAsJsonAsync($"api/v1/earn-points/{customerId}", addRewardPointsRequest);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    // Xử lý lỗi từ server
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error: {errorContent}");
+                    return false;
+                }
+            }
+            catch
+            {
+                // Xử lý lỗi nếu có
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Converts an API order to an order model.
+        /// </summary>
+        /// <param name="apiOrder">The API order.</param>
+        /// <returns>The order model.</returns>
         private OrderModel ConvertToOrderModel(ApiOrder apiOrder)
         {
             return new OrderModel
@@ -267,9 +357,17 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                 Total = apiOrder.total_price,
                 OrderStatus = apiOrder.order_status.ToString(),
                 Note = apiOrder.note
+                DiscountPrice = apiOrder.discount_price,
+                RewardPoints = apiOrder.reward_value_used,
+                FinalPrice = apiOrder.final_price
             };
         }
 
+        /// <summary>
+        /// Converts an API order details response to an order model with items.
+        /// </summary>
+        /// <param name="response">The API order details response.</param>
+        /// <returns>The order model with items.</returns>
         private OrderModel ConvertToOrderModelWithItems(GetApiOrderDetailsResponse response)
         {
             return new OrderModel
@@ -291,11 +389,103 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
             };
         }
 
+        /// <summary>
+        /// Applies a discount to an order asynchronously.
+        /// </summary>
+        /// <param name="orderId">The order ID.</param>
+        /// <param name="promotionId">The promotion ID.</param>
+        /// <returns>The discount amount if successful, otherwise null.</returns>
+        public async Task<double?> ApplyDiscount(int orderId, int promotionId)
+        {
+            try
+            {
+                var applyDiscountRequest = new
+                {           
+                    orderId = orderId,
+                    promotionId = promotionId
+                };
+                var response = await _httpClient.PostAsJsonAsync($"api/v1/discount/apply-discount", applyDiscountRequest);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadFromJsonAsync<GetDiscountAmount>();
+                    return responseContent.discountAmount;
+                }
+                else
+                {
+                    // Xử lý lỗi từ server
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error: {errorContent}");
+                    return null;
+                }
+            }
+            catch
+            {
+                // Xử lý lỗi nếu có
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Applies reward points to an order asynchronously.
+        /// </summary>
+        /// <param name="orderId">The order ID.</param>
+        /// <param name="totalPrice">The total price.</param>
+        /// <param name="phoneNumber">The customer's phone number.</param>
+        /// <param name="rewardPoints">The reward points to apply.</param>
+        /// <returns>True if reward points are applied successfully, otherwise false.</returns>
+        public async Task<bool> ApplyRewardPoint(int orderId, double totalPrice, string phoneNumber, int rewardPoints)
+        {
+            try
+            {
+                var applyRewardPointRequest = new
+                {
+                    order_id = orderId,
+                    final_price = totalPrice,
+                    customer_phone_number = phoneNumber,
+                    points = rewardPoints,
+                };
+                var response = await _httpClient.PostAsJsonAsync($"api/v1/orders/apply-reward-points", applyRewardPointRequest);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    // Xử lý lỗi từ server
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error: {errorContent}");
+                    return false;
+                }
+            }
+            catch
+            {
+                // Xử lý lỗi nếu có
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Represents the API response for an order.
+        /// </summary>
         public class GetApiResponse
         {
             public ApiOrder order { get; set; }
         }
 
+        /// <summary>
+        /// Represents the discount amount.
+        /// </summary>
+        public class GetDiscountAmount
+        {
+            [JsonPropertyName("discount")]
+            public double discountAmount { get; set; }
+        }
+
+        /// <summary>
+        /// Represents the list order response.
+        /// </summary>
         public class GetListOrderResponse
         {
             [JsonPropertyName("totalItems")]
@@ -304,6 +494,9 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
             public List<ApiOrder> order { get; set; }
         }
 
+        /// <summary>
+        /// Represents the API order details response.
+        /// </summary>
         public class GetApiOrderDetailsResponse
         {
             [JsonPropertyName("order")]

@@ -21,27 +21,60 @@ using Windows.Foundation.Collections;
 
 namespace Local_Canteen_Optimizer.View
 {
+    /// <summary>
+    /// Interaction logic for Table.xaml
+    /// </summary>
     public sealed partial class Table : UserControl
     {
+        /// <summary>
+        /// ViewModel for the Table view.
+        /// </summary>
         public TableViewModel tableViewModel;
+
+        /// <summary>
+        /// Event triggered when the cancel action is requested.
+        /// </summary>
         public event EventHandler CancelRequested;
+
+        /// <summary>
+        /// Event triggered when the save table action is requested.
+        /// </summary>
         public event EventHandler<int> SaveTableRequested;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Table"/> class.
+        /// </summary>
         public Table()
         {
             this.InitializeComponent();
             InitializeAsync();
         }
 
+        /// <summary>
+        /// Asynchronously initializes the Table view model.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         public async Task InitializeAsync()
         {
             tableViewModel = new TableViewModel();
             await tableViewModel.Init();
         }
 
+        /// <summary>
+        /// Handles the click event of the BackToHome button.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         public void BackToHome_Click(object sender, RoutedEventArgs e)
         {
             CancelRequested?.Invoke(this, EventArgs.Empty);
         }
+
+        /// <summary>
+        /// Handles the click event of the ChooseTable button.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void ChooseTable_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;

@@ -12,11 +12,18 @@ namespace Local_Canteen_Optimizer.View
     /// </summary>
     public sealed partial class AuthPage : Page
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthPage"/> class.
+        /// </summary>
         public AuthPage()
         {
             this.InitializeComponent();
         }
 
+        /// <summary>
+        /// Called when the page is navigated to.
+        /// </summary>
+        /// <param name="e">The event data that describes how this page was reached.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter is AuthViewModel authViewModel)

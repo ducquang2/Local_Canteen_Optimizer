@@ -10,6 +10,8 @@
     xmlns:viewProduct="using:Local_Canteen_Optimizer.View.Product"
     xmlns:viewOrder="using:Local_Canteen_Optimizer.View.Order"
     xmlns:viewManageUser="using:Local_Canteen_Optimizer.View.ManageUser"
+    xmlns:viewDiscount="using:Local_Canteen_Optimizer.View.Discount"
+    xmlns:viewCustomer="using:Local_Canteen_Optimizer.View.Customer"
     >
 
     <DataTemplate x:Key="HomeTemplate">
@@ -17,7 +19,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="CustomerTemplate" >
-        <view:Customers />
+        <viewCustomer:Customers />
     </DataTemplate>
 
     <DataTemplate x:Key="OrderTemplate" >
@@ -48,6 +50,10 @@
         <viewManageUser:ManageUser />
     </DataTemplate>
 
+    <DataTemplate x:Key="DiscountTemplate" >
+        <viewDiscount:Discount />
+    </DataTemplate>
+
     <ul:DataTemplateSelect x:Key="ViewModelSelector"
                            HomeTemplate="{StaticResource HomeTemplate}"
                            CustomerTemplate="{StaticResource CustomerTemplate}" 
@@ -58,6 +64,7 @@
                            TableTemplate="{StaticResource TableTemplate}"
                            TransactionTemplate="{StaticResource TransactionTemplate}"
                            ManageUserTemplate="{StaticResource ManageUserTemplate}"
+                           DiscountTemplate="{StaticResource DiscountTemplate}"
     />
 
 </ResourceDictionary>
