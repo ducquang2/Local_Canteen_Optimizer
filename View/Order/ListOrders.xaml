@@ -122,7 +122,7 @@
                                     <TextBlock Text="{Binding OrderStatus}" Grid.Column="2" VerticalAlignment="Center" FontWeight="Bold" Width="200" Foreground="{Binding OrderStatus, Converter={StaticResource OrderStatusToBrushConverter}}"/>
                                   
                                     <!-- Note -->
-                                    <TextBlock Foreground="{ThemeResource textColor}" Grid.Column="3" VerticalAlignment="Center" Width="200" Margin="10 0 0 0">
+                                    <TextBlock Text="{Binding Note}" Foreground="{ThemeResource textColor}" Grid.Column="3" VerticalAlignment="Center" Width="200" Margin="10 0 0 0"/>
 
                                     <!-- Total -->
                                     <TextBlock Foreground="{ThemeResource textColor}" Grid.Column="4" VerticalAlignment="Center" Width="200" Margin="4 0 0 0">

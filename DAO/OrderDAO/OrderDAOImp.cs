@@ -356,7 +356,7 @@ namespace Local_Canteen_Optimizer.DAO.OrderDAO
                 OrderTime = apiOrder.created_at,
                 Total = apiOrder.total_price,
                 OrderStatus = apiOrder.order_status.ToString(),
-                Note = apiOrder.note
+                Note = apiOrder.note,
                 DiscountPrice = apiOrder.discount_price,
                 RewardPoints = apiOrder.reward_value_used,
                 FinalPrice = apiOrder.final_price
