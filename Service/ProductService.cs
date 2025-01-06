@@ -10,16 +10,25 @@ using System.Threading.Tasks;
 
 namespace Local_Canteen_Optimizer.Service
 {
+    /// <summary>
+    /// Service class for managing products.
+    /// </summary>
     class ProductService
     {
         private readonly HttpClient _httpClient;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductService"/> class.
+        /// </summary>
         public ProductService()
         {
             _httpClient = HttpClientService.GetHttpClient();
         }
 
-        // Phương thức GET để lấy danh sách người dùng
+        /// <summary>
+        /// Asynchronously gets the list of products.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a list of <see cref="FoodModel"/>.</returns>
         public async Task<List<FoodModel>> GetProductsAsync()
         {
             try
@@ -29,11 +38,16 @@ namespace Local_Canteen_Optimizer.Service
             }
             catch
             {
-                // Xử lý lỗi nếu có
+                // Handle errors if any
                 return new List<FoodModel>();
             }
         }
 
+        /// <summary>
+        /// Converts an <see cref="ApiProduct"/> to a <see cref="FoodModel"/>.
+        /// </summary>
+        /// <param name="apiProduct">The API product to convert.</param>
+        /// <returns>The converted <see cref="FoodModel"/>.</returns>
         private FoodModel ConvertToDTO(ApiProduct apiProduct)
         {
             return new FoodModel
@@ -44,11 +58,16 @@ namespace Local_Canteen_Optimizer.Service
                 Price = apiProduct.price,
                 Quantity = apiProduct.stock_quantity,
             };
-            
         }
 
+        /// <summary>
+        /// Root API response class.
+        /// </summary>
         public class RootApiResponse
         {
+            /// <summary>
+            /// Gets or sets the list of API products.
+            /// </summary>
             [JsonPropertyName("results")]
             public List<ApiProduct> Results { get; set; }
         }

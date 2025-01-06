@@ -20,34 +20,51 @@ using Local_Canteen_Optimizer.Model;
 
 namespace Local_Canteen_Optimizer.View.Order
 {
+    /// <summary>
+    /// Represents the Order view control.
+    /// </summary>
     public sealed partial class Order : UserControl
     {
         private ListOrders listOrderControl;
         private ViewOrder viewOrderControl;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Order"/> class.
+        /// </summary>
         public Order()
         {
             this.InitializeComponent();
 
-            // Khởi tạo danh sách sản phẩm
+            // Initialize the list of products
             listOrderControl = new ListOrders();
             listOrderControl.ViewOrderDetailRequested += OnViewDetailRequested;
 
             viewOrderControl = new ViewOrder();
             viewOrderControl.CancelRequested += OnCancelRequested;
 
-            // Hiển thị danh sách sản phẩm ban đầu
+            // Display the initial list of products
             OrdersContent.Content = listOrderControl;
         }
 
+        /// <summary>
+        /// Handles the CancelRequested event to return to the list of products.
+        /// </summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void OnCancelRequested(object sender, EventArgs e)
         {
-            // Khi hủy, quay lại danh sách sản phẩm
+            // When canceled, return to the list of products
             OrdersContent.Content = listOrderControl;
         }
 
+        /// <summary>
+        /// Handles the ViewOrderDetailRequested event to display the order details.
+        /// </summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="order">The order model.</param>
         private async void OnViewDetailRequested(object sender, OrderModel order)
         {
-            await viewOrderControl.SetOrder(listOrderControl.orderViewModel,order);
+            await viewOrderControl.SetOrder(listOrderControl.orderViewModel, order);
             OrdersContent.Content = viewOrderControl;
         }
     }

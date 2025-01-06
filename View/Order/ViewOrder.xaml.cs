@@ -22,20 +22,46 @@ using System.Threading.Tasks;
 
 namespace Local_Canteen_Optimizer.View.Order
 {
+    /// <summary>
+    /// Interaction logic for ViewOrder.xaml
+    /// </summary>
     public sealed partial class ViewOrder : UserControl
     {
+        /// <summary>
+        /// Event triggered when the cancel button is clicked.
+        /// </summary>
         public event EventHandler CancelRequested;
+
+        /// <summary>
+        /// The current order view model.
+        /// </summary>
         private OrderViewModel currentOrderViewModel;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ViewOrder"/> class.
+        /// </summary>
         public ViewOrder()
         {
             this.InitializeComponent();
         }
-        public async Task SetOrder(OrderViewModel orderViewModel,OrderModel order)
+
+        /// <summary>
+        /// Sets the order view model and updates the order model.
+        /// </summary>
+        /// <param name="orderViewModel">The order view model.</param>
+        /// <param name="order">The order model.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
+        public async Task SetOrder(OrderViewModel orderViewModel, OrderModel order)
         {
             currentOrderViewModel = orderViewModel;
             await currentOrderViewModel.UpdateOrderModel(order);
         }
 
+        /// <summary>
+        /// Handles the click event of the cancel button.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             CancelRequested?.Invoke(this, EventArgs.Empty);

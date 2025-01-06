@@ -1,4 +1,5 @@
 ﻿using Local_Canteen_Optimizer.DAO.UserIDAO;
+using Local_Canteen_Optimizer.Helper;
 using Local_Canteen_Optimizer.Model;
 using System;
 using System.Collections.Generic;
@@ -9,18 +10,51 @@ using System.Threading.Tasks;
 
 namespace Local_Canteen_Optimizer.ViewModel
 {
+    /// <summary>
+    /// ViewModel class for managing user page.
+    /// </summary>
     class ManageUserViewModel : BaseViewModel
     {
         private IUserDAO _dao = null;
+
+        /// <summary>
+        /// Gets or sets the keyword for searching users.
+        /// </summary>
         public string Keyword { get; set; } = "";
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the user names should be sorted in ascending order.
+        /// </summary>
         public bool NameAcending { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets the current page number.
+        /// </summary>
         public int CurrentPage { get; set; } = 0;
+
+        /// <summary>
+        /// Gets or sets the number of rows per page.
+        /// </summary>
         public int RowsPerPage { get; set; } = 10;
+
+        /// <summary>
+        /// Gets or sets the total number of pages.
+        /// </summary>
         public int TotalPages { get; set; } = 0;
+
+        /// <summary>
+        /// Gets or sets the total number of items.
+        /// </summary>
         public int TotalItems { get; set; } = 0;
 
+        /// <summary>
+        /// Gets or sets the collection of user items.
+        /// </summary>
         public ObservableCollection<UserModel> UserItems { get; set; }
 
+        /// <summary>
+        /// Initializes the ViewModel and loads the users.
+        /// </summary>
         public async Task Init()
         {
             _dao = new UserDAOImp();
@@ -28,12 +62,19 @@ namespace Local_Canteen_Optimizer.ViewModel
             await LoadUsersAsync();
         }
 
+        /// <summary>
+        /// Loads the users for the specified page.
+        /// </summary>
+        /// <param name="page">The page number to load.</param>
         public async Task Load(int page)
         {
             CurrentPage = page;
             await LoadUsersAsync();
         }
 
+        /// <summary>
+        /// Loads the users asynchronously.
+        /// </summary>
         public async Task LoadUsersAsync()
         {
             var (totalItems, users) = await _dao.GetUsersAsync(CurrentPage, RowsPerPage, Keyword, NameAcending);
@@ -48,26 +89,43 @@ namespace Local_Canteen_Optimizer.ViewModel
             TotalPages = (TotalItems / RowsPerPage) + ((TotalItems % RowsPerPage == 0) ? 0 : 1);
         }
 
+        /// <summary>
+        /// Gets a user asynchronously by username.
+        /// </summary>
+        /// <param name="username">The username of the user to get.</param>
+        /// <returns>The user model.</returns>
         public async Task<UserModel> GetUserAsync(string username)
         {
             return await _dao.GetUserAsync(username);
         }
 
+        /// <summary>
+        /// Adds a new user asynchronously.
+        /// </summary>
+        /// <param name="user">The user model to add.</param>
         public async Task AddUser(UserModel user)
         {
             UserModel newUser = await _dao.AddUserAsync(user);
             if (newUser != null)
             {
                 UserItems.Add(newUser);
+                await MessageHelper.ShowSuccessMessage("Add new user successful", App.m_window.Content.XamlRoot);
+            }
+            else
+            {
+                await MessageHelper.ShowErrorMessage("Fail to add new user", App.m_window.Content.XamlRoot);
             }
         }
 
+        /// <summary>
+        /// Edits an existing user asynchronously.
+        /// </summary>
+        /// <param name="user">The user model to edit.</param>
         public async Task EditUser(UserModel user)
         {
             UserModel editedUser = await _dao.UpdateUserAsync(user);
             if (editedUser != null)
             {
-                // Tìm và cập nhật sản phẩm trong danh sách
                 var existingUserIndex = UserItems.IndexOf(UserItems.FirstOrDefault(p => p.UserID == editedUser.UserID));
                 if (existingUserIndex >= 0)
                 {
@@ -79,7 +137,16 @@ namespace Local_Canteen_Optimizer.ViewModel
                         Phone_number = editedUser.Phone_number,
                         Role = editedUser.Role
                     };
+                    await MessageHelper.ShowSuccessMessage("Update user successful", App.m_window.Content.XamlRoot);
                 }
+                else
+                {
+                    await MessageHelper.ShowErrorMessage("Fail to update user", App.m_window.Content.XamlRoot);
+                }
+            }
+            else
+            {
+                await MessageHelper.ShowErrorMessage("Fail to update user", App.m_window.Content.XamlRoot);
             }
         }
     }

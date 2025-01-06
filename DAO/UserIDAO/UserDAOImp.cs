@@ -15,15 +15,30 @@ using Local_Canteen_Optimizer.View.ManageUser;
 
 namespace Local_Canteen_Optimizer.DAO.UserIDAO
 {
+    /// <summary>
+    /// Implementation of IUserDAO interface.
+    /// </summary>
     public class UserDAOImp : IUserDAO
     {
         private readonly HttpClient _httpClient;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserDAOImp"/> class.
+        /// </summary>
         public UserDAOImp()
         {
             _httpClient = HttpClientService.GetHttpClient();
         }
 
+        /// <summary>
+        /// Gets a list of users asynchronously.
+        /// </summary>
+        /// <param name="page">The page number.</param>
+        /// <param name="rowsPerPage">The number of rows per page.</param>
+        /// <param name="keyword">The search keyword.</param>
+        /// <param name="nameAscending">Sort order by name.</param>
+        /// <returns>A tuple containing the total number of items and a list of user models.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<Tuple<int, List<UserModel>>> GetUsersAsync(int? page, int? rowsPerPage, string keyword, bool nameAscending)
         {
             var localSettings = ApplicationData.Current.LocalSettings;
@@ -31,7 +46,7 @@ namespace Local_Canteen_Optimizer.DAO.UserIDAO
             if (localSettings.Values.ContainsKey("userToken"))
             {
                 try
-                    {
+                {
                     string userToken = localSettings.Values["userToken"] as string;
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
 
@@ -54,12 +69,24 @@ namespace Local_Canteen_Optimizer.DAO.UserIDAO
             }
         }
 
+        /// <summary>
+        /// Gets a user asynchronously by username.
+        /// </summary>
+        /// <param name="username">The username of the user.</param>
+        /// <returns>The user model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<UserModel> GetUserAsync(string username)
         {
             await Task.CompletedTask;
             return null;
         }
 
+        /// <summary>
+        /// Adds a new user asynchronously.
+        /// </summary>
+        /// <param name="newUser">The new user model.</param>
+        /// <returns>The added user model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<UserModel> AddUserAsync(UserModel newUser)
         {
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
@@ -81,6 +108,12 @@ namespace Local_Canteen_Optimizer.DAO.UserIDAO
             throw new UnauthorizedAccessException("User not authenticated");
         }
 
+        /// <summary>
+        /// Updates an existing user asynchronously.
+        /// </summary>
+        /// <param name="updatedUser">The updated user model.</param>
+        /// <returns>The updated user model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<UserModel> UpdateUserAsync(UserModel updatedUser)
         {
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
@@ -111,12 +144,24 @@ namespace Local_Canteen_Optimizer.DAO.UserIDAO
             throw new UnauthorizedAccessException("User not authenticated");
         }
 
+        /// <summary>
+        /// Removes a user asynchronously.
+        /// </summary>
+        /// <param name="userID">The user ID.</param>
+        /// <returns>A boolean indicating success or failure.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<bool> RemoveUserAsync(int userID)
         {
             await Task.CompletedTask;
             return false;
         }
 
+        /// <summary>
+        /// Converts an ApiUser to a UserModel.
+        /// </summary>
+        /// <param name="apiUser">The API user.</param>
+        /// <returns>The user model.</returns>
+        [ArmDot.Client.VirtualizeCode]
         private UserModel ConvertToUserModel(ApiUser apiUser)
         {
             return new UserModel
@@ -129,6 +174,9 @@ namespace Local_Canteen_Optimizer.DAO.UserIDAO
             };
         }
 
+        /// <summary>
+        /// Response class for getting users.
+        /// </summary>
         public class GetApiResponse
         {
             [JsonPropertyName("totalItems")]
@@ -138,6 +186,9 @@ namespace Local_Canteen_Optimizer.DAO.UserIDAO
             public List<ApiUser> Results { get; set; }
         }
 
+        /// <summary>
+        /// Response class for adding a user.
+        /// </summary>
         public class AddApiResponse
         {
             [JsonPropertyName("user")]

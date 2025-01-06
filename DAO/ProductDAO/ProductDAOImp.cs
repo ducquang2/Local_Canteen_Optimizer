@@ -16,12 +16,20 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
     {
         private readonly HttpClient _httpClient;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductDAOImp"/> class.
+        /// </summary>
         public ProductDAOImp()
         {
             _httpClient = HttpClientService.GetHttpClient();
         }
 
-        // Phương thức POST để thêm một món ăn mới
+        /// <summary>
+        /// Adds a new product asynchronously.
+        /// </summary>
+        /// <param name="newProduct">The new product to add.</param>
+        /// <returns>The added product as a <see cref="FoodModel"/>.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<FoodModel> AddProductAsync(FoodModel newProduct)
         {
             try
@@ -29,9 +37,7 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
                 var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
                 if (localSettings.Values.ContainsKey("userToken"))
                 {
-                    //localSettings.Values.Remove("userToken");
                     string userToken = localSettings.Values["userToken"] as string;
-                    //string userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMDEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzA2MTE2NTMsImV4cCI6MTczMDYyMjQ1M30.0Cm-GNsXjkXFDbCEgDyCod725zC0Q7GP5YoM2mIIl2k";
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
 
                     ApiProduct apiProduct = new ApiProduct
@@ -51,7 +57,6 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
                     }
                     else
                     {
-                        // Xử lý lỗi từ server
                         var errorContent = await response.Content.ReadAsStringAsync();
                         Console.WriteLine($"Error: {errorContent}");
                         return null;
@@ -59,20 +64,27 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
                 }
                 else
                 {
-                    // Handle the case where the token is not found
                     Console.WriteLine("User token not found.");
                     return null;
                 }
             }
             catch
             {
-                // Xử lý lỗi nếu có
                 return null;
             }
-            
         }
 
-        // Phương thức GET để lấy danh sách người dùng
+        /// <summary>
+        /// Gets a list of products asynchronously.
+        /// </summary>
+        /// <param name="page">The page number.</param>
+        /// <param name="rowsPerPage">The number of rows per page.</param>
+        /// <param name="keyword">The search keyword.</param>
+        /// <param name="nameAscending">Sort order by name.</param>
+        /// <param name="minPrice">The minimum price filter.</param>
+        /// <param name="maxPrice">The maximum price filter.</param>
+        /// <returns>A tuple containing the total number of items and a list of <see cref="FoodModel"/>.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<Tuple<int, List<FoodModel>>> GetProductsAsync(int? page, int? rowsPerPage, string keyword, bool nameAscending, double? minPrice, double? maxPrice)
         {
             try
@@ -89,12 +101,16 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
             }
             catch
             {
-                // Xử lý lỗi nếu có
                 return null;
             }
         }
 
-        // Delete product
+        /// <summary>
+        /// Removes a product asynchronously.
+        /// </summary>
+        /// <param name="productID">The ID of the product to remove.</param>
+        /// <returns>True if the product was removed successfully, otherwise false.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<bool> RemoveProductAsync(int productID)
         {
             try
@@ -103,7 +119,6 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
                 if (localSettings.Values.ContainsKey("userToken"))
                 {
                     string userToken = localSettings.Values["userToken"] as string;
-                    //string userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMDEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzA2MDc1NjcsImV4cCI6MTczMDYxODM2N30.yeQlwaObIRDsJxUo67AexY8nx2ynSBXVNU5zWfwR8Mg";
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
 
                     var response = await _httpClient.DeleteAsync($"api/v1/products/{productID}");
@@ -114,7 +129,6 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
                     }
                     else
                     {
-                        // Xử lý lỗi từ server
                         var errorContent = await response.Content.ReadAsStringAsync();
                         Console.WriteLine($"Error: {errorContent}");
                         return false;
@@ -122,18 +136,22 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
                 }
                 else
                 {
-                    // Handle the case where the token is not found
                     Console.WriteLine("User token not found.");
                     return false;
                 }
             }
             catch
             {
-                // Xử lý lỗi nếu có
                 return false;
             }
         }
 
+        /// <summary>
+        /// Updates a product asynchronously.
+        /// </summary>
+        /// <param name="newProduct">The product to update.</param>
+        /// <returns>The updated product as a <see cref="FoodModel"/>.</returns>
+        [ArmDot.Client.VirtualizeCode]
         public async Task<FoodModel> UpdateProductAsync(FoodModel newProduct)
         {
             try
@@ -142,7 +160,6 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
                 if (localSettings.Values.ContainsKey("userToken"))
                 {
                     string userToken = localSettings.Values["userToken"] as string;
-                    //string userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMDEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzA1OTU5OTcsImV4cCI6MTczMDYwNjc5N30.JDixEiIgduUJ9wUXJaoDXyYX7c654W6VwKxwAtQOJaw";
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
 
                     ApiProduct apiProduct = new ApiProduct
@@ -157,12 +174,11 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
 
                     if (response.IsSuccessStatusCode)
                     {
-                        var addedProduct = await response.Content.ReadFromJsonAsync<AddApiResponse>(); // add api response same structure with update api response
+                        var addedProduct = await response.Content.ReadFromJsonAsync<AddApiResponse>();
                         return ConvertToFoodModel(addedProduct.Product);
                     }
                     else
                     {
-                        // Xử lý lỗi từ server
                         var errorContent = await response.Content.ReadAsStringAsync();
                         Console.WriteLine($"Error: {errorContent}");
                         return null;
@@ -170,18 +186,22 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
                 }
                 else
                 {
-                    // Handle the case where the token is not found
                     Console.WriteLine("User token not found.");
                     return null;
                 }
             }
             catch
             {
-                // Xử lý lỗi nếu có
                 return null;
             }
         }
 
+        /// <summary>
+        /// Converts an <see cref="ApiProduct"/> to a <see cref="FoodModel"/>.
+        /// </summary>
+        /// <param name="apiProduct">The API product to convert.</param>
+        /// <returns>The converted <see cref="FoodModel"/>.</returns>
+        [ArmDot.Client.VirtualizeCode]
         private FoodModel ConvertToFoodModel(ApiProduct apiProduct)
         {
             return new FoodModel
@@ -192,9 +212,11 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
                 Price = apiProduct.price,
                 Quantity = apiProduct.stock_quantity,
             };
-
         }
 
+        /// <summary>
+        /// Response class for getting products.
+        /// </summary>
         public class GetApiResponse
         {
             [JsonPropertyName("totalItems")]
@@ -204,6 +226,9 @@ namespace Local_Canteen_Optimizer.DAO.ProductDAO
             public List<ApiProduct> Results { get; set; }
         }
 
+        /// <summary>
+        /// Response class for adding a product.
+        /// </summary>
         public class AddApiResponse
         {
             [JsonPropertyName("product")]
